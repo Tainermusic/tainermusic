@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
-  <meta name="description" content="Tainer Music | Agenda tu sesion de produccion musical profesional."/>
-  <title>Tainer Music | Produccion Musical Profesional</title>
+  <meta name="description" content="Tainer Music | Agenda tu sesión de producción musical profesional."/>
+  <title>Tainer Music | Producción Musical Profesional</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700;800&family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
@@ -65,7 +65,7 @@
     .worker-error{display:none;color:#fca5a5;font-weight:800;font-size:.82rem;margin-top:10px}
     .hamb{display:none;background:transparent;color:var(--text);border:0;font-size:1.6rem;cursor:pointer}
     .hero{min-height:100vh;display:grid;place-items:center;position:relative;overflow:hidden;padding:120px 0 52px}
-    .hero:before{content:"";position:absolute;inset:0;background:linear-gradient(90deg,rgba(0,0,0,.85),rgba(0,0,0,.5),rgba(0,0,0,.9)),url("https://images.unsplash.com/photo-1598488035139-bdbb2231ce04?w=1600&q=80") center/cover;opacity:.92}
+    .hero:before{content:"";position:absolute;inset:0;background:linear-gradient(90deg,rgba(0,0,0,.88) 0%,rgba(0,0,0,.55) 50%,rgba(0,0,0,.82) 100%),url("IMG_2083_web.jpg") center 30%/cover;opacity:1}
     .hero:after{content:"";position:absolute;inset:auto 0 0;height:220px;background:linear-gradient(180deg,transparent,var(--bg))}
     .hero-grid{position:relative;z-index:2;display:grid;grid-template-columns:1.1fr .9fr;gap:46px;align-items:center}
     .pill{display:inline-flex;align-items:center;gap:9px;border:1px solid rgba(155,93,229,.42);background:rgba(155,93,229,.1);color:#c49aff;border-radius:999px;padding:10px 15px;font-weight:900;font-size:.74rem;letter-spacing:.12em;text-transform:uppercase;margin-bottom:20px}
@@ -167,6 +167,60 @@
     .toast.info{border-color:rgba(244,201,93,.35);color:var(--gold)}
     .loader{display:inline-block;width:16px;height:16px;border:2px solid rgba(255,255,255,.15);border-top-color:var(--gold);border-radius:50%;animation:spin .7s linear infinite;vertical-align:middle}
     @keyframes spin{to{transform:rotate(360deg)}}
+
+    /* ── AUTH MODAL ── */
+    .auth-modal{position:fixed;inset:0;z-index:500;display:flex;align-items:center;justify-content:center;padding:20px;opacity:0;pointer-events:none;transition:.3s}
+    .auth-modal.open{opacity:1;pointer-events:all}
+    .auth-backdrop{position:absolute;inset:0;background:rgba(0,0,0,.82);backdrop-filter:blur(6px)}
+    .auth-card{position:relative;z-index:1;width:100%;max-width:440px;background:rgba(10,10,12,.97);border:1px solid rgba(255,255,255,.12);border-radius:32px;padding:36px 32px;box-shadow:0 40px 120px rgba(0,0,0,.7);animation:authIn .35s ease}
+    @keyframes authIn{from{transform:translateY(22px) scale(.97);opacity:0}to{transform:none;opacity:1}}
+    .auth-card .close-btn{position:absolute;top:16px;right:18px;background:rgba(255,255,255,.06);border:0;color:var(--muted);width:32px;height:32px;border-radius:50%;font-size:1.1rem;cursor:pointer;display:grid;place-items:center;transition:.2s}
+    .auth-card .close-btn:hover{background:rgba(255,255,255,.12);color:var(--text)}
+    .auth-logo{width:52px;height:52px;border-radius:50%;background:linear-gradient(135deg,#1a1020,#0a0010);border:1px solid rgba(155,93,229,.45);display:flex;align-items:center;justify-content:center;font-size:1.5rem;margin:0 auto 16px}
+    .auth-title{font-family:Cinzel,serif;text-align:center;font-size:1.5rem;margin-bottom:6px}
+    .auth-sub{text-align:center;color:var(--muted);font-size:.88rem;margin-bottom:26px}
+    .auth-tabs{display:flex;background:rgba(255,255,255,.04);border-radius:14px;padding:4px;margin-bottom:24px;gap:4px}
+    .auth-tab{flex:1;border:0;background:transparent;color:var(--muted);font-weight:800;font-size:.82rem;padding:9px;border-radius:10px;cursor:pointer;transition:.2s}
+    .auth-tab.active{background:rgba(244,201,93,.15);color:var(--gold);border:1px solid rgba(244,201,93,.3)}
+    .auth-form{display:flex;flex-direction:column;gap:14px}
+    .auth-form .field{margin-bottom:0}
+    .auth-form input{width:100%;border:1px solid rgba(255,255,255,.12);background:#08080a;color:var(--text);border-radius:14px;padding:13px 15px;outline:none;transition:.2s;font-size:.95rem}
+    .auth-form input:focus{border-color:rgba(244,201,93,.5);box-shadow:0 0 0 4px rgba(244,201,93,.07)}
+    .auth-form label{font-size:.72rem;color:var(--muted2);font-weight:900;text-transform:uppercase;letter-spacing:.12em;margin-bottom:6px;display:block}
+    .btn-google{width:100%;padding:13px;border-radius:14px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.15);color:var(--text);font-weight:700;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:10px;font-size:.92rem;transition:.2s}
+    .btn-google:hover{background:rgba(255,255,255,.1);border-color:rgba(255,255,255,.25);transform:translateY(-1px)}
+    .btn-google svg{flex-shrink:0}
+    .auth-divider{display:flex;align-items:center;gap:10px;color:var(--muted2);font-size:.78rem;font-weight:700;text-transform:uppercase;letter-spacing:.1em}
+    .auth-divider::before,.auth-divider::after{content:'';flex:1;height:1px;background:rgba(255,255,255,.08)}
+    .auth-btn-main{width:100%;padding:14px;border-radius:14px;background:linear-gradient(135deg,var(--gold),var(--gold2));color:#0b0b0b;font-weight:900;border:0;cursor:pointer;font-size:.95rem;transition:.2s}
+    .auth-btn-main:hover{transform:translateY(-2px);box-shadow:0 12px 32px rgba(244,201,93,.25)}
+    .auth-btn-main:disabled{opacity:.5;cursor:not-allowed;transform:none}
+    .auth-error{color:#f87171;font-size:.82rem;font-weight:800;padding:10px 14px;background:rgba(239,68,68,.08);border:1px solid rgba(239,68,68,.2);border-radius:10px;display:none}
+    .auth-success{color:#25d366;font-size:.82rem;font-weight:800;padding:10px 14px;background:rgba(37,211,102,.08);border:1px solid rgba(37,211,102,.2);border-radius:10px;display:none}
+    .auth-link{text-align:center;font-size:.82rem;color:var(--muted);margin-top:8px}
+    .auth-link button{background:none;border:0;color:var(--gold);font-weight:800;cursor:pointer;font-size:.82rem}
+    .auth-link button:hover{text-decoration:underline}
+    /* nav user badge */
+    .nav-user{display:flex;align-items:center;gap:8px;background:rgba(255,255,255,.05);border:1px solid rgba(244,201,93,.2);border-radius:999px;padding:6px 14px 6px 8px;cursor:pointer;transition:.2s}
+    .nav-user:hover{border-color:rgba(244,201,93,.45)}
+    .nav-avatar{width:28px;height:28px;border-radius:50%;background:linear-gradient(135deg,var(--gold),var(--gold2));display:grid;place-items:center;font-size:.8rem;font-weight:900;color:#0b0b0b;flex-shrink:0}
+    .nav-user-name{font-size:.8rem;font-weight:800;color:var(--text);max-width:100px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+    .user-menu-wrap{position:relative}
+    .user-dropdown{display:none;position:absolute;right:0;top:calc(100% + 10px);width:220px;background:rgba(15,15,17,.98);border:1px solid var(--line);border-radius:20px;padding:14px;z-index:200;box-shadow:var(--shadow)}
+    .user-dropdown.open{display:block;animation:pop .18s ease}
+    .user-dropdown-name{font-family:Cinzel,serif;font-size:.95rem;color:var(--gold);margin-bottom:3px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+    .user-dropdown-email{font-size:.75rem;color:var(--muted2);margin-bottom:14px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+    .user-dropdown hr{border:0;border-top:1px solid var(--line);margin:10px 0}
+    .user-dropdown-btn{width:100%;text-align:left;background:transparent;border:0;color:var(--muted);font-size:.83rem;font-weight:700;padding:8px 10px;border-radius:10px;cursor:pointer;transition:.2s;display:block}
+    .user-dropdown-btn:hover{background:rgba(255,255,255,.06);color:var(--text)}
+    .user-dropdown-btn.danger{color:#f87171}
+    .user-dropdown-btn.danger:hover{background:rgba(239,68,68,.08)}
+    /* working upgrade modal */
+    .working-upgrade{background:rgba(155,93,229,.08);border:1px solid rgba(155,93,229,.25);border-radius:16px;padding:16px;margin-bottom:16px;display:none}
+    .working-upgrade.show{display:block}
+    .working-upgrade p{color:#c49aff;font-size:.83rem;line-height:1.6}
+    /* reset pw view */
+    .auth-view{display:none}.auth-view.active{display:flex;flex-direction:column;gap:14px}
     #workerDashboard{display:none;position:fixed;inset:0;z-index:250;background:radial-gradient(circle at 90% 10%,rgba(155,93,229,.14),transparent 28%),#070707;overflow-y:auto}
     .dash-header{position:sticky;top:0;background:rgba(10,10,10,.92);border-bottom:1px solid var(--line);backdrop-filter:blur(18px);z-index:4;padding:16px 20px}
     .dash-top{max-width:1180px;margin:0 auto;display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap}
@@ -215,6 +269,10 @@
     @media(max-width:980px){
       .nav-links,.nav-actions .btn-gold{display:none}.hamb{display:block}.nav-inner{border-radius:24px}
       .mobile-open .nav-links{display:flex;position:absolute;left:18px;right:18px;top:82px;flex-direction:column;align-items:flex-start;background:rgba(10,10,10,.96);border:1px solid var(--line);border-radius:22px;padding:18px;z-index:100}
+      /* login compacto en mobile */
+      #navLoginBtn{padding:7px 11px;font-size:.72rem;white-space:nowrap}
+      .nav-user-name{display:none}
+      .nav-user{padding:5px 9px 5px 7px}
       .hero-grid{grid-template-columns:1fr}.hero-card{justify-self:stretch}
       .agenda-shell{grid-template-columns:1fr}.cart{position:relative;top:auto}
       .services-grid{grid-template-columns:1fr 1fr}
@@ -239,23 +297,80 @@
         <div class="worker-drop" id="workerDropdown">
           <button class="worker-trigger" onclick="toggleWorkerMenu(event)">Working</button>
           <div class="worker-menu" id="workerMenu">
-            <h3>Tainer Music Working</h3>
-            <div class="field"><label>Usuario</label><input id="wId" placeholder="tainer"></div>
-            <div class="field"><label>Contrasena</label><input id="wPass" type="password" placeholder="..." onkeydown="if(event.key==='Enter') workerLogin()"></div>
-            <button class="btn btn-gold" style="width:100%" onclick="workerLogin()">Ingresar al panel</button>
-            <div class="worker-error" id="wError">Usuario o contrasena incorrectos.</div>
+            <!-- ESTADO 1: No logueado como worker → mostrar formulario -->
+            <div id="workerFormView">
+              <h3>Tainer Music Working</h3>
+              <!-- Tabs: Acceder / Solicitar acceso -->
+              <div style="display:flex;background:rgba(255,255,255,.04);border-radius:10px;padding:3px;margin-bottom:14px;gap:3px">
+                <button id="wTabAccess" onclick="switchWorkerTab('access')"
+                  style="flex:1;border:0;background:rgba(244,201,93,.15);color:var(--gold);border:1px solid rgba(244,201,93,.3);font-weight:800;font-size:.75rem;padding:7px;border-radius:7px;cursor:pointer">
+                  Acceder
+                </button>
+                <button id="wTabInvite" onclick="switchWorkerTab('invite')"
+                  style="flex:1;border:0;background:transparent;color:var(--muted);font-weight:800;font-size:.75rem;padding:7px;border-radius:7px;cursor:pointer">
+                  Solicitar acceso
+                </button>
+              </div>
+
+              <!-- Tab: Acceder con email + pass -->
+              <div id="wPanelAccess">
+                <div class="field"><label>Correo</label><input id="wEmail" type="email" placeholder="tu@correo.com"></div>
+                <div class="field"><label>Contraseña</label><input id="wPass" type="password" placeholder="..." onkeydown="if(event.key==='Enter') workerLogin()"></div>
+                <button class="btn btn-gold" style="width:100%;margin-top:4px" onclick="workerLogin()">Ingresar al panel</button>
+              </div>
+
+              <!-- Tab: Solicitar con código de invitación -->
+              <div id="wPanelInvite" style="display:none">
+                <p style="color:var(--muted);font-size:.78rem;line-height:1.6;margin-bottom:12px">
+                  Ingresa el código que recibiste y tu correo. Tu acceso quedará pendiente de aprobación.
+                </p>
+                <div class="field"><label>Correo</label><input id="wInvEmail" type="email" placeholder="tu@correo.com"></div>
+                <div class="field"><label>Código de invitación</label><input id="wInvCode" type="text" placeholder="Ej: TAINER2026" style="text-transform:uppercase" onkeydown="if(event.key==='Enter') redeemWorkerInvite()"></div>
+                <button class="btn btn-gold" style="width:100%;margin-top:4px" id="wInvBtn" onclick="redeemWorkerInvite()">Enviar solicitud</button>
+              </div>
+
+              <div class="worker-error" id="wError" style="margin-top:10px"></div>
+              <div id="wSuccess" style="display:none;color:#25d366;font-weight:800;font-size:.82rem;margin-top:10px;padding:10px 13px;background:rgba(37,211,102,.08);border:1px solid rgba(37,211,102,.2);border-radius:10px"></div>
+            </div>
+
+            <!-- ESTADO 2: Solicitud pendiente -->
+            <div id="workerPendingView" style="display:none;text-align:center;padding:8px 0">
+              <div style="font-size:2rem;margin-bottom:10px">⏳</div>
+              <p style="font-family:Cinzel,serif;color:var(--gold);font-size:.95rem;margin-bottom:8px">Solicitud enviada</p>
+              <p style="color:var(--muted);font-size:.8rem;line-height:1.6">Tu acceso está pendiente de aprobación. Te avisaremos por correo cuando esté listo.</p>
+              <button style="background:transparent;border:0;color:var(--muted2);font-size:.75rem;margin-top:12px;cursor:pointer" onclick="workerPendingLogout()">Cerrar sesión</button>
+            </div>
           </div>
         </div>
         <a href="#inicio" style="display:flex;align-items:center;gap:12px">
-          <div style="width:42px;height:42px;border-radius:50%;background:linear-gradient(135deg,#1a1020,#0a0010);border:1px solid rgba(155,93,229,.45);display:flex;align-items:center;justify-content:center;font-size:1.3rem">&#127925;</div>
-          <div class="brand-copy"><span class="brand-name">TAINER MUSIC</span><span class="brand-sub">Produccion Musical</span></div>
+          <div style="width:42px;height:42px;border-radius:50%;background:linear-gradient(135deg,#1a1020,#0a0010);border:1px solid rgba(155,93,229,.45);display:flex;align-items:center;justify-content:center"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#9b5de5" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg></div>
+          <div class="brand-copy"><span class="brand-name">TAINER MUSIC</span><span class="brand-sub">Producción Musical</span></div>
         </a>
       </div>
       <div class="nav-links" id="navLinks">
-        <a href="#agenda">Agendar</a><a href="#servicios">Servicios</a><a href="#generos">Generos</a><a href="#testimonios">Trabajos</a>
+        <a href="#agenda">Agendar</a><a href="#servicios">Servicios</a><a href="#generos">Géneros</a><a href="#testimonios">Trabajos</a>
       </div>
-      <div class="nav-actions">
-        <a class="btn btn-gold" href="https://wa.me/56900000000" target="_blank" rel="noopener">WhatsApp</a>
+      <div class="nav-actions" style="display:flex;align-items:center;gap:6px">
+        <!-- Nav: logged out -->
+        <button class="btn btn-ghost btn-sm" id="navLoginBtn" onclick="openAuthModal('login')" style="display:none">Ingresar</button>
+        <!-- Nav: logged in -->
+        <div class="user-menu-wrap" id="navUserWrap" style="display:none">
+          <div class="nav-user" onclick="toggleUserMenu()">
+            <div class="nav-avatar" id="navAvatar">?</div>
+            <span class="nav-user-name" id="navUserName">Artista</span>
+            <span style="color:var(--muted);font-size:.7rem;margin-left:2px">▾</span>
+          </div>
+          <div class="user-dropdown" id="userDropdown">
+            <div class="user-dropdown-name" id="dropName">–</div>
+            <div class="user-dropdown-email" id="dropEmail">–</div>
+            <hr>
+            <button class="user-dropdown-btn" onclick="openAuthModal('profile');closeUserMenu()">Editar perfil</button>
+            <button class="user-dropdown-btn" onclick="openAuthModal('reset');closeUserMenu()">Cambiar contraseña</button>
+            <hr>
+            <button class="user-dropdown-btn danger" onclick="authSignOut()">Cerrar sesión</button>
+          </div>
+        </div>
+        <a class="btn btn-gold btn-sm" href="https://wa.me/56900000000" target="_blank" rel="noopener" style="display:none" id="navWAbtn">WhatsApp</a>
         <button class="hamb" onclick="toggleMobile()">&#9776;</button>
       </div>
     </div>
@@ -265,10 +380,10 @@
     <div class="wrap hero-grid">
       <div>
         <div class="pill"><span class="pulse"></span>Sesiones disponibles &middot; Agenda online</div>
-        <h1>TU IDEA +<br>MI PRODUCCION =<br><span class="gold-text">HIT</span></h1>
+        <h1>TU IDEA +<br>MI PRODUCCIÓN =<br><span class="gold-text">HIT</span></h1>
         <p>Me encargo de darle vida a tu idea y convertirla en un tema que suene a otro nivel. Beat personalizado, mezcla profesional y mastering de calidad.</p>
         <div class="hero-actions">
-          <a class="btn btn-gold" href="#agenda">&#127925; Agendar sesion</a>
+          <a class="btn btn-gold" href="#agenda">Agendar sesión</a>
           <a class="btn btn-ghost" href="#servicios">Ver servicios</a>
         </div>
       </div>
@@ -277,15 +392,15 @@
           <div>
             <span class="logo-text">TAINER</span>
             <span class="logo-text" style="font-size:1.5rem">MUSIC</span>
-            <span class="logo-sub">Produccion Profesional</span>
+            <span class="logo-sub">Producción Profesional</span>
             <div class="waveform"><span style="height:30%"></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></div>
           </div>
         </div>
         <div class="quick-grid">
-          <a class="quick" href="https://wa.me/56900000000" target="_blank">&#128242; WhatsApp</a>
-          <a class="quick" href="https://instagram.com/tainer_music" target="_blank">&#128248; Instagram</a>
-          <a class="quick" href="#servicios">&#127925; Servicios</a>
-          <a class="quick" href="#agenda">&#128197; Agendar</a>
+          <a class="quick" href="https://wa.me/56900000000" target="_blank">WhatsApp</a>
+          <a class="quick" href="https://instagram.com/tainer_music" target="_blank">Instagram</a>
+          <a class="quick" href="#servicios">Servicios</a>
+          <a class="quick" href="#agenda">Agendar</a>
         </div>
       </div>
     </div>
@@ -299,21 +414,21 @@
         <p class="lead">Cada proyecto es unico. Trabajo contigo desde la idea hasta el master listo para plataformas.</p>
       </div>
       <div class="services-grid">
-        <div class="srv-card"><div class="srv-ico">&#127925;</div><h3>Beat Personalizado</h3><p>Instrumental exclusivo hecho a tu medida y estilo.</p><span class="tag">60 min</span><span class="tag">Exclusivo</span><div class="srv-price">Desde $25.000</div></div>
-        <div class="srv-card"><div class="srv-ico">&#127930;</div><h3>Mezcla Profesional</h3><p>Sonido limpio, balanceado y competitivo para cualquier plataforma.</p><span class="tag">90 min</span><span class="tag">Stems incluidos</span><div class="srv-price">Desde $35.000</div></div>
-        <div class="srv-card"><div class="srv-ico">&#128266;</div><h3>Mastering de Calidad</h3><p>Volumen, claridad y potencia para Spotify, YouTube y mas.</p><span class="tag">45 min</span><span class="tag">Listo para subir</span><div class="srv-price">Desde $20.000</div></div>
-        <div class="srv-card"><div class="srv-ico">&#129489;&#8205;&#128187;</div><h3>Asesoria Personalizada</h3><p>Te acompano en todo el proceso creativo y tecnico.</p><span class="tag">60 min</span><span class="tag">Proceso completo</span><div class="srv-price">Desde $15.000</div></div>
-        <div class="srv-card"><div class="srv-ico">&#127908;</div><h3>Grabacion de Voz</h3><p>Sesion con correccion de afinacion y procesamiento vocal profesional.</p><span class="tag">90 min</span><span class="tag">Procesado pro</span><div class="srv-price">Desde $30.000</div></div>
-        <div class="srv-card" style="border-color:rgba(244,201,93,.3);background:rgba(244,201,93,.03)"><div class="srv-ico">&#127942;</div><h3>Produccion Completa</h3><p>Beat + grabacion + mezcla + mastering. El paquete total para tu hit.</p><span class="tag tag-gold">Todo incluido</span><div class="srv-price">Desde $80.000</div></div>
+        <div class="srv-card"><div class="srv-ico" style="color:var(--purple)"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg></div><h3>Beat Personalizado</h3><p>Instrumental exclusivo hecho a tu medida y estilo.</p><span class="tag">60 min</span><span class="tag">Exclusivo</span><div class="srv-price">Desde $25.000</div></div>
+        <div class="srv-card"><div class="srv-ico" style="color:var(--purple)"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><line x1="4" y1="12" x2="4" y2="20"/><line x1="4" y1="4" x2="4" y2="8"/><circle cx="4" cy="10" r="2"/><line x1="12" y1="8" x2="12" y2="20"/><line x1="12" y1="4" x2="12" y2="4"/><circle cx="12" cy="6" r="2"/><line x1="20" y1="14" x2="20" y2="20"/><line x1="20" y1="4" x2="20" y2="10"/><circle cx="20" cy="12" r="2"/></svg></div><h3>Mezcla Profesional</h3><p>Sonido limpio, balanceado y competitivo para cualquier plataforma.</p><span class="tag">90 min</span><span class="tag">Stems incluidos</span><div class="srv-price">Desde $35.000</div></div>
+        <div class="srv-card"><div class="srv-ico" style="color:var(--purple)"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg></div><h3>Mastering de Calidad</h3><p>Volumen, claridad y potencia para Spotify, YouTube y más.</p><span class="tag">45 min</span><span class="tag">Listo para subir</span><div class="srv-price">Desde $20.000</div></div>
+        <div class="srv-card"><div class="srv-ico" style="color:var(--purple)"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></div><h3>Asesoría Personalizada</h3><p>Te acompaño en todo el proceso creativo y técnico.</p><span class="tag">60 min</span><span class="tag">Proceso completo</span><div class="srv-price">Desde $15.000</div></div>
+        <div class="srv-card"><div class="srv-ico" style="color:var(--purple)"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/><line x1="12" y1="19" x2="12" y2="23"/><line x1="8" y1="23" x2="16" y2="23"/></svg></div><h3>Grabación de Voz</h3><p>Sesion con corrección de afinación y procesamiento vocal profesional.</p><span class="tag">90 min</span><span class="tag">Procesado pro</span><div class="srv-price">Desde $30.000</div></div>
+        <div class="srv-card" style="border-color:rgba(244,201,93,.3);background:rgba(244,201,93,.03)"><div class="srv-ico" style="color:var(--gold)"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg></div><h3>Producción Completa</h3><p>Beat + grabacion + mezcla + mastering. El paquete total para tu hit.</p><span class="tag tag-gold">Todo incluido</span><div class="srv-price">Desde $80.000</div></div>
       </div>
     </div>
   </section>
 
   <section class="section" id="generos">
     <div class="wrap" style="text-align:center">
-      <span class="eyebrow">Generos que domino</span>
+      <span class="eyebrow">Géneros que domino</span>
       <h2 class="title" style="margin-bottom:12px">Un estilo para cada artista</h2>
-      <p class="lead" style="margin:0 auto 24px">Desde trap oscuro hasta pop brillante. Me adapto a tu vision.</p>
+      <p class="lead" style="margin:0 auto 24px">Desde trap oscuro hasta pop brillante. Me adapto a tu visión.</p>
       <div class="generos-row">
         <span class="gen-pill">Trap</span><span class="gen-pill">Reggaeton</span><span class="gen-pill">R&amp;B</span>
         <span class="gen-pill">Pop</span><span class="gen-pill">Hip-Hop</span><span class="gen-pill">Drill</span>
@@ -324,9 +439,9 @@
 
   <section class="section" id="agenda" style="background:rgba(155,93,229,.04)">
     <div class="wrap">
-      <span class="eyebrow">Reserva tu sesion</span>
+      <span class="eyebrow">Reserva tu sesión</span>
       <div style="margin-bottom:28px">
-        <h2 class="title">Agenda tu <span class="gold-text">produccion</span></h2>
+        <h2 class="title">Agenda tu <span class="gold-text">producción</span></h2>
         <p class="lead" style="margin-top:10px">Elige el servicio, fecha y hora. Confirma y listo.</p>
       </div>
       <div class="agenda-shell">
@@ -337,7 +452,7 @@
             <button class="step-btn" id="stepBtn3" onclick="goStep(3)"><span class="step-num">3</span>Confirmar</button>
           </div>
           <div class="step-panel active" id="step1">
-            <p style="color:var(--muted);font-size:.88rem;margin-bottom:8px">Que tipo de sesion necesitas?</p>
+            <p style="color:var(--muted);font-size:.88rem;margin-bottom:8px">¿Qué tipo de sesión necesitas?</p>
             <div class="serv-grid" id="agServGrid"><div style="padding:20px;text-align:center;color:var(--muted2)"><span class="loader"></span> Cargando...</div></div>
             <button class="btn btn-gold" style="margin-top:18px;width:100%" onclick="goStep(2)">Siguiente &rarr; Elegir fecha</button>
           </div>
@@ -358,9 +473,9 @@
           </div>
           <div class="step-panel" id="step3">
             <div class="confirm-form">
-              <div class="field"><label>Tu nombre artistico</label><input id="agName" placeholder="Nombre o nombre artistico"></div>
-              <div class="field"><label>Telefono / WhatsApp</label><input id="agPhone" placeholder="+56 9 ..."></div>
-              <div class="field"><label>Cuentame tu proyecto (opcional)</label><textarea id="agNote" placeholder="Ej: trap oscuro en Dm, letra de superacion, referencia artista X..." rows="3"></textarea></div>
+              <div class="field"><label>Tu nombre artístico</label><input id="agName" placeholder="Nombre o nombre artistico"></div>
+              <div class="field"><label>Teléfono / WhatsApp</label><input id="agPhone" placeholder="+56 9 ..."></div>
+              <div class="field"><label>Cuéntame tu proyecto (opcional)</label><textarea id="agNote" placeholder="Ej: trap oscuro en Dm, letra de superacion, referencia artista X..." rows="3"></textarea></div>
             </div>
             <div id="agSummaryBox" style="margin-top:16px;background:rgba(155,93,229,.06);border:1px solid rgba(155,93,229,.18);border-radius:14px;padding:14px;font-size:.86rem;color:var(--muted)"></div>
             <div style="display:flex;gap:10px;margin-top:16px;flex-wrap:wrap">
@@ -370,7 +485,7 @@
           </div>
         </div>
         <aside class="cart" id="agendaCart">
-          <h3>Tu sesion</h3>
+          <h3>Tu sesión</h3>
           <div id="cartSummary"><div class="summary-empty">Completa los pasos para ver el resumen.</div></div>
         </aside>
       </div>
@@ -379,22 +494,22 @@
 
   <section class="section" style="background:rgba(255,255,255,.02)">
     <div class="wrap">
-      <span class="eyebrow">Por que elegirme?</span>
-      <h2 class="title" style="margin-bottom:28px">Mas que un productor,<br>tu <span class="purple-text">socio creativo</span></h2>
+      <span class="eyebrow">¿Por qué elegirme?</span>
+      <h2 class="title" style="margin-bottom:28px">Más que un productor,<br>tu <span class="purple-text">socio creativo</span></h2>
       <div class="feature-grid">
-        <div class="feature"><div class="ico">&#127919;</div><h3>100% Comprometido</h3><p>Me involucro desde el concepto hasta la entrega final.</p></div>
-        <div class="feature"><div class="ico">&#128266;</div><h3>Sonido Profesional</h3><p>Calidad competitiva con los estandares actuales de la industria.</p></div>
-        <div class="feature"><div class="ico">&#128176;</div><h3>Precios Accesibles</h3><p>Calidad real sin precios inalcanzables para cada etapa de tu carrera.</p></div>
-        <div class="feature"><div class="ico">&#9889;</div><h3>Entrega Rapida</h3><p>Archivos en alta calidad listos para lanzar en todas las plataformas.</p></div>
-        <div class="feature"><div class="ico">&#127925;</div><h3>Beat Exclusivo</h3><p>Cada beat es creado a medida. No vendo lo mismo dos veces.</p></div>
-        <div class="feature"><div class="ico">&#127758;</div><h3>Listo para plataformas</h3><p>Master optimizado para Spotify, Apple Music, YouTube y mas.</p></div>
+        <div class="feature"><div class="ico" style="color:var(--gold)"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg></div><h3>100% Comprometido</h3><p>Me involucro desde el concepto hasta la entrega final.</p></div>
+        <div class="feature"><div class="ico" style="color:var(--gold)"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14"/><path d="M15.54 8.46a5 5 0 0 1 0 7.07"/></svg></div><h3>Sonido Profesional</h3><p>Calidad competitiva con los estándares actuales de la industria.</p></div>
+        <div class="feature"><div class="ico" style="color:var(--gold)"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg></div><h3>Precios Accesibles</h3><p>Calidad real sin precios inalcanzables para cada etapa de tu carrera.</p></div>
+        <div class="feature"><div class="ico" style="color:var(--gold)"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg></div><h3>Entrega Rapida</h3><p>Archivos en alta calidad listos para lanzar en todas las plataformas.</p></div>
+        <div class="feature"><div class="ico" style="color:var(--gold)"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg></div><h3>Beat Exclusivo</h3><p>Cada beat es creado a medida. No vendo lo mismo dos veces.</p></div>
+        <div class="feature"><div class="ico" style="color:var(--gold)"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg></div><h3>Listo para plataformas</h3><p>Master optimizado para Spotify, Apple Music, YouTube y más.</p></div>
       </div>
     </div>
   </section>
 
   <section class="section" id="testimonios">
     <div class="wrap">
-      <span class="eyebrow">Artistas que pasaron por aqui</span>
+      <span class="eyebrow">Artistas que pasaron por aquí</span>
       <h2 class="title" style="margin-bottom:28px">Resultados reales</h2>
       <div class="reviews">
         <div class="review"><div class="stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div><p>"El beat que me hizo supero todas mis expectativas. El sonido quedo de otro nivel, listo para competir con lo que suena en las plataformas."</p><h4>Artista - Trap</h4></div>
@@ -406,8 +521,8 @@
 
   <footer><div class="wrap footer-grid">
     <div style="display:flex;align-items:center;gap:14px">
-      <div style="width:52px;height:52px;border-radius:50%;background:linear-gradient(135deg,#1a1020,#0a0010);border:1px solid rgba(155,93,229,.45);display:flex;align-items:center;justify-content:center;font-size:1.5rem">&#127925;</div>
-      <div><b class="cinzel" style="color:var(--text)">TAINER MUSIC</b><br><span>Produccion musical profesional &middot; @tainer_music</span></div>
+      <div style="width:52px;height:52px;border-radius:50%;background:linear-gradient(135deg,#1a1020,#0a0010);border:1px solid rgba(155,93,229,.45);display:flex;align-items:center;justify-content:center"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#9b5de5" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg></div>
+      <div><b class="cinzel" style="color:var(--text)">TAINER MUSIC</b><br><span>Producción musical profesional &middot; @tainer_music</span></div>
     </div>
     <div style="display:flex;gap:14px">
       <a href="https://instagram.com/tainer_music" target="_blank" rel="noopener" style="color:var(--muted)">Instagram</a>
@@ -415,12 +530,12 @@
     </div>
     <div>2026 Tainer Music. Todos los derechos reservados.</div>
   </div></footer>
-  <a class="floating-wa" href="https://wa.me/56900000000" target="_blank" rel="noopener">&#128242;</a>
+  <a class="floating-wa" href="https://wa.me/56900000000" target="_blank" rel="noopener" aria-label="Contactar por WhatsApp"><svg width="28" height="28" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413Z"/></svg></a>
 </div>
 
 <div class="modal" id="successModal">
   <div class="modal-card" style="text-align:center">
-    <div style="font-size:3rem;margin-bottom:14px">&#127925;</div>
+    <div style="margin-bottom:14px"><svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="#f4c95d" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg></div>
     <h2 class="cinzel" style="color:var(--gold);font-size:1.8rem;margin-bottom:10px">Sesion reservada!</h2>
     <p style="color:var(--muted);line-height:1.7;margin-bottom:20px" id="successMsg">Tu reserva fue guardada correctamente.</p>
     <div style="display:flex;gap:10px;justify-content:center;flex-wrap:wrap">
@@ -430,19 +545,122 @@
   </div>
 </div>
 
+<!-- ═══════════════ AUTH MODAL ═══════════════ -->
+<div class="auth-modal" id="authModal">
+  <div class="auth-backdrop" onclick="closeAuthModal()"></div>
+  <div class="auth-card">
+    <button class="close-btn" onclick="closeAuthModal()">✕</button>
+    <div class="auth-logo"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#9b5de5" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg></div>
+    <h2 class="auth-title cinzel" id="authModalTitle">Bienvenido</h2>
+    <p class="auth-sub" id="authModalSub">Inicia sesión o crea tu cuenta de artista</p>
+
+    <!-- VIEW: LOGIN / REGISTER -->
+    <div class="auth-view active" id="viewLoginReg">
+      <div class="auth-tabs" id="authTabs">
+        <button class="auth-tab active" id="tabLoginBtn" onclick="switchAuthTab('login')">Iniciar sesión</button>
+        <button class="auth-tab" id="tabRegBtn" onclick="switchAuthTab('register')">Crear cuenta</button>
+      </div>
+
+      <!-- Google -->
+      <button class="btn-google" onclick="authWithGoogle()">
+        <svg width="20" height="20" viewBox="0 0 48 48"><path fill="#FFC107" d="M43.6 20H24v8h11.3C33.6 33.1 29.3 36 24 36c-6.6 0-12-5.4-12-12s5.4-12 12-12c3 0 5.8 1.1 7.9 2.9l5.7-5.7C34.1 6.5 29.3 4 24 4 12.9 4 4 12.9 4 24s8.9 20 20 20c11 0 20-8 20-20 0-1.3-.1-2.7-.4-4z"/><path fill="#FF3D00" d="M6.3 14.7l6.6 4.8C14.5 15.1 18.9 12 24 12c3 0 5.8 1.1 7.9 2.9l5.7-5.7C34.1 6.5 29.3 4 24 4 16.3 4 9.7 8.4 6.3 14.7z"/><path fill="#4CAF50" d="M24 44c5.2 0 9.9-1.9 13.5-5l-6.2-5.2C29.5 35.6 26.9 36 24 36c-5.2 0-9.6-2.9-11.3-7.1l-6.6 4.8C9.7 39.5 16.3 44 24 44z"/><path fill="#1976D2" d="M43.6 20H24v8h11.3c-.9 2.5-2.6 4.6-4.8 6l6.2 5.2C40.5 35.5 44 30.2 44 24c0-1.3-.1-2.7-.4-4z"/></svg>
+        Continuar con Google
+      </button>
+
+      <div class="auth-divider">o</div>
+
+      <div class="auth-form" id="authForm">
+        <!-- nombre artístico solo en registro -->
+        <div class="field" id="fieldArtistName" style="display:none">
+          <label>Nombre artístico</label>
+          <input id="authArtistName" type="text" placeholder="Tu nombre en la música" autocomplete="nickname">
+        </div>
+        <div class="field">
+          <label>Correo electrónico</label>
+          <input id="authEmail" type="email" placeholder="tu@correo.com" autocomplete="email">
+        </div>
+        <div class="field" id="fieldPass">
+          <label>Contraseña</label>
+          <input id="authPass" type="password" placeholder="Mínimo 6 caracteres" autocomplete="current-password"
+            onkeydown="if(event.key==='Enter') submitAuth()">
+        </div>
+        <div id="authError" class="auth-error"></div>
+        <div id="authSuccessMsg" class="auth-success"></div>
+        <button class="auth-btn-main" id="authSubmitBtn" onclick="submitAuth()">Iniciar sesión</button>
+        <div class="auth-link" id="forgotLink">
+          <button onclick="openAuthModal('forgot')">¿Olvidaste tu contraseña?</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- VIEW: FORGOT PASSWORD -->
+    <div class="auth-view" id="viewForgot">
+      <p style="color:var(--muted);font-size:.88rem;line-height:1.7;margin-bottom:8px">
+        Ingresa tu correo y te enviamos un <strong style="color:var(--text)">código temporal</strong> para restablecer tu contraseña.
+      </p>
+      <div class="auth-form">
+        <div class="field">
+          <label>Correo electrónico</label>
+          <input id="forgotEmail" type="email" placeholder="tu@correo.com">
+        </div>
+        <div id="forgotError" class="auth-error"></div>
+        <div id="forgotSuccess" class="auth-success"></div>
+        <button class="auth-btn-main" id="forgotBtn" onclick="sendResetEmail()">Enviar código al correo</button>
+        <div class="auth-link"><button onclick="openAuthModal('login')">← Volver al inicio de sesión</button></div>
+      </div>
+    </div>
+
+    <!-- VIEW: CHANGE PASSWORD (logged in) -->
+    <div class="auth-view" id="viewReset">
+      <p style="color:var(--muted);font-size:.88rem;line-height:1.7;margin-bottom:8px">
+        Ingresa tu nueva contraseña. Debe tener al menos 6 caracteres.
+      </p>
+      <div class="auth-form">
+        <div class="field">
+          <label>Nueva contraseña</label>
+          <input id="newPass1" type="password" placeholder="Nueva contraseña">
+        </div>
+        <div class="field">
+          <label>Confirmar contraseña</label>
+          <input id="newPass2" type="password" placeholder="Repite la contraseña"
+            onkeydown="if(event.key==='Enter') changePassword()">
+        </div>
+        <div id="resetError" class="auth-error"></div>
+        <div id="resetSuccess" class="auth-success"></div>
+        <button class="auth-btn-main" id="resetBtn" onclick="changePassword()">Cambiar contraseña</button>
+      </div>
+    </div>
+
+    <!-- VIEW: PROFILE EDIT -->
+    <div class="auth-view" id="viewProfile">
+      <div class="auth-form">
+        <div class="field">
+          <label>Nombre artístico</label>
+          <input id="profileArtistName" type="text" placeholder="Tu nombre artístico">
+        </div>
+        <div id="profileError" class="auth-error"></div>
+        <div id="profileSuccess" class="auth-success"></div>
+        <button class="auth-btn-main" id="profileBtn" onclick="saveProfile()">Guardar cambios</button>
+        <div class="auth-link"><button onclick="closeAuthModal()">Cancelar</button></div>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- ═══════════════ /AUTH MODAL ═══════════════ -->
+
 <div id="workerDashboard">
   <div class="dash-header">
     <div class="dash-top">
-      <div><div class="dash-title">Tainer Music Working</div><div class="dash-sub" id="dashDate">Panel de gestion</div></div>
+      <div><div class="dash-title">Tainer Music Working</div><div class="dash-sub" id="dashDate">Panel de gestión</div></div>
       <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap">
         <div class="conn-badge" id="connectionStatus">Conectando...</div>
-        <button class="btn btn-ghost btn-sm" onclick="workerLogout()">Cerrar sesion</button>
+        <button class="btn btn-ghost btn-sm" onclick="workerLogout()">Cerrar sesión</button>
       </div>
     </div>
   </div>
   <main class="dash-main">
     <div class="dash-tabs">
-      <button class="dash-tab active" onclick="switchDashTab('tabSesiones',this)">Sesiones del dia</button>
+      <button class="dash-tab active" onclick="switchDashTab('tabSesiones',this)">Sesiones del día</button>
       <button class="dash-tab" onclick="switchDashTab('tabReservas',this)">Reservas</button>
     </div>
     <div class="dash-view active" id="tabSesiones">
@@ -453,35 +671,35 @@
         <div class="sum-card"><div class="sum-val" id="sumTotal">$0</div><div class="sum-lbl">Total CLP</div></div>
       </div>
       <section class="dash-panel">
-        <h3>Registrar sesion</h3>
+        <h3>Registrar sesión</h3>
         <div class="dash-form">
-          <div class="field"><label>Artista</label><input id="fCliente" placeholder="Nombre artistico"></div>
+          <div class="field"><label>Artista</label><input id="fCliente" placeholder="Nombre artístico"></div>
           <div class="field"><label>Servicio</label><select id="fServicio" onchange="aplicarServicioSeleccionado()"><option value="">Seleccionar</option></select></div>
           <div class="field"><label>Valor CLP</label><input id="fValor" type="number" min="0" step="1000" placeholder="25000"></div>
           <div class="field"><label>Incluye beat</label><select id="fBeat"><option value="si">Si</option><option value="no">No</option></select></div>
           <div class="field"><label>Incluye mezcla</label><select id="fMezcla"><option value="no">No</option><option value="si">Si</option></select></div>
           <div class="field"><label>Genero</label><select id="fGenero"><option value="">Seleccionar</option><option>Trap</option><option>Reggaeton</option><option>R&B</option><option>Pop</option><option>Hip-Hop</option><option>Drill</option><option>Otro</option></select></div>
-          <div class="field span"><label>Descripcion / Notas</label><textarea id="fObservacion" placeholder="Descripcion del proyecto, referencias, archivos entregados..." rows="2"></textarea></div>
+          <div class="field span"><label>Descripción / Notas</label><textarea id="fObservacion" placeholder="Descripción del proyecto, referencias, archivos entregados..." rows="2"></textarea></div>
         </div>
         <div class="dash-actions">
-          <button class="btn btn-gold" id="btnGuardarRegistro" onclick="registrarSesion()">Guardar sesion</button>
+          <button class="btn btn-gold" id="btnGuardarRegistro" onclick="registrarSesion()">Guardar sesión</button>
           <button class="btn btn-ghost" onclick="exportarCSVSesiones()">CSV Sesiones</button>
         </div>
       </section>
       <section class="dash-panel">
-        <h3>Sesiones del dia</h3>
+        <h3>Sesiones del día</h3>
         <div class="table-wrap"><table class="records"><thead><tr><th>#</th><th>Hora</th><th>Artista</th><th>Servicio</th><th>Genero</th><th>Beat</th><th>Mezcla</th><th>Valor</th><th>Notas</th><th></th></tr></thead><tbody id="recordsBody"><tr><td colspan="10"><div class="empty">Cargando...</div></td></tr></tbody></table></div>
       </section>
     </div>
     <div class="dash-view" id="tabReservas">
       <section class="dash-panel">
         <div style="display:flex;justify-content:space-between;align-items:center;gap:14px;flex-wrap:wrap;margin-bottom:14px">
-          <h3 style="margin-bottom:0">Gestion de reservas</h3>
+          <h3 style="margin-bottom:0">Gestión de reservas</h3>
           <button class="btn btn-ghost btn-sm" onclick="exportarCSVReservas()">CSV Reservas</button>
         </div>
         <div class="filter-row">
           <button class="filter-chip active" onclick="filtrarReservas('hoy',this)">Hoy</button>
-          <button class="filter-chip" onclick="filtrarReservas('manana',this)">Manana</button>
+          <button class="filter-chip" onclick="filtrarReservas('manana',this)">Mañana</button>
           <button class="filter-chip" onclick="filtrarReservas('semana',this)">Esta semana</button>
           <button class="filter-chip" onclick="filtrarReservas('todas',this)">Todas</button>
           <select id="reservaFiltroEstado" onchange="renderReservas()" style="background:#08080a;border:1px solid rgba(255,255,255,.12);color:var(--text);border-radius:12px;padding:7px 10px;font-size:.8rem;outline:none;margin-left:4px">
@@ -499,7 +717,6 @@
 // CONFIGURACION — reemplaza con tus datos de Supabase
 // ================================================================
 const WHATSAPP     = '56900000000';
-const WORKER_CREDS = {id:'tainer', pass:'TainerMusic2026'};
 const SUPABASE_URL = 'https://bocczejtbjikwrbpwual.supabase.co';
 const SUPABASE_KEY = 'sb_publishable_uM7a8N1v6hIocu08RukkdA_wpcwQEVq';
 const db           = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
@@ -534,19 +751,119 @@ function setConn(ok){
   c.style.borderColor=ok?'rgba(34,197,94,.35)':'rgba(248,113,113,.45)';
 }
 
-function workerLogin(){
-  const id=el('wId').value.trim(),pass=el('wPass').value;
-  if(id===WORKER_CREDS.id&&pass===WORKER_CREDS.pass){
-    el('wError').style.display='none';
-    el('clientView').style.display='none';
-    el('workerDashboard').style.display='block';
-    initDashboard();
-  }else{el('wError').style.display='block';}
+// ── WORKING SYSTEM ──
+let workerSession = null;
+
+function switchWorkerTab(tab){
+  const isInvite = tab === 'invite';
+  el('wPanelAccess').style.display = isInvite ? 'none' : 'block';
+  el('wPanelInvite').style.display = isInvite ? 'block' : 'none';
+  el('wTabAccess').style.background = isInvite ? 'transparent' : 'rgba(244,201,93,.15)';
+  el('wTabAccess').style.color = isInvite ? 'var(--muted)' : 'var(--gold)';
+  el('wTabAccess').style.border = isInvite ? '0' : '1px solid rgba(244,201,93,.3)';
+  el('wTabInvite').style.background = isInvite ? 'rgba(155,93,229,.15)' : 'transparent';
+  el('wTabInvite').style.color = isInvite ? '#c49aff' : 'var(--muted)';
+  el('wTabInvite').style.border = isInvite ? '1px solid rgba(155,93,229,.3)' : '0';
+  el('wError').style.display='none';
+  el('wSuccess').style.display='none';
 }
+
+async function workerLogin(){
+  const email = el('wEmail').value.trim();
+  const pass  = el('wPass').value;
+  const errEl = el('wError');
+  errEl.style.display='none';
+  if(!email||!pass){errEl.textContent='Completa todos los campos.';errEl.style.display='block';return;}
+
+  // 1. Login con Supabase Auth
+  const {data, error} = await db.auth.signInWithPassword({email, password: pass});
+  if(error){errEl.textContent=translateAuthError(error.message);errEl.style.display='block';return;}
+
+  // 2. Verificar que esté aprobado en tabla workers
+  const {data:worker} = await db.from('workers').select('id,approved').eq('id', data.user.id).single();
+
+  if(!worker){
+    errEl.textContent='Tu cuenta no tiene acceso al panel Working.';
+    errEl.style.display='block';
+    await db.auth.signOut();
+    return;
+  }
+  if(worker.approved === false){
+    // Mostrar vista pendiente
+    el('workerFormView').style.display='none';
+    el('workerPendingView').style.display='block';
+    workerSession = data.user;
+    return;
+  }
+
+  // 3. Acceso aprobado → abrir dashboard
+  workerSession = data.user;
+  el('workerMenu').classList.remove('open');
+  el('clientView').style.display='none';
+  el('workerDashboard').style.display='block';
+  initDashboard();
+}
+
+async function redeemWorkerInvite(){
+  const email = el('wInvEmail').value.trim();
+  const code  = el('wInvCode').value.trim().toUpperCase();
+  const errEl = el('wError');
+  const sucEl = el('wSuccess');
+  const btn   = el('wInvBtn');
+  errEl.style.display='none';
+  sucEl.style.display='none';
+  if(!email||!code){errEl.textContent='Completa correo y código.';errEl.style.display='block';return;}
+
+  btn.disabled=true; btn.innerHTML='<span class="loader"></span>';
+
+  // Llamar RPC de Supabase
+  const {data, error} = await db.rpc('redeem_worker_invite', {invite_code: code, worker_email: email});
+
+  btn.disabled=false; btn.textContent='Enviar solicitud';
+
+  if(error||!data?.ok){
+    const msg = data?.error || error?.message || 'Código inválido o ya utilizado.';
+    if(msg.includes('already') || msg.includes('pending')) {
+      errEl.textContent='Ya tienes una solicitud pendiente.';
+    } else if(msg.includes('invalid') || msg.includes('not found')) {
+      errEl.textContent='Código inválido o ya fue usado.';
+    } else {
+      errEl.textContent = translateAuthError(msg);
+    }
+    errEl.style.display='block';
+    return;
+  }
+
+  // Solicitud enviada correctamente
+  sucEl.textContent='✅ Solicitud enviada. Te avisaremos cuando tu acceso sea aprobado.';
+  sucEl.style.display='block';
+  el('wInvEmail').value='';
+  el('wInvCode').value='';
+  toast('Solicitud enviada ✅', 'ok');
+}
+
+async function checkIsWorker(userId){
+  const {data} = await db.from('workers').select('approved').eq('id', userId).single();
+  return data?.approved === true;
+}
+
 function workerLogout(){
   el('workerDashboard').style.display='none';
   el('clientView').style.display='block';
-  el('wId').value='';el('wPass').value='';
+  el('wEmail')&&(el('wEmail').value='');
+  el('wPass').value='';
+  el('workerFormView').style.display='block';
+  el('workerPendingView').style.display='none';
+  workerSession = null;
+  if(currentUser) db.auth.signOut();
+}
+
+function workerPendingLogout(){
+  el('workerFormView').style.display='block';
+  el('workerPendingView').style.display='none';
+  el('workerMenu').classList.remove('open');
+  workerSession = null;
+  db.auth.signOut();
 }
 function switchDashTab(id,btn){
   document.querySelectorAll('.dash-view').forEach(v=>v.classList.remove('active'));
@@ -587,7 +904,7 @@ async function registrarSesion(){
     servicio:servicioNombre,valor,incluye_beat:beat==='si',
     incluye_mezcla:mezcla==='si',genero:genero||null,notas:obs||null,estado:'completado'
   }]);
-  btn.disabled=false;btn.textContent='Guardar sesion';
+  btn.disabled=false;btn.textContent='Guardar sesión';
   if(error){setConn(false);toast('Error: '+error.message,'err');return;}
   ['fCliente','fValor','fObservacion'].forEach(id=>el(id).value='');
   el('fServicio').value='';el('fBeat').value='si';el('fMezcla').value='no';el('fGenero').value='';
@@ -673,7 +990,7 @@ function renderAgendaServices(){
     {id:'',nombre:'Mastering de Calidad',precio_clp:20000,duracion_minutos:45},
     {id:'',nombre:'Asesoria Personalizada',precio_clp:15000,duracion_minutos:60},
     {id:'',nombre:'Grabacion de Voz',precio_clp:30000,duracion_minutos:90},
-    {id:'',nombre:'Produccion Completa',precio_clp:80000,duracion_minutos:180},
+    {id:'',nombre:'Producción Completa',precio_clp:80000,duracion_minutos:180},
   ];
   grid.innerHTML=services.map(s=>`<div class="serv-opt" data-id="${escapeHTML(s.id||'')}" data-nombre="${escapeHTML(s.nombre)}" data-precio="${Number(s.precio_clp||0)}" data-duracion="${Number(s.duracion_minutos||60)}" onclick="pickAgServicio(this)"><div class="serv-name">${escapeHTML(s.nombre)}</div><div class="serv-meta"><span>${s.duracion_minutos||60} min</span></div><div class="serv-price">${money(s.precio_clp)}</div></div>`).join('');
 }
@@ -774,7 +1091,7 @@ function confirmarWhatsAppDirecto(){
   window.open('https://wa.me/'+WHATSAPP+'?text='+encodeURIComponent(buildWAMsg(nombre,phone,agServicio?.nombre||'-',agFecha||'-',agHora||'-',note)),'_blank');
 }
 function buildWAMsg(nombre,phone,servicio,fecha,hora,nota){
-  return 'Hola! Quiero confirmar mi sesion de produccion:\n\nNombre: '+nombre+'\nTelefono: '+(phone||'No indicado')+'\nServicio: '+servicio+'\nFecha: '+fecha+'\nHora: '+hora+'\nProyecto: '+(nota||'Sin descripcion')+'\n\nPrecio estimado: '+money(agServicio?.precio||0)+'\n\n@tainer_music';
+  return 'Hola! Quiero confirmar mi sesión de producción:\n\nNombre: '+nombre+'\nTelefono: '+(phone||'No indicado')+'\nServicio: '+servicio+'\nFecha: '+fecha+'\nHora: '+hora+'\nProyecto: '+(nota||'Sin descripción')+'\n\nPrecio estimado: '+money(agServicio?.precio||0)+'\n\n@tainer_music';
 }
 function csvEncode(rows){return rows.map(r=>r.map(v=>'"'+String(v??'').replace(/"/g,'""')+'"').join(';')).join('\n');}
 function downloadCSV(content,filename){const blob=new Blob([content],{type:'text/csv;charset=utf-8;'});const url=URL.createObjectURL(blob);const a=document.createElement('a');a.href=url;a.download=filename;a.click();URL.revokeObjectURL(url);}
@@ -795,7 +1112,258 @@ async function exportarCSVReservas(){
 document.addEventListener('DOMContentLoaded',()=>{
   initCalendar();
   db.from('servicios').select('id,nombre,precio_clp,duracion_minutos,activo').eq('activo',true).order('nombre').then(({data})=>{if(data&&data.length){workingServices=data;renderAgendaServices();}});
+  initAuth();
 });
+
+// ================================================================
+// AUTH SYSTEM — Supabase Auth + Google OAuth
+// ================================================================
+let currentUser = null;
+let authMode = 'login'; // login | register | forgot | reset | profile
+
+function initAuth(){
+  // Escuchar cambios de sesión
+  db.auth.onAuthStateChange((event, session)=>{
+    if(session && session.user){
+      currentUser = session.user;
+      updateNavForUser(session.user);
+      // Si viene de reset de contraseña (magic link)
+      if(event === 'PASSWORD_RECOVERY'){
+        openAuthModal('reset');
+      }
+    } else {
+      currentUser = null;
+      updateNavForGuest();
+    }
+  });
+  // Revisar sesión existente
+  db.auth.getSession().then(({data:{session}})=>{
+    if(session && session.user){
+      currentUser = session.user;
+      updateNavForUser(session.user);
+    } else {
+      updateNavForGuest();
+    }
+  });
+  // Cerrar user dropdown al hacer click fuera
+  document.addEventListener('click', e=>{
+    const wrap = document.getElementById('navUserWrap');
+    if(wrap && !wrap.contains(e.target)) closeUserMenu();
+  });
+}
+
+function updateNavForUser(user){
+  const name = user.user_metadata?.artist_name || user.user_metadata?.full_name || user.email?.split('@')[0] || 'Artista';
+  const initial = name.charAt(0).toUpperCase();
+  el('navLoginBtn').style.display = 'none';
+  el('navUserWrap').style.display = 'flex';
+  el('navAvatar').textContent = initial;
+  el('navUserName').textContent = name;
+  el('dropName').textContent = name;
+  el('dropEmail').textContent = user.email || '';
+  const wa = el('navWAbtn'); if(wa) wa.style.display='none';
+}
+
+function updateNavForGuest(){
+  el('navLoginBtn').style.display = 'inline-flex';
+  el('navUserWrap').style.display = 'none';
+  const wa = el('navWAbtn'); if(wa) wa.style.display='none';
+}
+
+function toggleUserMenu(){
+  document.getElementById('userDropdown').classList.toggle('open');
+}
+function closeUserMenu(){
+  document.getElementById('userDropdown').classList.remove('open');
+}
+
+// ── Abrir modal con vista específica ──
+function openAuthModal(mode){
+  authMode = mode;
+  const modal = el('authModal');
+  modal.classList.add('open');
+  // Ocultar todas las vistas
+  document.querySelectorAll('.auth-view').forEach(v=>v.classList.remove('active'));
+  // Limpiar mensajes
+  ['authError','authSuccessMsg','forgotError','forgotSuccess','resetError','resetSuccess','profileError','profileSuccess']
+    .forEach(id=>{const e=el(id);if(e){e.style.display='none';e.textContent=''}});
+
+  if(mode === 'login' || mode === 'register'){
+    el('viewLoginReg').classList.add('active');
+    el('authModalTitle').textContent = 'Bienvenido';
+    el('authModalSub').textContent = 'Inicia sesión o crea tu cuenta de artista';
+    switchAuthTab(mode);
+  } else if(mode === 'forgot'){
+    el('viewForgot').classList.add('active');
+    el('authModalTitle').textContent = 'Recuperar contraseña';
+    el('authModalSub').textContent = 'Te enviamos un código temporal al correo';
+  } else if(mode === 'reset'){
+    el('viewReset').classList.add('active');
+    el('authModalTitle').textContent = 'Nueva contraseña';
+    el('authModalSub').textContent = 'Elige una contraseña segura';
+  } else if(mode === 'profile'){
+    el('viewProfile').classList.add('active');
+    el('authModalTitle').textContent = 'Mi perfil';
+    el('authModalSub').textContent = 'Actualiza tu información';
+    if(currentUser){
+      const name = currentUser.user_metadata?.artist_name || currentUser.user_metadata?.full_name || '';
+      el('profileArtistName').value = name;
+    }
+  }
+}
+
+function closeAuthModal(){
+  el('authModal').classList.remove('open');
+}
+
+function switchAuthTab(tab){
+  authMode = tab;
+  const isReg = tab === 'register';
+  el('tabLoginBtn').classList.toggle('active', !isReg);
+  el('tabRegBtn').classList.toggle('active', isReg);
+  el('fieldArtistName').style.display = isReg ? 'flex' : 'none';
+  el('authSubmitBtn').textContent = isReg ? 'Crear cuenta' : 'Iniciar sesión';
+  el('forgotLink').style.display = isReg ? 'none' : 'block';
+  // limpiar
+  ['authEmail','authPass','authArtistName'].forEach(id=>{const e=el(id);if(e)e.value='';});
+  el('authError').style.display='none';
+  el('authSuccessMsg').style.display='none';
+}
+
+// ── Submit login/register ──
+async function submitAuth(){
+  const btn = el('authSubmitBtn');
+  const errEl = el('authError');
+  const sucEl = el('authSuccessMsg');
+  const email = el('authEmail').value.trim();
+  const pass  = el('authPass').value;
+  errEl.style.display = 'none';
+  sucEl.style.display = 'none';
+
+  if(!email || !pass){ showAuthErr('Completa todos los campos.'); return; }
+  if(pass.length < 6){ showAuthErr('La contraseña debe tener al menos 6 caracteres.'); return; }
+
+  btn.disabled = true;
+  btn.innerHTML = '<span class="loader"></span>';
+
+  if(authMode === 'register'){
+    const artistName = el('authArtistName').value.trim();
+    if(!artistName){ showAuthErr('Ingresa tu nombre artístico.'); btn.disabled=false; btn.textContent='Crear cuenta'; return; }
+    const {error} = await db.auth.signUp({
+      email, password: pass,
+      options: { data: { artist_name: artistName } }
+    });
+    btn.disabled = false; btn.textContent = 'Crear cuenta';
+    if(error){ showAuthErr(translateAuthError(error.message)); return; }
+    sucEl.textContent = '✅ Cuenta creada. Revisa tu correo para verificar tu cuenta.';
+    sucEl.style.display = 'block';
+    toast('¡Cuenta creada! Revisa tu correo 📧', 'ok');
+  } else {
+    const {data, error} = await db.auth.signInWithPassword({ email, password: pass });
+    btn.disabled = false; btn.textContent = 'Iniciar sesión';
+    if(error){ showAuthErr(translateAuthError(error.message)); return; }
+    toast('¡Bienvenido! 🎵', 'ok');
+    closeAuthModal();
+  }
+}
+
+// ── Google OAuth ──
+async function authWithGoogle(){
+  const {error} = await db.auth.signInWithOAuth({
+    provider: 'google',
+    options: { redirectTo: window.location.href }
+  });
+  if(error) toast('Error al conectar con Google: ' + error.message, 'err');
+}
+
+// ── Cerrar sesión ──
+async function authSignOut(){
+  await db.auth.signOut();
+  closeUserMenu();
+  toast('Sesión cerrada.', 'info');
+}
+
+// ── Enviar email de recuperación ──
+async function sendResetEmail(){
+  const btn = el('forgotBtn');
+  const email = el('forgotEmail').value.trim();
+  el('forgotError').style.display='none';
+  el('forgotSuccess').style.display='none';
+  if(!email){ el('forgotError').textContent='Ingresa tu correo.'; el('forgotError').style.display='block'; return; }
+  btn.disabled=true; btn.innerHTML='<span class="loader"></span>';
+  const {error} = await db.auth.resetPasswordForEmail(email, {
+    redirectTo: window.location.href + '?reset=true'
+  });
+  btn.disabled=false; btn.textContent='Enviar código al correo';
+  if(error){ el('forgotError').textContent=translateAuthError(error.message); el('forgotError').style.display='block'; return; }
+  el('forgotSuccess').textContent='✅ Correo enviado. Revisa tu bandeja de entrada y el enlace te traerá aquí.';
+  el('forgotSuccess').style.display='block';
+}
+
+// ── Cambiar contraseña (sesión activa) ──
+async function changePassword(){
+  const btn = el('resetBtn');
+  const p1 = el('newPass1').value;
+  const p2 = el('newPass2').value;
+  el('resetError').style.display='none';
+  el('resetSuccess').style.display='none';
+  if(!p1 || !p2){ el('resetError').textContent='Completa ambos campos.'; el('resetError').style.display='block'; return; }
+  if(p1 !== p2){ el('resetError').textContent='Las contraseñas no coinciden.'; el('resetError').style.display='block'; return; }
+  if(p1.length < 6){ el('resetError').textContent='Mínimo 6 caracteres.'; el('resetError').style.display='block'; return; }
+  btn.disabled=true; btn.innerHTML='<span class="loader"></span>';
+  const {error} = await db.auth.updateUser({ password: p1 });
+  btn.disabled=false; btn.textContent='Cambiar contraseña';
+  if(error){ el('resetError').textContent=translateAuthError(error.message); el('resetError').style.display='block'; return; }
+  el('resetSuccess').textContent='✅ Contraseña actualizada correctamente.';
+  el('resetSuccess').style.display='block';
+  el('newPass1').value=''; el('newPass2').value='';
+  toast('Contraseña actualizada ✅','ok');
+  setTimeout(closeAuthModal, 2000);
+}
+
+// ── Guardar perfil ──
+async function saveProfile(){
+  const btn = el('profileBtn');
+  const artistName = el('profileArtistName').value.trim();
+  el('profileError').style.display='none';
+  el('profileSuccess').style.display='none';
+  if(!artistName){ el('profileError').textContent='Ingresa tu nombre artístico.'; el('profileError').style.display='block'; return; }
+  btn.disabled=true; btn.innerHTML='<span class="loader"></span>';
+  const {error} = await db.auth.updateUser({ data: { artist_name: artistName } });
+  btn.disabled=false; btn.textContent='Guardar cambios';
+  if(error){ el('profileError').textContent=translateAuthError(error.message); el('profileError').style.display='block'; return; }
+  el('profileSuccess').textContent='✅ Perfil actualizado.';
+  el('profileSuccess').style.display='block';
+  if(currentUser){ currentUser.user_metadata = {...currentUser.user_metadata, artist_name: artistName}; updateNavForUser(currentUser); }
+  toast('Perfil guardado ✅','ok');
+  setTimeout(closeAuthModal, 1500);
+}
+
+function showAuthErr(msg){
+  const e = el('authError'); e.textContent = msg; e.style.display = 'block';
+  const btn = el('authSubmitBtn');
+  btn.disabled=false;
+  btn.textContent = authMode === 'register' ? 'Crear cuenta' : 'Iniciar sesión';
+}
+
+function translateAuthError(msg){
+  if(!msg) return 'Error desconocido.';
+  if(msg.includes('Invalid login') || msg.includes('invalid credentials')) return 'Correo o contraseña incorrectos.';
+  if(msg.includes('already registered') || msg.includes('already exists')) return 'Este correo ya está registrado. Intenta iniciar sesión.';
+  if(msg.includes('not confirmed')) return 'Confirma tu correo antes de iniciar sesión.';
+  if(msg.includes('rate limit') || msg.includes('too many')) return 'Demasiados intentos. Espera un momento.';
+  if(msg.includes('weak password')) return 'Contraseña muy débil. Usa al menos 6 caracteres.';
+  if(msg.includes('network')) return 'Error de red. Revisa tu conexión.';
+  return msg;
+}
+
+// Verificar si viene de reset de contraseña vía URL
+if(window.location.search.includes('reset=true') || window.location.hash.includes('type=recovery')){
+  window.addEventListener('load', ()=> setTimeout(()=>openAuthModal('reset'), 800));
+}
+// ================================================================
+// FIN AUTH SYSTEM
+// ================================================================
 </script>
 </body>
 </html>
