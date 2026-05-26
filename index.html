@@ -8,7 +8,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700;800&family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.49.4/dist/umd/supabase.min.js"></script>
   <style>
     :root{
       --bg:#050505;--bg2:#0b0b0d;--card:#111113;--card2:#171719;
@@ -987,12 +987,13 @@ function goStep(n){
 }
 function renderAgendaServices(){
   const grid=el('agServGrid');if(!grid)return;
+  // Fallback visual si Supabase aún no respondió o devolvió vacío
   const services=workingServices.length?workingServices:[
     {id:'',nombre:'Beat Personalizado',precio_clp:25000,duracion_minutos:60},
     {id:'',nombre:'Mezcla Profesional',precio_clp:35000,duracion_minutos:90},
     {id:'',nombre:'Mastering de Calidad',precio_clp:20000,duracion_minutos:45},
-    {id:'',nombre:'Asesoria Personalizada',precio_clp:15000,duracion_minutos:60},
-    {id:'',nombre:'Grabacion de Voz',precio_clp:30000,duracion_minutos:90},
+    {id:'',nombre:'Asesoría Personalizada',precio_clp:15000,duracion_minutos:60},
+    {id:'',nombre:'Grabación de Voz',precio_clp:30000,duracion_minutos:90},
     {id:'',nombre:'Producción Completa',precio_clp:80000,duracion_minutos:180},
   ];
   grid.innerHTML=services.map(s=>`<div class="serv-opt" data-id="${escapeHTML(s.id||'')}" data-nombre="${escapeHTML(s.nombre)}" data-precio="${Number(s.precio_clp||0)}" data-duracion="${Number(s.duracion_minutos||60)}" onclick="pickAgServicio(this)"><div class="serv-name">${escapeHTML(s.nombre)}</div><div class="serv-meta"><span>${s.duracion_minutos||60} min</span></div><div class="serv-price">${money(s.precio_clp)}</div></div>`).join('');
@@ -1035,7 +1036,7 @@ async function selectCalDay(iso){
 async function loadTimeSlots(fecha){
   const grid=el('slotsGrid');grid.innerHTML='<span class="loader"></span>';
   const {data,error}=await db.from('slots_ocupados').select('hora_inicio,hora_fin,estado').eq('fecha',fecha);
-  if(error){grid.innerHTML='<p class="slots-empty">No se pudieron cargar los horarios.</p>';return;}
+  if(error){grid.innerHTML='<p class="slots-empty">No se pudieron cargar los horarios. Intenta nuevamente o contáctanos por WhatsApp.</p>';return;}
   const occupied=(data||[]).map(r=>({from:String(r.hora_inicio||'').slice(0,5),to:String(r.hora_fin||'').slice(0,5)}));
   const durMin=agServicio?.duracion||60;
   const [oh,om]=OPEN_FROM.split(':').map(Number),[ch,cm]=OPEN_TO.split(':').map(Number);
@@ -1043,29 +1044,29 @@ async function loadTimeSlots(fecha){
   while(cur+durMin<=end){
     const h=String(Math.floor(cur/60)).padStart(2,'0'),m=String(cur%60).padStart(2,'0');
     const ne=cur+durMin,nh=String(Math.floor(ne/60)).padStart(2,'0'),nm=String(ne%60).padStart(2,'0');
-    slots.push({from:`${h}:${m}`,to:`${nh}:${nm}`});cur+=SLOT_MIN;
+    slots.push({from:`${h}:${m}`,to:`${nh}:${nm}`});cur+=durMin;
   }
-  if(!slots.length){grid.innerHTML='<p class="slots-empty">Sin horarios disponibles.</p>';return;}
+  if(!slots.length){grid.innerHTML='<p class="slots-empty">Sin horarios disponibles para este día. Prueba con otra fecha.</p>';return;}
   grid.innerHTML=slots.map(sl=>{
     const busy=occupied.some(o=>sl.from<o.to&&sl.to>o.from);
-    return `<button class="slot-btn ${busy?'busy':'free'}" ${busy?'disabled':''} onclick="pickSlot('${sl.from}','${sl.to}',this)">${sl.from}</button>`;
+    return `<button class="slot-btn ${busy?'busy':'free'}" ${busy?'disabled':''} aria-label="Reservar ${sl.from} – ${sl.to}" onclick="pickSlot('${sl.from}','${sl.to}',this)">${sl.from} – ${sl.to}</button>`;
   }).join('');
 }
 function pickSlot(from,to,btn){
   document.querySelectorAll('.slot-btn.free').forEach(b=>b.classList.remove('picked'));
   btn.classList.add('picked');agHora=from;window._agHoraFin=to;el('btnStepDate').disabled=false;
-  toast('Hora '+from+' seleccionada','ok');updateCartSummary();
+  toast('Hora '+from+' – '+to+' seleccionada ✓','ok');updateCartSummary();
 }
 function updateCartSummary(){
   const box=el('cartSummary');if(!box)return;
   const rows=[];
-  if(agServicio)rows.push(`<div class="summary-row"><span>Servicio</span><span>${escapeHTML(agServicio.nombre)}</span></div><div class="summary-row"><span>Precio</span><b>${money(agServicio.precio)}</b></div><div class="summary-row"><span>Duracion</span><span>${agServicio.duracion} min</span></div>`);
+  if(agServicio)rows.push(`<div class="summary-row"><span>Servicio</span><span>${escapeHTML(agServicio.nombre)}</span></div><div class="summary-row"><span>Precio</span><b>${money(agServicio.precio)}</b></div><div class="summary-row"><span>Duración</span><span>${agServicio.duracion} min</span></div>`);
   if(agFecha)rows.push(`<div class="summary-row"><span>Fecha</span><span>${new Date(agFecha+'T12:00').toLocaleDateString('es-CL',{weekday:'short',day:'numeric',month:'short'})}</span></div>`);
   if(agHora)rows.push(`<div class="summary-row"><span>Hora</span><b>${agHora}</b></div>`);
   if(!rows.length){box.innerHTML='<div class="summary-empty">Completa los pasos para ver el resumen.</div>';return;}
   box.innerHTML=rows.join('');
   const sb=el('agSummaryBox');if(!sb)return;
-  sb.innerHTML=`<b>Servicio:</b> ${escapeHTML(agServicio?.nombre||'-')}<br><b>Precio:</b> ${money(agServicio?.precio||0)}<br><b>Duracion:</b> ${agServicio?.duracion||'?'} min<br><b>Fecha:</b> ${agFecha||'-'} <b>Hora:</b> ${agHora||'-'}`;
+  sb.innerHTML=`<b>Servicio:</b> ${escapeHTML(agServicio?.nombre||'-')}<br><b>Precio:</b> ${money(agServicio?.precio||0)}<br><b>Duración:</b> ${agServicio?.duracion||'?'} min<br><b>Fecha:</b> ${agFecha||'-'} <b>Hora:</b> ${agHora||'-'}`;
 }
 
 // ================================================================
