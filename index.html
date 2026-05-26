@@ -314,7 +314,7 @@
 
               <!-- Tab: Acceder con email + pass -->
               <div id="wPanelAccess">
-                <div class="field"><label>Correo</label><input id="wEmail" type="email" placeholder="tu@correo.com"></div>
+                <div class="field"><label>Correo</label><input id="wEmail" type="email" placeholder="tu@correo.com" maxlength="254"></div>
                 <div class="field"><label>Contraseña</label><input id="wPass" type="password" placeholder="..." onkeydown="if(event.key==='Enter') workerLogin()"></div>
                 <button class="btn btn-gold" style="width:100%;margin-top:4px" onclick="workerLogin()">Ingresar al panel</button>
               </div>
@@ -325,7 +325,7 @@
                   Ingresa el código que recibiste y tu correo. Tu acceso quedará pendiente de aprobación.
                 </p>
                 <div class="field"><label>Correo</label><input id="wInvEmail" type="email" placeholder="tu@correo.com"></div>
-                <div class="field"><label>Código de invitación</label><input id="wInvCode" type="text" placeholder="Ej: TAINER2026" style="text-transform:uppercase" onkeydown="if(event.key==='Enter') redeemWorkerInvite()"></div>
+                <div class="field"><label>Código de invitación</label><input id="wInvCode" type="text" placeholder="Ej: TAINER2026" maxlength="20" style="text-transform:uppercase" onkeydown="if(event.key==='Enter') redeemWorkerInvite()"></div>
                 <button class="btn btn-gold" style="width:100%;margin-top:4px" id="wInvBtn" onclick="redeemWorkerInvite()">Enviar solicitud</button>
               </div>
 
@@ -473,9 +473,9 @@
           </div>
           <div class="step-panel" id="step3">
             <div class="confirm-form">
-              <div class="field"><label>Tu nombre artístico</label><input id="agName" placeholder="Nombre o nombre artistico"></div>
-              <div class="field"><label>Teléfono / WhatsApp</label><input id="agPhone" placeholder="+56 9 ..."></div>
-              <div class="field"><label>Cuéntame tu proyecto (opcional)</label><textarea id="agNote" placeholder="Ej: trap oscuro en Dm, letra de superacion, referencia artista X..." rows="3"></textarea></div>
+              <div class="field"><label>Tu nombre artístico</label><input id="agName" placeholder="Nombre o nombre artistico" maxlength="100" autocomplete="name"></div>
+              <div class="field"><label>Teléfono / WhatsApp</label><input id="agPhone" placeholder="+56 9 ..." maxlength="20" type="tel" autocomplete="tel"></div>
+              <div class="field"><label>Cuéntame tu proyecto (opcional)</label><textarea id="agNote" maxlength="1000" placeholder="Ej: trap oscuro en Dm, letra de superacion, referencia artista X..." rows="3"></textarea></div>
             </div>
             <div id="agSummaryBox" style="margin-top:16px;background:rgba(155,93,229,.06);border:1px solid rgba(155,93,229,.18);border-radius:14px;padding:14px;font-size:.86rem;color:var(--muted)"></div>
             <div style="display:flex;gap:10px;margin-top:16px;flex-wrap:wrap">
@@ -573,7 +573,7 @@
         <!-- nombre artístico solo en registro -->
         <div class="field" id="fieldArtistName" style="display:none">
           <label>Nombre artístico</label>
-          <input id="authArtistName" type="text" placeholder="Tu nombre en la música" autocomplete="nickname">
+          <input id="authArtistName" type="text" placeholder="Tu nombre en la música" maxlength="60" autocomplete="nickname">
         </div>
         <div class="field">
           <label>Correo electrónico</label>
@@ -673,13 +673,13 @@
       <section class="dash-panel">
         <h3>Registrar sesión</h3>
         <div class="dash-form">
-          <div class="field"><label>Artista</label><input id="fCliente" placeholder="Nombre artístico"></div>
+          <div class="field"><label>Artista</label><input id="fCliente" placeholder="Nombre artístico" maxlength="100"></div>
           <div class="field"><label>Servicio</label><select id="fServicio" onchange="aplicarServicioSeleccionado()"><option value="">Seleccionar</option></select></div>
           <div class="field"><label>Valor CLP</label><input id="fValor" type="number" min="0" step="1000" placeholder="25000"></div>
           <div class="field"><label>Incluye beat</label><select id="fBeat"><option value="si">Si</option><option value="no">No</option></select></div>
           <div class="field"><label>Incluye mezcla</label><select id="fMezcla"><option value="no">No</option><option value="si">Si</option></select></div>
           <div class="field"><label>Genero</label><select id="fGenero"><option value="">Seleccionar</option><option>Trap</option><option>Reggaeton</option><option>R&B</option><option>Pop</option><option>Hip-Hop</option><option>Drill</option><option>Otro</option></select></div>
-          <div class="field span"><label>Descripción / Notas</label><textarea id="fObservacion" placeholder="Descripción del proyecto, referencias, archivos entregados..." rows="2"></textarea></div>
+          <div class="field span"><label>Descripción / Notas</label><textarea id="fObservacion" maxlength="1000" placeholder="Descripción del proyecto, referencias, archivos entregados..." rows="2"></textarea></div>
         </div>
         <div class="dash-actions">
           <button class="btn btn-gold" id="btnGuardarRegistro" onclick="registrarSesion()">Guardar sesión</button>
@@ -718,7 +718,7 @@
 // ================================================================
 const WHATSAPP     = '56900000000';
 const SUPABASE_URL = 'https://bocczejtbjikwrbpwual.supabase.co';
-const SUPABASE_KEY = 'sb_publishable_uM7a8N1v6hIocu08RukkdA_wpcwQEVq';
+const SUPABASE_KEY = 'sb_publishable_lWF40gPyOR6PpshVPoDV9w_1rR1ajPt';
 const db           = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
 const OPEN_DAYS    = [1,2,3,4,5,6];
 const OPEN_FROM    = '10:00';
@@ -812,7 +812,10 @@ async function redeemWorkerInvite(){
   const btn   = el('wInvBtn');
   errEl.style.display='none';
   sucEl.style.display='none';
-  if(!email||!code){errEl.textContent='Completa correo y código.';errEl.style.display='block';return;}
+  if(!email || !code){ errEl.textContent='Completa correo y código.'; errEl.style.display='block'; return; }
+  if(!isValidEmail(email)){ errEl.textContent='Correo inválido.'; errEl.style.display='block'; return; }
+  if(!isValidInviteCode(code)){ errEl.textContent='Código inválido (solo letras y números).'; errEl.style.display='block'; return; }
+  if(!clientRateLimit('invite', 3)){ errEl.textContent='Demasiados intentos. Espera un minuto.'; errEl.style.display='block'; return; }
 
   btn.disabled=true; btn.innerHTML='<span class="loader"></span>';
 
@@ -1064,306 +1067,16 @@ function updateCartSummary(){
   const sb=el('agSummaryBox');if(!sb)return;
   sb.innerHTML=`<b>Servicio:</b> ${escapeHTML(agServicio?.nombre||'-')}<br><b>Precio:</b> ${money(agServicio?.precio||0)}<br><b>Duracion:</b> ${agServicio?.duracion||'?'} min<br><b>Fecha:</b> ${agFecha||'-'} <b>Hora:</b> ${agHora||'-'}`;
 }
-async function confirmarReserva(){
-  const nombre=el('agName').value.trim(),phone=el('agPhone').value.trim(),note=el('agNote').value.trim();
-  if(!nombre||!phone){toast('Ingresa nombre y telefono.','err');return;}
-  if(!agServicio){toast('Selecciona un servicio.','err');return;}
-  if(!agFecha||!agHora){toast('Selecciona fecha y hora.','err');return;}
-  const btn=el('btnConfirmarReserva');btn.disabled=true;btn.textContent='Guardando...';
-  const durMin=agServicio.duracion||60,[hh,mm]=agHora.split(':').map(Number);
-  const finMin=hh*60+mm+durMin,horaFin=`${String(Math.floor(finMin/60)).padStart(2,'0')}:${String(finMin%60).padStart(2,'0')}`;
-  const reserva={cliente_nombre:nombre,cliente_phone:phone,servicio_id:agServicio.id||null,servicio_nombre:agServicio.nombre,fecha:agFecha,hora_inicio:agHora+':00',hora_fin:horaFin+':00',estado:'pendiente',nota_cliente:note||null,valor_estimado:agServicio.precio||0};
-  const {error}=await db.from('reservas').insert([reserva]);
-  btn.disabled=false;btn.textContent='Guardar reserva';
-  if(error){toast(error.code==='P0001'?'Ese horario ya fue reservado. Elige otro.':'Error: '+error.message,'err');if(agFecha)await loadTimeSlots(agFecha);return;}
-  const wamsg=buildWAMsg(nombre,phone,agServicio.nombre,agFecha,agHora,note);
-  el('successMsg').textContent='Reserva guardada para '+nombre+' el '+agFecha+' a las '+agHora+'. Te contactare para confirmar.';
-  el('successWABtn').onclick=()=>window.open('https://wa.me/'+WHATSAPP+'?text='+encodeURIComponent(wamsg),'_blank');
-  el('successModal').classList.add('open');
-  toast('Reserva guardada.','ok');
-  agServicio=null;agFecha=null;agHora=null;
-  goStep(1);renderAgendaServices();initCalendar();updateCartSummary();
-  el('agName').value='';el('agPhone').value='';el('agNote').value='';
-}
-function confirmarWhatsAppDirecto(){
-  const nombre=el('agName').value.trim(),phone=el('agPhone').value.trim(),note=el('agNote').value.trim();
-  if(!nombre){toast('Ingresa tu nombre.','err');return;}
-  window.open('https://wa.me/'+WHATSAPP+'?text='+encodeURIComponent(buildWAMsg(nombre,phone,agServicio?.nombre||'-',agFecha||'-',agHora||'-',note)),'_blank');
-}
-function buildWAMsg(nombre,phone,servicio,fecha,hora,nota){
-  return 'Hola! Quiero confirmar mi sesión de producción:\n\nNombre: '+nombre+'\nTelefono: '+(phone||'No indicado')+'\nServicio: '+servicio+'\nFecha: '+fecha+'\nHora: '+hora+'\nProyecto: '+(nota||'Sin descripción')+'\n\nPrecio estimado: '+money(agServicio?.precio||0)+'\n\n@tainer_music';
-}
-function csvEncode(rows){return rows.map(r=>r.map(v=>'"'+String(v??'').replace(/"/g,'""')+'"').join(';')).join('\n');}
-function downloadCSV(content,filename){const blob=new Blob([content],{type:'text/csv;charset=utf-8;'});const url=URL.createObjectURL(blob);const a=document.createElement('a');a.href=url;a.download=filename;a.click();URL.revokeObjectURL(url);}
-async function exportarCSVSesiones(){
-  const {data}=await db.from('sesiones').select('*').eq('fecha',todayISO()).order('creado_en');
-  if(!data||!data.length){toast('Sin sesiones para exportar.','info');return;}
-  const rows=[['Hora','Artista','Servicio','Genero','Beat','Mezcla','Valor CLP','Notas']];
-  data.forEach(r=>rows.push([(r.hora||'').slice(0,5),r.cliente_nombre,r.servicio,r.genero||'',r.incluye_beat?'Si':'No',r.incluye_mezcla?'Si':'No',r.valor,r.notas||'']));
-  downloadCSV(csvEncode(rows),'sesiones-tainermusic-'+todayISO()+'.csv');
-}
-async function exportarCSVReservas(){
-  const {data}=await db.from('reservas').select('*').order('fecha').order('hora_inicio');
-  if(!data||!data.length){toast('Sin reservas para exportar.','info');return;}
-  const rows=[['Fecha','Hora inicio','Hora fin','Artista','Telefono','Servicio','Estado','Proyecto']];
-  data.forEach(r=>rows.push([r.fecha,(r.hora_inicio||'').slice(0,5),(r.hora_fin||'').slice(0,5),r.cliente_nombre,r.cliente_phone||'',r.servicio_nombre,r.estado,r.nota_cliente||'']));
-  downloadCSV(csvEncode(rows),'reservas-tainermusic-'+todayISO()+'.csv');
-}
-document.addEventListener('DOMContentLoaded',()=>{
-  initCalendar();
-  db.from('servicios').select('id,nombre,precio_clp,duracion_minutos,activo').eq('activo',true).order('nombre').then(({data})=>{if(data&&data.length){workingServices=data;renderAgendaServices();}});
-  initAuth();
-});
 
 // ================================================================
-// AUTH SYSTEM — Supabase Auth + Google OAuth
+// VALIDACIÓN Y SEGURIDAD — FRONTEND
 // ================================================================
-let currentUser = null;
-let authMode = 'login'; // login | register | forgot | reset | profile
 
-function initAuth(){
-  // Escuchar cambios de sesión
-  db.auth.onAuthStateChange((event, session)=>{
-    if(session && session.user){
-      currentUser = session.user;
-      updateNavForUser(session.user);
-      // Si viene de reset de contraseña (magic link)
-      if(event === 'PASSWORD_RECOVERY'){
-        openAuthModal('reset');
-      }
-    } else {
-      currentUser = null;
-      updateNavForGuest();
-    }
-  });
-  // Revisar sesión existente
-  db.auth.getSession().then(({data:{session}})=>{
-    if(session && session.user){
-      currentUser = session.user;
-      updateNavForUser(session.user);
-    } else {
-      updateNavForGuest();
-    }
-  });
-  // Cerrar user dropdown al hacer click fuera
-  document.addEventListener('click', e=>{
-    const wrap = document.getElementById('navUserWrap');
-    if(wrap && !wrap.contains(e.target)) closeUserMenu();
-  });
-}
-
-function updateNavForUser(user){
-  const name = user.user_metadata?.artist_name || user.user_metadata?.full_name || user.email?.split('@')[0] || 'Artista';
-  const initial = name.charAt(0).toUpperCase();
-  el('navLoginBtn').style.display = 'none';
-  el('navUserWrap').style.display = 'flex';
-  el('navAvatar').textContent = initial;
-  el('navUserName').textContent = name;
-  el('dropName').textContent = name;
-  el('dropEmail').textContent = user.email || '';
-  const wa = el('navWAbtn'); if(wa) wa.style.display='none';
-}
-
-function updateNavForGuest(){
-  el('navLoginBtn').style.display = 'inline-flex';
-  el('navUserWrap').style.display = 'none';
-  const wa = el('navWAbtn'); if(wa) wa.style.display='none';
-}
-
-function toggleUserMenu(){
-  document.getElementById('userDropdown').classList.toggle('open');
-}
-function closeUserMenu(){
-  document.getElementById('userDropdown').classList.remove('open');
-}
-
-// ── Abrir modal con vista específica ──
-function openAuthModal(mode){
-  authMode = mode;
-  const modal = el('authModal');
-  modal.classList.add('open');
-  // Ocultar todas las vistas
-  document.querySelectorAll('.auth-view').forEach(v=>v.classList.remove('active'));
-  // Limpiar mensajes
-  ['authError','authSuccessMsg','forgotError','forgotSuccess','resetError','resetSuccess','profileError','profileSuccess']
-    .forEach(id=>{const e=el(id);if(e){e.style.display='none';e.textContent=''}});
-
-  if(mode === 'login' || mode === 'register'){
-    el('viewLoginReg').classList.add('active');
-    el('authModalTitle').textContent = 'Bienvenido';
-    el('authModalSub').textContent = 'Inicia sesión o crea tu cuenta de artista';
-    switchAuthTab(mode);
-  } else if(mode === 'forgot'){
-    el('viewForgot').classList.add('active');
-    el('authModalTitle').textContent = 'Recuperar contraseña';
-    el('authModalSub').textContent = 'Te enviamos un código temporal al correo';
-  } else if(mode === 'reset'){
-    el('viewReset').classList.add('active');
-    el('authModalTitle').textContent = 'Nueva contraseña';
-    el('authModalSub').textContent = 'Elige una contraseña segura';
-  } else if(mode === 'profile'){
-    el('viewProfile').classList.add('active');
-    el('authModalTitle').textContent = 'Mi perfil';
-    el('authModalSub').textContent = 'Actualiza tu información';
-    if(currentUser){
-      const name = currentUser.user_metadata?.artist_name || currentUser.user_metadata?.full_name || '';
-      el('profileArtistName').value = name;
-    }
-  }
-}
-
-function closeAuthModal(){
-  el('authModal').classList.remove('open');
-}
-
-function switchAuthTab(tab){
-  authMode = tab;
-  const isReg = tab === 'register';
-  el('tabLoginBtn').classList.toggle('active', !isReg);
-  el('tabRegBtn').classList.toggle('active', isReg);
-  el('fieldArtistName').style.display = isReg ? 'flex' : 'none';
-  el('authSubmitBtn').textContent = isReg ? 'Crear cuenta' : 'Iniciar sesión';
-  el('forgotLink').style.display = isReg ? 'none' : 'block';
-  // limpiar
-  ['authEmail','authPass','authArtistName'].forEach(id=>{const e=el(id);if(e)e.value='';});
-  el('authError').style.display='none';
-  el('authSuccessMsg').style.display='none';
-}
-
-// ── Submit login/register ──
-async function submitAuth(){
-  const btn = el('authSubmitBtn');
-  const errEl = el('authError');
-  const sucEl = el('authSuccessMsg');
-  const email = el('authEmail').value.trim();
-  const pass  = el('authPass').value;
-  errEl.style.display = 'none';
-  sucEl.style.display = 'none';
-
-  if(!email || !pass){ showAuthErr('Completa todos los campos.'); return; }
-  if(pass.length < 6){ showAuthErr('La contraseña debe tener al menos 6 caracteres.'); return; }
-
-  btn.disabled = true;
-  btn.innerHTML = '<span class="loader"></span>';
-
-  if(authMode === 'register'){
-    const artistName = el('authArtistName').value.trim();
-    if(!artistName){ showAuthErr('Ingresa tu nombre artístico.'); btn.disabled=false; btn.textContent='Crear cuenta'; return; }
-    const {error} = await db.auth.signUp({
-      email, password: pass,
-      options: { data: { artist_name: artistName } }
-    });
-    btn.disabled = false; btn.textContent = 'Crear cuenta';
-    if(error){ showAuthErr(translateAuthError(error.message)); return; }
-    sucEl.textContent = '✅ Cuenta creada. Revisa tu correo para verificar tu cuenta.';
-    sucEl.style.display = 'block';
-    toast('¡Cuenta creada! Revisa tu correo 📧', 'ok');
-  } else {
-    const {data, error} = await db.auth.signInWithPassword({ email, password: pass });
-    btn.disabled = false; btn.textContent = 'Iniciar sesión';
-    if(error){ showAuthErr(translateAuthError(error.message)); return; }
-    toast('¡Bienvenido! 🎵', 'ok');
-    closeAuthModal();
-  }
-}
-
-// ── Google OAuth ──
-async function authWithGoogle(){
-  const {error} = await db.auth.signInWithOAuth({
-    provider: 'google',
-    options: { redirectTo: window.location.href }
-  });
-  if(error) toast('Error al conectar con Google: ' + error.message, 'err');
-}
-
-// ── Cerrar sesión ──
-async function authSignOut(){
-  await db.auth.signOut();
-  closeUserMenu();
-  toast('Sesión cerrada.', 'info');
-}
-
-// ── Enviar email de recuperación ──
-async function sendResetEmail(){
-  const btn = el('forgotBtn');
-  const email = el('forgotEmail').value.trim();
-  el('forgotError').style.display='none';
-  el('forgotSuccess').style.display='none';
-  if(!email){ el('forgotError').textContent='Ingresa tu correo.'; el('forgotError').style.display='block'; return; }
-  btn.disabled=true; btn.innerHTML='<span class="loader"></span>';
-  const {error} = await db.auth.resetPasswordForEmail(email, {
-    redirectTo: window.location.href + '?reset=true'
-  });
-  btn.disabled=false; btn.textContent='Enviar código al correo';
-  if(error){ el('forgotError').textContent=translateAuthError(error.message); el('forgotError').style.display='block'; return; }
-  el('forgotSuccess').textContent='✅ Correo enviado. Revisa tu bandeja de entrada y el enlace te traerá aquí.';
-  el('forgotSuccess').style.display='block';
-}
-
-// ── Cambiar contraseña (sesión activa) ──
-async function changePassword(){
-  const btn = el('resetBtn');
-  const p1 = el('newPass1').value;
-  const p2 = el('newPass2').value;
-  el('resetError').style.display='none';
-  el('resetSuccess').style.display='none';
-  if(!p1 || !p2){ el('resetError').textContent='Completa ambos campos.'; el('resetError').style.display='block'; return; }
-  if(p1 !== p2){ el('resetError').textContent='Las contraseñas no coinciden.'; el('resetError').style.display='block'; return; }
-  if(p1.length < 6){ el('resetError').textContent='Mínimo 6 caracteres.'; el('resetError').style.display='block'; return; }
-  btn.disabled=true; btn.innerHTML='<span class="loader"></span>';
-  const {error} = await db.auth.updateUser({ password: p1 });
-  btn.disabled=false; btn.textContent='Cambiar contraseña';
-  if(error){ el('resetError').textContent=translateAuthError(error.message); el('resetError').style.display='block'; return; }
-  el('resetSuccess').textContent='✅ Contraseña actualizada correctamente.';
-  el('resetSuccess').style.display='block';
-  el('newPass1').value=''; el('newPass2').value='';
-  toast('Contraseña actualizada ✅','ok');
-  setTimeout(closeAuthModal, 2000);
-}
-
-// ── Guardar perfil ──
-async function saveProfile(){
-  const btn = el('profileBtn');
-  const artistName = el('profileArtistName').value.trim();
-  el('profileError').style.display='none';
-  el('profileSuccess').style.display='none';
-  if(!artistName){ el('profileError').textContent='Ingresa tu nombre artístico.'; el('profileError').style.display='block'; return; }
-  btn.disabled=true; btn.innerHTML='<span class="loader"></span>';
-  const {error} = await db.auth.updateUser({ data: { artist_name: artistName } });
-  btn.disabled=false; btn.textContent='Guardar cambios';
-  if(error){ el('profileError').textContent=translateAuthError(error.message); el('profileError').style.display='block'; return; }
-  el('profileSuccess').textContent='✅ Perfil actualizado.';
-  el('profileSuccess').style.display='block';
-  if(currentUser){ currentUser.user_metadata = {...currentUser.user_metadata, artist_name: artistName}; updateNavForUser(currentUser); }
-  toast('Perfil guardado ✅','ok');
-  setTimeout(closeAuthModal, 1500);
-}
-
-function showAuthErr(msg){
-  const e = el('authError'); e.textContent = msg; e.style.display = 'block';
-  const btn = el('authSubmitBtn');
-  btn.disabled=false;
-  btn.textContent = authMode === 'register' ? 'Crear cuenta' : 'Iniciar sesión';
-}
-
-function translateAuthError(msg){
-  if(!msg) return 'Error desconocido.';
-  if(msg.includes('Invalid login') || msg.includes('invalid credentials')) return 'Correo o contraseña incorrectos.';
-  if(msg.includes('already registered') || msg.includes('already exists')) return 'Este correo ya está registrado. Intenta iniciar sesión.';
-  if(msg.includes('not confirmed')) return 'Confirma tu correo antes de iniciar sesión.';
-  if(msg.includes('rate limit') || msg.includes('too many')) return 'Demasiados intentos. Espera un momento.';
-  if(msg.includes('weak password')) return 'Contraseña muy débil. Usa al menos 6 caracteres.';
-  if(msg.includes('network')) return 'Error de red. Revisa tu conexión.';
-  return msg;
-}
-
-// Verificar si viene de reset de contraseña vía URL
-if(window.location.search.includes('reset=true') || window.location.hash.includes('type=recovery')){
-  window.addEventListener('load', ()=> setTimeout(()=>openAuthModal('reset'), 800));
-}
-// ================================================================
-// FIN AUTH SYSTEM
-// ================================================================
-</script>
-</body>
-</html>
+// Sanitizar texto antes de enviarlo a Supabase
+function sanitize(str, maxLen = 500) {
+  if (!str) return '';
+  return String(str)
+    .trim()
+    .slice(0, maxLen)
+    .replace(/[<>]/g, '')          // quitar < > (XSS básico)
+    .replace(/[
