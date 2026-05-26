@@ -1,16 +1,49 @@
-## Hi there 👋
+# Tainer Music Platform
 
-<!--
-**Tainermusic/tainermusic** is a ✨ _special_ ✨ repository because its `README.md` (this file) appears on your GitHub profile.
+Sitio web y base técnica para **Tainer Music**, una plataforma profesional de producción musical con agenda online, reservas, recursos de estudio, panel interno Working y conexión futura con Supabase.
 
-Here are some ideas to get you started:
+## Estado actual
 
-- 🔭 I’m currently working on ...
-- 🌱 I’m currently learning ...
-- 👯 I’m looking to collaborate on ...
-- 🤔 I’m looking for help with ...
-- 💬 Ask me about ...
-- 📫 How to reach me: ...
-- 😄 Pronouns: ...
-- ⚡ Fun fact: ...
--->
+- `index.html` se mantiene en la raíz para no romper GitHub Pages.
+- Las imágenes reales del estudio están en `assets/images/`.
+- La documentación técnica está en `docs/`.
+- Los scripts SQL y migraciones de Supabase están en `supabase/`.
+- El dominio personalizado se mantiene con `CNAME`.
+
+## Estructura
+
+```txt
+.
+├── index.html
+├── CNAME
+├── assets/
+│   └── images/
+├── docs/
+│   ├── arquitectura.md
+│   ├── database.md
+│   ├── frontend.md
+│   └── roadmap.md
+└── supabase/
+    ├── migrations/
+    └── sql/
+```
+
+## Reglas de seguridad
+
+No subir al repositorio:
+
+- `service_role`
+- contraseña de base de datos
+- tokens privados
+- access tokens de GitHub
+- claves secretas de pasarelas de pago
+
+La web pública solo debe usar la **publishable/anon key** de Supabase.
+
+## Próximos pasos
+
+1. Ejecutar/verificar migraciones Supabase.
+2. Conectar `index.html` a RPC seguras.
+3. Reemplazar inserts directos a `reservas` por `crear_reserva_publica()`.
+4. Usar `get_busy_slots()` para bloquear horarios.
+5. Convertir Working en panel real con Supabase Auth + `workers.approved`.
