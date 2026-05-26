@@ -1,0 +1,7 @@
+-- 003_rls_security.sql
+-- Seguridad RLS esperada:
+-- - reservas: no SELECT directo para anon.
+-- - reservas: authenticated solo lee sus propias reservas.
+-- - workers aprobados gestionan reservas/sesiones/servicios/pagos.
+-- - audit_log solo lectura para workers aprobados.
+-- - rate_limits sin acceso directo público.
