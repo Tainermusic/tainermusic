@@ -316,7 +316,8 @@
               <div id="wPanelAccess">
                 <div class="field"><label>Correo</label><input id="wEmail" type="email" placeholder="tu@correo.com" maxlength="254"></div>
                 <div class="field"><label>Contraseña</label><input id="wPass" type="password" placeholder="..." onkeydown="if(event.key==='Enter') workerLogin()"></div>
-                <button class="btn btn-gold" style="width:100%;margin-top:4px" onclick="workerLogin()">Ingresar al panel</button>
+            <p style="font-size:.72rem;color:var(--muted);text-align:center;margin-bottom:8px;line-height:1.5">Al reservar, tus datos serán usados únicamente para coordinar tu sesión con Tainer Music.</p>
+              <button class="btn btn-gold" style="width:100%;margin-top:4px" onclick="workerLogin()">Ingresar al panel</button>
               </div>
 
               <!-- Tab: Solicitar con código de invitación -->
@@ -326,7 +327,8 @@
                 </p>
                 <div class="field"><label>Correo</label><input id="wInvEmail" type="email" placeholder="tu@correo.com"></div>
                 <div class="field"><label>Código de invitación</label><input id="wInvCode" type="text" placeholder="Ej: TAINER2026" maxlength="20" style="text-transform:uppercase" onkeydown="if(event.key==='Enter') redeemWorkerInvite()"></div>
-                <button class="btn btn-gold" style="width:100%;margin-top:4px" id="wInvBtn" onclick="redeemWorkerInvite()">Enviar solicitud</button>
+            <p style="font-size:.72rem;color:var(--muted);text-align:center;margin-bottom:8px;line-height:1.5">Al reservar, tus datos serán usados únicamente para coordinar tu sesión con Tainer Music.</p>
+              <button class="btn btn-gold" style="width:100%;margin-top:4px" id="wInvBtn" onclick="redeemWorkerInvite()">Enviar solicitud</button>
               </div>
 
               <div class="worker-error" id="wError" style="margin-top:10px"></div>
@@ -370,7 +372,7 @@
             <button class="user-dropdown-btn danger" onclick="authSignOut()">Cerrar sesión</button>
           </div>
         </div>
-        <a class="btn btn-gold btn-sm" href="https://wa.me/56900000000" target="_blank" rel="noopener" style="display:none" id="navWAbtn">WhatsApp</a>
+        <a class="btn btn-gold btn-sm" data-wa-simple href="https://wa.me/56945970173" target="_blank" rel="noopener" style="display:none" id="navWAbtn">WhatsApp</a>
         <button class="hamb" onclick="toggleMobile()">&#9776;</button>
       </div>
     </div>
@@ -397,7 +399,7 @@
           </div>
         </div>
         <div class="quick-grid">
-          <a class="quick" href="https://wa.me/56900000000" target="_blank">WhatsApp</a>
+          <a class="quick" data-wa-simple href="https://wa.me/56945970173" target="_blank">WhatsApp</a>
           <a class="quick" href="https://instagram.com/tainer_music" target="_blank">Instagram</a>
           <a class="quick" href="#servicios">Servicios</a>
           <a class="quick" href="#agenda">Agendar</a>
@@ -414,12 +416,69 @@
         <p class="lead">Cada proyecto es unico. Trabajo contigo desde la idea hasta el master listo para plataformas.</p>
       </div>
       <div class="services-grid">
-        <div class="srv-card"><div class="srv-ico" style="color:var(--purple)"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg></div><h3>Beat Personalizado</h3><p>Instrumental exclusivo hecho a tu medida y estilo.</p><span class="tag">60 min</span><span class="tag">Exclusivo</span><div class="srv-price">Desde $25.000</div></div>
-        <div class="srv-card"><div class="srv-ico" style="color:var(--purple)"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><line x1="4" y1="12" x2="4" y2="20"/><line x1="4" y1="4" x2="4" y2="8"/><circle cx="4" cy="10" r="2"/><line x1="12" y1="8" x2="12" y2="20"/><line x1="12" y1="4" x2="12" y2="4"/><circle cx="12" cy="6" r="2"/><line x1="20" y1="14" x2="20" y2="20"/><line x1="20" y1="4" x2="20" y2="10"/><circle cx="20" cy="12" r="2"/></svg></div><h3>Mezcla Profesional</h3><p>Sonido limpio, balanceado y competitivo para cualquier plataforma.</p><span class="tag">90 min</span><span class="tag">Stems incluidos</span><div class="srv-price">Desde $35.000</div></div>
-        <div class="srv-card"><div class="srv-ico" style="color:var(--purple)"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg></div><h3>Mastering de Calidad</h3><p>Volumen, claridad y potencia para Spotify, YouTube y más.</p><span class="tag">45 min</span><span class="tag">Listo para subir</span><div class="srv-price">Desde $20.000</div></div>
-        <div class="srv-card"><div class="srv-ico" style="color:var(--purple)"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></div><h3>Asesoría Personalizada</h3><p>Te acompaño en todo el proceso creativo y técnico.</p><span class="tag">60 min</span><span class="tag">Proceso completo</span><div class="srv-price">Desde $15.000</div></div>
-        <div class="srv-card"><div class="srv-ico" style="color:var(--purple)"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/><line x1="12" y1="19" x2="12" y2="23"/><line x1="8" y1="23" x2="16" y2="23"/></svg></div><h3>Grabación de Voz</h3><p>Sesion con corrección de afinación y procesamiento vocal profesional.</p><span class="tag">90 min</span><span class="tag">Procesado pro</span><div class="srv-price">Desde $30.000</div></div>
-        <div class="srv-card" style="border-color:rgba(244,201,93,.3);background:rgba(244,201,93,.03)"><div class="srv-ico" style="color:var(--gold)"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg></div><h3>Producción Completa</h3><p>Beat + grabacion + mezcla + mastering. El paquete total para tu hit.</p><span class="tag tag-gold">Todo incluido</span><div class="srv-price">Desde $80.000</div></div>
+        <div class="srv-card">
+          <div class="srv-ico" style="color:var(--purple)"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/><line x1="12" y1="19" x2="12" y2="23"/><line x1="8" y1="23" x2="16" y2="23"/></svg></div>
+          <h3>Producción Completa (Solo Voces)</h3>
+          <p>Grabación vocal profesional sin pista. Incluye corrección de afinación, procesamiento y mezcla de voces lista para lanzar.</p>
+          <span class="tag">5 horas</span><span class="tag">Mezcla incluida</span>
+          <div class="srv-price">$90.000</div>
+        </div>
+        <div class="srv-card" style="border-color:rgba(244,201,93,.3);background:rgba(244,201,93,.03)">
+          <div class="srv-ico" style="color:var(--gold)"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg></div>
+          <h3>Producción Completa (Con Pista)</h3>
+          <p>Pista exclusiva + grabación + mezcla + mastering. Todo en una sola sesión. El paquete completo para tu hit.</p>
+          <span class="tag tag-gold">7 horas</span><span class="tag tag-gold">Todo incluido</span>
+          <div class="srv-price">$150.000</div>
+        </div>
+        <div class="srv-card">
+          <div class="srv-ico" style="color:var(--purple)"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg></div>
+          <h3>Masterizar / Remasterizar</h3>
+          <p>Master profesional optimizado para Spotify, Apple Music, YouTube y todas las plataformas. Máximo volumen y claridad.</p>
+          <span class="tag">3.5 horas</span><span class="tag">Listo para subir</span>
+          <div class="srv-price">$40.000</div>
+        </div>
+        <div class="srv-card">
+          <div class="srv-ico" style="color:var(--purple)"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg></div>
+          <h3>Recreación de Pista / Pista Nueva</h3>
+          <p>Recreamos cualquier referencia o creamos una pista completamente nueva desde cero adaptada a tu estilo.</p>
+          <span class="tag">4 horas</span><span class="tag">Beat exclusivo</span>
+          <div class="srv-price">$60.000</div>
+        </div>
+        <div class="srv-card">
+          <div class="srv-ico" style="color:var(--purple)"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18"/><path d="M9 21V9"/></svg></div>
+          <h3>Arriendo de Espacio</h3>
+          <p>Acceso al estudio por hora. Ideal para ensayos, grabaciones independientes o sesiones de trabajo creativo.</p>
+          <span class="tag">Desde 1 hora</span><span class="tag">Flexible</span>
+          <div class="srv-price">$25.000/hr</div>
+        </div>
+        <div class="srv-card" style="border-color:rgba(155,93,229,.3);background:rgba(155,93,229,.03)">
+          <div class="srv-ico" style="color:var(--purple)"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M8 12l3 3 5-5"/></svg></div>
+          <h3>Pistas de Catálogo</h3>
+          <p>Accede a nuestro catálogo de pistas con licencia. Entrega inmediata por WhatsApp o correo. Sin necesidad de agendar.</p>
+          <span class="tag">Entrega inmediata</span><span class="tag">Con licencia</span>
+          <div class="srv-price">$25.000</div>
+          <a href="https://wa.me/56945970173?text=Hola%2C+quiero+ver+las+pistas+de+cat%C3%A1logo+de+Tainer+Music" target="_blank" rel="noopener" style="display:inline-block;margin-top:12px;background:rgba(37,211,102,.12);border:1px solid rgba(37,211,102,.3);color:#25d366;border-radius:999px;padding:7px 14px;font-size:.78rem;font-weight:800;text-decoration:none">Pedir por WhatsApp →</a>
+        </div>
+      </div>
+    </div>
+
+      <!-- Paquete Premium -->
+      <div style="margin-top:32px;background:linear-gradient(135deg,rgba(244,201,93,.08),rgba(155,93,229,.08));border:1px solid rgba(244,201,93,.3);border-radius:28px;padding:28px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:20px">
+        <div>
+          <span style="color:var(--gold);font-size:.72rem;font-weight:900;text-transform:uppercase;letter-spacing:.18em">Paquete Artista Completo</span>
+          <h3 style="font-family:Cinzel,serif;font-size:1.4rem;margin:8px 0 6px">Producción + Lanzamiento + Show</h3>
+          <p style="color:var(--muted);font-size:.9rem;line-height:1.7;max-width:560px">Producción completa de tu tema, gestión del lanzamiento en plataformas y organización de tu primer show. El paquete para potenciar tu carrera artística desde cero. Mínimo 3 días hábiles.</p>
+          <div style="display:flex;gap:10px;margin-top:14px;flex-wrap:wrap">
+            <span class="tag tag-gold">Producción completa</span>
+            <span class="tag tag-gold">Lanzamiento en plataformas</span>
+            <span class="tag tag-gold">Show incluido</span>
+          </div>
+        </div>
+        <div style="text-align:center;flex-shrink:0">
+          <div style="font-family:Cinzel,serif;font-size:2rem;font-weight:800;color:var(--gold)">$250.000</div>
+          <div style="color:var(--muted);font-size:.78rem;margin-bottom:14px">paquete completo</div>
+          <a href="https://wa.me/56945970173?text=Hola%2C+me+interesa+el+paquete+Producci%C3%B3n+%2B+Lanzamiento+%2B+Show+de+Tainer+Music" target="_blank" rel="noopener" class="btn btn-gold btn-sm">Consultar por WhatsApp</a>
+        </div>
       </div>
     </div>
   </section>
@@ -479,6 +538,7 @@
             </div>
             <div id="agSummaryBox" style="margin-top:16px;background:rgba(155,93,229,.06);border:1px solid rgba(155,93,229,.18);border-radius:14px;padding:14px;font-size:.86rem;color:var(--muted)"></div>
             <div style="display:flex;gap:10px;margin-top:16px;flex-wrap:wrap">
+          <p style="font-size:.72rem;color:var(--muted);text-align:center;margin-bottom:8px;line-height:1.5">Al reservar, tus datos serán usados únicamente para coordinar tu sesión con Tainer Music.</p>
               <button class="btn btn-gold" style="flex:1;min-width:180px" id="btnConfirmarReserva" onclick="confirmarReserva()">Guardar reserva</button>
               <button class="btn btn-ghost" style="flex:1;min-width:140px" onclick="confirmarWhatsAppDirecto()">Solo WhatsApp</button>
             </div>
@@ -526,17 +586,17 @@
     </div>
     <div style="display:flex;gap:14px">
       <a href="https://instagram.com/tainer_music" target="_blank" rel="noopener" style="color:var(--muted)">Instagram</a>
-      <a href="https://wa.me/56900000000" target="_blank" rel="noopener" style="color:var(--muted)">WhatsApp</a>
+      <a href="https://wa.me/56945970173" target="_blank" rel="noopener" style="color:var(--muted)">WhatsApp</a>
     </div>
     <div>2026 Tainer Music. Todos los derechos reservados.</div>
   </div></footer>
-  <a class="floating-wa" href="https://wa.me/56900000000" target="_blank" rel="noopener" aria-label="Contactar por WhatsApp"><svg width="28" height="28" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413Z"/></svg></a>
+  <a class="floating-wa" data-wa-simple href="https://wa.me/56945970173" target="_blank" rel="noopener" aria-label="Contactar por WhatsApp"><svg width="28" height="28" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413Z"/></svg></a>
 </div>
 
 <div class="modal" id="successModal">
   <div class="modal-card" style="text-align:center">
     <div style="margin-bottom:14px"><svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="#f4c95d" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg></div>
-    <h2 class="cinzel" style="color:var(--gold);font-size:1.8rem;margin-bottom:10px">Sesion reservada!</h2>
+    <h2 class="cinzel" style="color:var(--gold);font-size:1.8rem;margin-bottom:10px">¡Sesión reservada!</h2>
     <p style="color:var(--muted);line-height:1.7;margin-bottom:20px" id="successMsg">Tu reserva fue guardada correctamente.</p>
     <div style="display:flex;gap:10px;justify-content:center;flex-wrap:wrap">
       <button class="btn btn-gold" id="successWABtn">Confirmar por WhatsApp</button>
@@ -716,7 +776,7 @@
 // ================================================================
 // CONFIGURACION — reemplaza con tus datos de Supabase
 // ================================================================
-const WHATSAPP     = '56900000000';
+const WHATSAPP     = '56945970173';
 const SUPABASE_URL = 'https://bocczejtbjikwrbpwual.supabase.co';
 const SUPABASE_KEY = 'sb_publishable_lWF40gPyOR6PpshVPoDV9w_1rR1ajPt';
 const db           = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
@@ -1235,6 +1295,10 @@ async function exportarCSVReservas(){
 document.addEventListener('DOMContentLoaded',()=>{
   initCalendar();
   db.from('servicios').select('id,nombre,precio_clp,duracion_minutos,activo').eq('activo',true).order('nombre').then(({data})=>{workingServices=(data&&data.length)?data:[];renderAgendaServices();});
+  // Centralizar número WhatsApp — actualiza links simples desde la constante WHATSAPP
+  document.querySelectorAll('a[data-wa-simple]').forEach(a => {
+    a.href = 'https://wa.me/' + WHATSAPP;
+  });
   initAuth();
 });
 
