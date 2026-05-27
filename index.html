@@ -1,0 +1,1558 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+  <meta name="description" content="Tainer Music | Agenda tu sesión de producción musical profesional."/>
+  <title>Tainer Music | Producción Musical Profesional</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700;800&family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.49.4/dist/umd/supabase.min.js"></script>
+  <style>
+    :root{
+      --bg:#050505;--bg2:#0b0b0d;--card:#111113;--card2:#171719;
+      --line:rgba(255,255,255,.09);--soft:rgba(255,255,255,.06);
+      --text:#f7f2e8;--muted:#b9b1a4;--muted2:#7d766c;
+      --gold:#f4c95d;--gold2:#c69a2f;--gold3:#7a5916;
+      --purple:#9b5de5;--green:#25d366;--danger:#ef4444;
+      --shadow:0 28px 90px rgba(0,0,0,.65);--radius:24px;
+    }
+    *{box-sizing:border-box;margin:0;padding:0}
+    html{scroll-behavior:smooth}
+    body{background:var(--bg);color:var(--text);font-family:Inter,system-ui,sans-serif;overflow-x:hidden}
+    a{text-decoration:none;color:inherit}
+    button,input,select,textarea{font:inherit}
+    img{max-width:100%;display:block}
+    ::selection{background:rgba(244,201,93,.25)}
+    .cinzel{font-family:Cinzel,serif}
+    .wrap{max-width:1180px;margin:0 auto;padding:0 20px}
+    .section{padding:92px 0;position:relative}
+    .eyebrow{color:var(--gold);font-weight:800;letter-spacing:.18em;text-transform:uppercase;font-size:.76rem;margin-bottom:14px;display:block}
+    .title{font-family:Cinzel,serif;font-size:clamp(2rem,5vw,4.2rem);line-height:1.02;letter-spacing:-.04em}
+    .lead{color:var(--muted);font-size:1rem;line-height:1.8;max-width:700px}
+    .gold-text{background:linear-gradient(135deg,#fff4c3 0%,var(--gold) 45%,#9b6a18 100%);-webkit-background-clip:text;background-clip:text;color:transparent}
+    .purple-text{background:linear-gradient(135deg,#d4b3ff 0%,var(--purple) 50%,#5a2fa0 100%);-webkit-background-clip:text;background-clip:text;color:transparent}
+    #clientView{min-height:100vh;background:radial-gradient(circle at 10% 5%,rgba(155,93,229,.14),transparent 34%),radial-gradient(circle at 86% 18%,rgba(244,201,93,.10),transparent 34%),linear-gradient(180deg,#030303 0%,#080808 45%,#050505 100%)}
+    .nav{position:fixed;top:0;left:0;right:0;z-index:80;padding:14px 18px;transition:.25s}
+    .nav-inner{max-width:1180px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;gap:14px;background:rgba(5,5,5,.78);border:1px solid var(--line);backdrop-filter:blur(18px);border-radius:999px;padding:10px 14px;box-shadow:0 12px 40px rgba(0,0,0,.35)}
+    .brand{display:flex;align-items:center;gap:12px;min-width:0}
+    .brand-copy{display:flex;flex-direction:column;line-height:1}
+    .brand-name{font-family:Cinzel,serif;font-weight:800;font-size:.98rem;letter-spacing:.05em;white-space:nowrap}
+    .brand-sub{font-size:.62rem;color:var(--purple);text-transform:uppercase;letter-spacing:.18em;margin-top:5px}
+    .nav-links{display:flex;align-items:center;gap:22px;color:var(--muted);font-weight:700;font-size:.82rem}
+    .nav-links a{transition:.2s;white-space:nowrap}
+    .nav-links a:hover{color:var(--gold)}
+    .nav-actions{display:flex;align-items:center;gap:8px}
+    .btn{border:0;border-radius:999px;padding:12px 18px;font-weight:900;cursor:pointer;transition:.2s;display:inline-flex;align-items:center;justify-content:center;gap:8px;white-space:nowrap}
+    .btn-gold{background:linear-gradient(135deg,var(--gold),var(--gold2));color:#0b0b0b;box-shadow:0 12px 32px rgba(244,201,93,.18)}
+    .btn-gold:hover{transform:translateY(-2px);box-shadow:0 18px 42px rgba(244,201,93,.25)}
+    .btn-ghost{background:rgba(255,255,255,.04);border:1px solid var(--line);color:var(--text)}
+    .btn-ghost:hover{border-color:rgba(244,201,93,.42);color:var(--gold);transform:translateY(-2px)}
+    .btn-sm{padding:8px 14px;font-size:.8rem}
+    .worker-drop{position:relative}
+    .worker-trigger{background:rgba(255,255,255,.03);color:rgba(255,255,255,.42);border:1px solid rgba(255,255,255,.07);border-radius:999px;padding:9px 11px;font-size:.68rem;font-weight:900;letter-spacing:.08em;text-transform:uppercase;cursor:pointer;transition:.2s}
+    .worker-trigger:hover{color:var(--gold);border-color:rgba(244,201,93,.32)}
+    .worker-menu{display:none;position:absolute;left:0;top:calc(100% + 12px);width:300px;background:rgba(15,15,17,.98);border:1px solid var(--line);border-radius:22px;box-shadow:var(--shadow);padding:18px;z-index:120}
+    .worker-menu.open{display:block;animation:pop .18s ease}
+    @keyframes pop{from{opacity:0;transform:translateY(-8px) scale(.98)}to{opacity:1;transform:none}}
+    .worker-menu h3{font-family:Cinzel,serif;font-size:1.05rem;margin-bottom:12px;color:var(--gold)}
+    .field{display:flex;flex-direction:column;gap:7px;margin-bottom:12px}
+    .field label{font-size:.72rem;color:var(--muted2);font-weight:900;text-transform:uppercase;letter-spacing:.12em}
+    .field input,.field select,.field textarea{width:100%;border:1px solid rgba(255,255,255,.12);background:#08080a;color:var(--text);border-radius:14px;padding:12px 13px;outline:none;transition:.2s}
+    .field input:focus,.field select:focus,.field textarea:focus{border-color:rgba(155,93,229,.55);box-shadow:0 0 0 4px rgba(155,93,229,.08)}
+    .field select option{background:#111}
+    .worker-error{display:none;color:#fca5a5;font-weight:800;font-size:.82rem;margin-top:10px}
+    .hamb{display:none;background:transparent;color:var(--text);border:0;font-size:1.6rem;cursor:pointer}
+    .hero{min-height:100vh;display:grid;place-items:center;position:relative;overflow:hidden;padding:120px 0 52px}
+    .hero:before{content:"";position:absolute;inset:0;background:linear-gradient(90deg,rgba(0,0,0,.88) 0%,rgba(0,0,0,.55) 50%,rgba(0,0,0,.82) 100%),url("assets/images/IMG_2083_web.jpg") center 30%/cover;opacity:1}
+    .hero:after{content:"";position:absolute;inset:auto 0 0;height:220px;background:linear-gradient(180deg,transparent,var(--bg))}
+    .hero-grid{position:relative;z-index:2;display:grid;grid-template-columns:1.1fr .9fr;gap:46px;align-items:center}
+    .pill{display:inline-flex;align-items:center;gap:9px;border:1px solid rgba(155,93,229,.42);background:rgba(155,93,229,.1);color:#c49aff;border-radius:999px;padding:10px 15px;font-weight:900;font-size:.74rem;letter-spacing:.12em;text-transform:uppercase;margin-bottom:20px}
+    .pulse{width:8px;height:8px;background:var(--green);border-radius:50%;box-shadow:0 0 14px var(--green);animation:blink 2s infinite}
+    @keyframes blink{0%,100%{opacity:1}50%{opacity:.35}}
+    .hero h1{font-family:Cinzel,serif;font-size:clamp(2.8rem,8vw,5.8rem);line-height:.92;letter-spacing:-.07em;text-shadow:0 18px 60px rgba(0,0,0,.7)}
+    .hero p{margin:24px 0 30px;color:#ddd4c6;font-size:1.08rem;line-height:1.85}
+    .hero-actions{display:flex;flex-wrap:wrap;gap:12px}
+    .hero-card{justify-self:end;width:min(400px,100%);background:rgba(10,10,12,.72);border:1px solid rgba(255,255,255,.11);border-radius:32px;backdrop-filter:blur(18px);padding:22px;box-shadow:var(--shadow);position:relative;overflow:hidden}
+    .hero-card:before{content:"";position:absolute;inset:-1px;background:radial-gradient(circle at 20% 0%,rgba(155,93,229,.18),transparent 35%);pointer-events:none}
+    .logo-box{position:relative;border-radius:26px;background:linear-gradient(160deg,#121214,#030303);border:1px solid rgba(155,93,229,.22);min-height:180px;display:grid;place-items:center;padding:26px;overflow:hidden;text-align:center}
+    .logo-text{font-family:Cinzel,serif;font-size:2.2rem;font-weight:800;background:linear-gradient(135deg,#fff4c3,var(--gold),#9b6a18);-webkit-background-clip:text;background-clip:text;color:transparent;letter-spacing:-.02em;display:block}
+    .logo-sub{color:var(--purple);font-size:.75rem;font-weight:800;letter-spacing:.22em;text-transform:uppercase;margin-top:8px;display:block}
+    .waveform{display:flex;align-items:center;justify-content:center;gap:3px;height:40px;margin:16px 0 0}
+    .waveform span{display:inline-block;width:4px;background:linear-gradient(180deg,var(--purple),var(--gold));border-radius:2px;animation:wave 1.2s ease-in-out infinite}
+    .waveform span:nth-child(2){animation-delay:.1s;height:60%}.waveform span:nth-child(3){animation-delay:.2s;height:90%}.waveform span:nth-child(4){animation-delay:.3s;height:100%}.waveform span:nth-child(5){animation-delay:.4s;height:70%}.waveform span:nth-child(6){animation-delay:.5s;height:85%}.waveform span:nth-child(7){animation-delay:.6s;height:55%}.waveform span:nth-child(8){animation-delay:.7s;height:80%}.waveform span:nth-child(9){animation-delay:.8s;height:65%}.waveform span:nth-child(10){animation-delay:.9s;height:75%}.waveform span:nth-child(11){animation-delay:.1s;height:95%}.waveform span:nth-child(12){animation-delay:.2s;height:50%}
+    @keyframes wave{0%,100%{transform:scaleY(.4)}50%{transform:scaleY(1)}}
+    .quick-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:14px}
+    .quick{background:rgba(255,255,255,.04);border:1px solid var(--line);border-radius:18px;padding:13px;text-align:center;font-weight:900;font-size:.8rem;color:var(--muted);transition:.2s;display:block}
+    .quick:hover{color:var(--gold);border-color:rgba(244,201,93,.38);transform:translateY(-2px)}
+    .services-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+    .srv-card{background:var(--card);border:1px solid var(--line);border-radius:26px;padding:24px;transition:.22s;cursor:pointer}
+    .srv-card:hover{transform:translateY(-4px);border-color:rgba(155,93,229,.42);box-shadow:0 24px 60px rgba(155,93,229,.12)}
+    .srv-ico{font-size:2rem;margin-bottom:16px}
+    .srv-card h3{font-family:Cinzel,serif;font-size:1.1rem;margin-bottom:8px}
+    .srv-card p{color:var(--muted);font-size:.88rem;line-height:1.7;margin-bottom:10px}
+    .srv-price{color:var(--gold);font-family:Cinzel,serif;font-size:1.3rem;font-weight:800;margin-top:10px}
+    .tag{border:1px solid rgba(155,93,229,.25);background:rgba(155,93,229,.08);color:#c49aff;border-radius:999px;padding:5px 10px;font-size:.72rem;font-weight:900;display:inline-block;margin-right:5px;margin-top:6px}
+    .tag-gold{border-color:rgba(244,201,93,.35);background:rgba(244,201,93,.08);color:var(--gold)}
+    .generos-row{display:flex;flex-wrap:wrap;gap:12px;margin-top:20px;justify-content:center}
+    .gen-pill{background:rgba(255,255,255,.04);border:1px solid var(--line);border-radius:999px;padding:12px 22px;font-weight:900;font-size:.88rem;color:var(--muted);transition:.2s}
+    .gen-pill:hover{border-color:rgba(244,201,93,.45);color:var(--gold);background:rgba(244,201,93,.06)}
+    .agenda-shell{display:grid;grid-template-columns:1fr 360px;gap:24px;align-items:start}
+    .agenda-stepper{background:var(--card);border:1px solid var(--line);border-radius:30px;padding:28px;box-shadow:var(--shadow)}
+    .steps{display:flex;gap:0;margin-bottom:28px;border-bottom:1px solid var(--line)}
+    .step-btn{background:transparent;border:0;color:var(--muted2);font-weight:700;font-size:.82rem;padding:12px 16px;cursor:pointer;border-bottom:2px solid transparent;transition:.2s;display:flex;align-items:center;gap:7px;border-radius:8px 8px 0 0;white-space:nowrap}
+    .step-btn:hover{color:var(--muted)}
+    .step-btn.active{color:var(--gold);border-bottom-color:var(--gold)}
+    .step-btn.done{color:var(--green)}
+    .step-num{width:22px;height:22px;border-radius:50%;border:1.5px solid currentColor;display:flex;align-items:center;justify-content:center;font-size:.7rem;font-weight:900;flex-shrink:0}
+    .step-panel{display:none}
+    .step-panel.active{display:block;animation:fadeIn .2s ease}
+    @keyframes fadeIn{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+    .serv-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:14px}
+    .serv-opt{border:1px solid var(--line);background:rgba(255,255,255,.03);border-radius:18px;padding:14px;cursor:pointer;transition:.2s;text-align:left}
+    .serv-opt:hover{border-color:rgba(155,93,229,.38);background:rgba(155,93,229,.05)}
+    .serv-opt.sel{border-color:var(--purple);background:rgba(155,93,229,.1);box-shadow:0 0 0 3px rgba(155,93,229,.12)}
+    .serv-name{font-weight:800;font-size:.9rem;margin-bottom:4px}
+    .serv-meta{color:var(--muted2);font-size:.76rem;display:flex;gap:8px;flex-wrap:wrap;margin-top:6px}
+    .serv-price{color:var(--gold);font-weight:900;font-family:Cinzel,serif;font-size:1rem;margin-top:6px}
+    .cal-wrap{margin-top:14px}
+    .cal-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:14px}
+    .cal-nav{background:rgba(255,255,255,.04);border:1px solid var(--line);color:var(--text);width:36px;height:36px;border-radius:50%;cursor:pointer;font-size:1.1rem;transition:.2s;display:flex;align-items:center;justify-content:center}
+    .cal-nav:hover{border-color:rgba(244,201,93,.4);color:var(--gold)}
+    .cal-month{font-family:Cinzel,serif;font-size:1rem;color:var(--gold)}
+    .cal-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:4px}
+    .cal-day-lbl{text-align:center;font-size:.7rem;font-weight:800;color:var(--muted2);padding:6px 0;text-transform:uppercase}
+    .cal-day{aspect-ratio:1;display:flex;align-items:center;justify-content:center;border-radius:10px;font-size:.85rem;font-weight:700;cursor:pointer;transition:.2s;border:1px solid transparent}
+    .cal-day:hover:not(.disabled):not(.empty){background:rgba(244,201,93,.1);border-color:rgba(244,201,93,.3)}
+    .cal-day.today{border-color:rgba(244,201,93,.3);color:var(--gold)}
+    .cal-day.sel{background:var(--gold);color:#0b0b0b;font-weight:900}
+    .cal-day.disabled{color:var(--muted2);opacity:.35;cursor:not-allowed}
+    .cal-day.empty{cursor:default}
+    .slots-wrap{margin-top:14px}
+    .slots-title{font-size:.82rem;font-weight:800;color:var(--muted2);text-transform:uppercase;letter-spacing:.1em;margin-bottom:12px}
+    .slots-grid{display:flex;flex-wrap:wrap;gap:8px}
+    .slot-btn{border-radius:10px;padding:9px 14px;font-size:.82rem;font-weight:800;cursor:pointer;transition:.2s;border:1px solid transparent}
+    .slot-btn.free{background:rgba(37,211,102,.08);border-color:rgba(37,211,102,.28);color:#25d366}
+    .slot-btn.free:hover{background:rgba(37,211,102,.18);transform:translateY(-1px)}
+    .slot-btn.free.picked{background:rgba(37,211,102,.25);border-color:#25d366;box-shadow:0 0 0 3px rgba(37,211,102,.18)}
+    .slot-btn.busy{background:rgba(255,255,255,.03);border-color:rgba(255,255,255,.07);color:var(--muted2);cursor:not-allowed;text-decoration:line-through}
+    .slots-empty{color:var(--muted2);font-size:.88rem;padding:12px 0}
+    .confirm-form{display:grid;gap:12px;margin-top:14px}
+    .cart{position:sticky;top:102px;background:rgba(13,13,15,.92);border:1px solid var(--line);border-radius:30px;padding:20px;box-shadow:var(--shadow);backdrop-filter:blur(16px)}
+    .cart h3{font-family:Cinzel,serif;font-size:1.25rem;margin-bottom:14px}
+    .summary-row{display:flex;justify-content:space-between;align-items:center;padding:9px 0;border-bottom:1px solid rgba(255,255,255,.06);font-size:.88rem}
+    .summary-row:last-child{border-bottom:0}
+    .summary-row b{color:var(--gold);font-family:Cinzel,serif;font-size:1.15rem}
+    .summary-empty{color:var(--muted2);font-size:.88rem;padding:12px 0}
+    .feature-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+    .feature{background:var(--card);border:1px solid var(--line);border-radius:26px;padding:24px;min-height:175px}
+    .feature .ico{font-size:2rem;margin-bottom:16px}
+    .feature h3{font-family:Cinzel,serif;margin-bottom:10px}
+    .feature p{color:var(--muted);line-height:1.7}
+    .reviews{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+    .review{background:linear-gradient(145deg,rgba(20,20,22,.95),rgba(8,8,9,.95));border:1px solid var(--line);border-radius:26px;padding:22px}
+    .stars{color:var(--gold);letter-spacing:2px;margin-bottom:14px}
+    .review p{color:#d7d0c5;line-height:1.7;font-style:italic}
+    .review h4{margin-top:16px;color:var(--gold)}
+    footer{padding:42px 0;border-top:1px solid var(--line);background:#030303;color:var(--muted)}
+    .footer-grid{display:flex;justify-content:space-between;align-items:center;gap:18px;flex-wrap:wrap}
+    .floating-wa{position:fixed;right:20px;bottom:20px;z-index:90;background:var(--green);color:#06110a;width:62px;height:62px;border-radius:50%;display:grid;place-items:center;font-size:1.55rem;box-shadow:0 14px 40px rgba(37,211,102,.35);transition:.2s;text-decoration:none}
+    .floating-wa:hover{transform:scale(1.1)}
+    #toastContainer{position:fixed;bottom:92px;right:20px;z-index:999;display:flex;flex-direction:column;gap:8px;pointer-events:none}
+    .toast{background:#1a1a1c;border:1px solid var(--line);border-radius:16px;padding:13px 18px;font-size:.88rem;font-weight:700;box-shadow:var(--shadow);opacity:0;transform:translateY(12px);transition:.3s;max-width:320px}
+    .toast.show{opacity:1;transform:none}
+    .toast.ok{border-color:rgba(37,211,102,.35);color:#25d366}
+    .toast.err{border-color:rgba(239,68,68,.35);color:#f87171}
+    .toast.info{border-color:rgba(244,201,93,.35);color:var(--gold)}
+    .loader{display:inline-block;width:16px;height:16px;border:2px solid rgba(255,255,255,.15);border-top-color:var(--gold);border-radius:50%;animation:spin .7s linear infinite;vertical-align:middle}
+    @keyframes spin{to{transform:rotate(360deg)}}
+
+    /* ── AUTH MODAL ── */
+    .auth-modal{position:fixed;inset:0;z-index:500;display:flex;align-items:center;justify-content:center;padding:20px;opacity:0;pointer-events:none;transition:.3s}
+    .auth-modal.open{opacity:1;pointer-events:all}
+    .auth-backdrop{position:absolute;inset:0;background:rgba(0,0,0,.82);backdrop-filter:blur(6px)}
+    .auth-card{position:relative;z-index:1;width:100%;max-width:440px;background:rgba(10,10,12,.97);border:1px solid rgba(255,255,255,.12);border-radius:32px;padding:36px 32px;box-shadow:0 40px 120px rgba(0,0,0,.7);animation:authIn .35s ease}
+    @keyframes authIn{from{transform:translateY(22px) scale(.97);opacity:0}to{transform:none;opacity:1}}
+    .auth-card .close-btn{position:absolute;top:16px;right:18px;background:rgba(255,255,255,.06);border:0;color:var(--muted);width:32px;height:32px;border-radius:50%;font-size:1.1rem;cursor:pointer;display:grid;place-items:center;transition:.2s}
+    .auth-card .close-btn:hover{background:rgba(255,255,255,.12);color:var(--text)}
+    .auth-logo{width:52px;height:52px;border-radius:50%;background:linear-gradient(135deg,#1a1020,#0a0010);border:1px solid rgba(155,93,229,.45);display:flex;align-items:center;justify-content:center;font-size:1.5rem;margin:0 auto 16px}
+    .auth-title{font-family:Cinzel,serif;text-align:center;font-size:1.5rem;margin-bottom:6px}
+    .auth-sub{text-align:center;color:var(--muted);font-size:.88rem;margin-bottom:26px}
+    .auth-tabs{display:flex;background:rgba(255,255,255,.04);border-radius:14px;padding:4px;margin-bottom:24px;gap:4px}
+    .auth-tab{flex:1;border:0;background:transparent;color:var(--muted);font-weight:800;font-size:.82rem;padding:9px;border-radius:10px;cursor:pointer;transition:.2s}
+    .auth-tab.active{background:rgba(244,201,93,.15);color:var(--gold);border:1px solid rgba(244,201,93,.3)}
+    .auth-form{display:flex;flex-direction:column;gap:14px}
+    .auth-form .field{margin-bottom:0}
+    .auth-form input{width:100%;border:1px solid rgba(255,255,255,.12);background:#08080a;color:var(--text);border-radius:14px;padding:13px 15px;outline:none;transition:.2s;font-size:.95rem}
+    .auth-form input:focus{border-color:rgba(244,201,93,.5);box-shadow:0 0 0 4px rgba(244,201,93,.07)}
+    .auth-form label{font-size:.72rem;color:var(--muted2);font-weight:900;text-transform:uppercase;letter-spacing:.12em;margin-bottom:6px;display:block}
+    .btn-google{width:100%;padding:13px;border-radius:14px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.15);color:var(--text);font-weight:700;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:10px;font-size:.92rem;transition:.2s}
+    .btn-google:hover{background:rgba(255,255,255,.1);border-color:rgba(255,255,255,.25);transform:translateY(-1px)}
+    .btn-google svg{flex-shrink:0}
+    .auth-divider{display:flex;align-items:center;gap:10px;color:var(--muted2);font-size:.78rem;font-weight:700;text-transform:uppercase;letter-spacing:.1em}
+    .auth-divider::before,.auth-divider::after{content:'';flex:1;height:1px;background:rgba(255,255,255,.08)}
+    .auth-btn-main{width:100%;padding:14px;border-radius:14px;background:linear-gradient(135deg,var(--gold),var(--gold2));color:#0b0b0b;font-weight:900;border:0;cursor:pointer;font-size:.95rem;transition:.2s}
+    .auth-btn-main:hover{transform:translateY(-2px);box-shadow:0 12px 32px rgba(244,201,93,.25)}
+    .auth-btn-main:disabled{opacity:.5;cursor:not-allowed;transform:none}
+    .auth-error{color:#f87171;font-size:.82rem;font-weight:800;padding:10px 14px;background:rgba(239,68,68,.08);border:1px solid rgba(239,68,68,.2);border-radius:10px;display:none}
+    .auth-success{color:#25d366;font-size:.82rem;font-weight:800;padding:10px 14px;background:rgba(37,211,102,.08);border:1px solid rgba(37,211,102,.2);border-radius:10px;display:none}
+    .auth-link{text-align:center;font-size:.82rem;color:var(--muted);margin-top:8px}
+    .auth-link button{background:none;border:0;color:var(--gold);font-weight:800;cursor:pointer;font-size:.82rem}
+    .auth-link button:hover{text-decoration:underline}
+    /* nav user badge */
+    .nav-user{display:flex;align-items:center;gap:8px;background:rgba(255,255,255,.05);border:1px solid rgba(244,201,93,.2);border-radius:999px;padding:6px 14px 6px 8px;cursor:pointer;transition:.2s}
+    .nav-user:hover{border-color:rgba(244,201,93,.45)}
+    .nav-avatar{width:28px;height:28px;border-radius:50%;background:linear-gradient(135deg,var(--gold),var(--gold2));display:grid;place-items:center;font-size:.8rem;font-weight:900;color:#0b0b0b;flex-shrink:0}
+    .nav-user-name{font-size:.8rem;font-weight:800;color:var(--text);max-width:100px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+    .user-menu-wrap{position:relative}
+    .user-dropdown{display:none;position:absolute;right:0;top:calc(100% + 10px);width:220px;background:rgba(15,15,17,.98);border:1px solid var(--line);border-radius:20px;padding:14px;z-index:200;box-shadow:var(--shadow)}
+    .user-dropdown.open{display:block;animation:pop .18s ease}
+    .user-dropdown-name{font-family:Cinzel,serif;font-size:.95rem;color:var(--gold);margin-bottom:3px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+    .user-dropdown-email{font-size:.75rem;color:var(--muted2);margin-bottom:14px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+    .user-dropdown hr{border:0;border-top:1px solid var(--line);margin:10px 0}
+    .user-dropdown-btn{width:100%;text-align:left;background:transparent;border:0;color:var(--muted);font-size:.83rem;font-weight:700;padding:8px 10px;border-radius:10px;cursor:pointer;transition:.2s;display:block}
+    .user-dropdown-btn:hover{background:rgba(255,255,255,.06);color:var(--text)}
+    .user-dropdown-btn.danger{color:#f87171}
+    .user-dropdown-btn.danger:hover{background:rgba(239,68,68,.08)}
+    /* working upgrade modal */
+    .working-upgrade{background:rgba(155,93,229,.08);border:1px solid rgba(155,93,229,.25);border-radius:16px;padding:16px;margin-bottom:16px;display:none}
+    .working-upgrade.show{display:block}
+    .working-upgrade p{color:#c49aff;font-size:.83rem;line-height:1.6}
+    /* reset pw view */
+    .auth-view{display:none}.auth-view.active{display:flex;flex-direction:column;gap:14px}
+    #workerDashboard{display:none;position:fixed;inset:0;z-index:250;background:radial-gradient(circle at 90% 10%,rgba(155,93,229,.14),transparent 28%),#070707;overflow-y:auto}
+    .dash-header{position:sticky;top:0;background:rgba(10,10,10,.92);border-bottom:1px solid var(--line);backdrop-filter:blur(18px);z-index:4;padding:16px 20px}
+    .dash-top{max-width:1180px;margin:0 auto;display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap}
+    .dash-title{font-family:Cinzel,serif;color:var(--gold);font-size:1.2rem}
+    .dash-sub{font-size:.8rem;color:var(--muted);margin-top:3px}
+    .dash-main{max-width:1180px;margin:0 auto;padding:28px 20px 70px}
+    .dash-tabs{display:flex;gap:4px;margin-bottom:26px;border-bottom:1px solid var(--line)}
+    .dash-tab{background:transparent;border:0;color:var(--muted2);font-weight:700;font-size:.85rem;padding:12px 18px;cursor:pointer;border-bottom:2px solid transparent;transition:.2s;border-radius:8px 8px 0 0}
+    .dash-tab:hover{color:var(--muted)}
+    .dash-tab.active{color:var(--gold);border-bottom-color:var(--gold)}
+    .dash-view{display:none}.dash-view.active{display:block}
+    .dash-summary{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin:0 0 24px}
+    .sum-card{background:rgba(20,20,22,.95);border:1px solid var(--line);border-radius:24px;padding:20px;text-align:center}
+    .sum-val{font-family:Cinzel,serif;font-size:2rem;color:var(--gold);font-weight:800}
+    .sum-lbl{color:var(--muted);font-size:.78rem;font-weight:800;text-transform:uppercase;letter-spacing:.08em;margin-top:6px}
+    .dash-panel{background:rgba(17,17,19,.94);border:1px solid var(--line);border-radius:28px;padding:22px;margin-bottom:20px}
+    .dash-panel h3{font-family:Cinzel,serif;margin-bottom:16px;font-size:1.1rem}
+    .dash-form{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+    .dash-form .span{grid-column:1/-1}
+    .dash-actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:16px}
+    .table-wrap{overflow-x:auto}
+    .records{width:100%;border-collapse:collapse;font-size:.85rem}
+    .records th{color:var(--muted2);text-align:left;text-transform:uppercase;font-size:.7rem;letter-spacing:.08em;padding:10px 12px;border-bottom:1px solid var(--line);white-space:nowrap}
+    .records td{padding:10px 12px;border-bottom:1px solid rgba(255,255,255,.05);color:#ded8cf;vertical-align:middle}
+    .records tr:last-child td{border-bottom:0}
+    .chip{display:inline-flex;padding:4px 9px;border-radius:999px;background:rgba(155,93,229,.1);border:1px solid rgba(155,93,229,.25);color:#c49aff;font-weight:800;font-size:.75rem;white-space:nowrap}
+    .chip-green{background:rgba(37,211,102,.1);border-color:rgba(37,211,102,.25);color:#25d366}
+    .chip-yellow{background:rgba(244,201,93,.1);border-color:rgba(244,201,93,.25);color:var(--gold)}
+    .chip-red{background:rgba(239,68,68,.1);border-color:rgba(239,68,68,.25);color:#f87171}
+    .chip-blue{background:rgba(96,165,250,.1);border-color:rgba(96,165,250,.25);color:#93c5fd}
+    .chip-muted{background:rgba(255,255,255,.04);border-color:rgba(255,255,255,.1);color:var(--muted2)}
+    .del{background:transparent;color:#f87171;border:0;font-size:.95rem;cursor:pointer;padding:4px 8px;border-radius:8px;transition:.2s}
+    .del:hover{background:rgba(239,68,68,.12)}
+    .action-btn{background:rgba(255,255,255,.05);border:1px solid var(--line);color:var(--muted);border-radius:8px;padding:5px 9px;font-size:.75rem;font-weight:800;cursor:pointer;transition:.2s;white-space:nowrap}
+    .action-btn:hover{border-color:rgba(244,201,93,.4);color:var(--gold)}
+    .action-btn.green{border-color:rgba(37,211,102,.3);color:#25d366}
+    .action-btn.red{border-color:rgba(239,68,68,.3);color:#f87171}
+    .empty{padding:34px;text-align:center;color:var(--muted2)}
+    .filter-row{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:16px;align-items:center}
+    .filter-chip{background:rgba(255,255,255,.04);border:1px solid var(--line);color:var(--muted);border-radius:999px;padding:7px 14px;font-size:.78rem;font-weight:800;cursor:pointer;transition:.2s}
+    .filter-chip:hover,.filter-chip.active{background:rgba(244,201,93,.1);border-color:rgba(244,201,93,.35);color:var(--gold)}
+    .conn-badge{display:inline-flex;align-items:center;gap:6px;border:1px solid rgba(37,211,102,.3);background:rgba(37,211,102,.07);color:#86efac;border-radius:999px;padding:5px 11px;font-size:.72rem;font-weight:900}
+    .modal{display:none;position:fixed;inset:0;z-index:300;background:rgba(0,0,0,.72);backdrop-filter:blur(10px);place-items:center;padding:20px}
+    .modal.open{display:grid}
+    .modal-card{width:min(520px,100%);background:#111113;border:1px solid var(--line);border-radius:30px;padding:26px;box-shadow:var(--shadow);max-height:90vh;overflow-y:auto}
+    @media(max-width:980px){
+      .nav-links,.nav-actions .btn-gold{display:none}.hamb{display:block}.nav-inner{border-radius:24px}
+      .mobile-open .nav-links{display:flex;position:absolute;left:18px;right:18px;top:82px;flex-direction:column;align-items:flex-start;background:rgba(10,10,10,.96);border:1px solid var(--line);border-radius:22px;padding:18px;z-index:100}
+      /* login compacto en mobile */
+      #navLoginBtn{padding:7px 11px;font-size:.72rem;white-space:nowrap}
+      .nav-user-name{display:none}
+      .nav-user{padding:5px 9px 5px 7px}
+      .hero-grid{grid-template-columns:1fr}.hero-card{justify-self:stretch}
+      .agenda-shell{grid-template-columns:1fr}.cart{position:relative;top:auto}
+      .services-grid{grid-template-columns:1fr 1fr}
+      .feature-grid,.reviews{grid-template-columns:1fr}
+      .serv-grid{grid-template-columns:1fr}
+      .dash-summary{grid-template-columns:repeat(2,1fr)}.dash-form{grid-template-columns:1fr 1fr}
+    }
+    @media(max-width:620px){
+      .section{padding:70px 0}.services-grid{grid-template-columns:1fr}
+      .dash-summary{grid-template-columns:1fr 1fr}.dash-form{grid-template-columns:1fr}
+      .dash-tabs{overflow-x:auto}.steps{overflow-x:auto}.step-btn{font-size:.76rem;padding:10px 10px}
+    }
+  </style>
+</head>
+<body>
+<div id="toastContainer"></div>
+
+<div id="clientView">
+  <nav class="nav" id="nav">
+    <div class="nav-inner">
+      <div class="brand">
+        <div class="worker-drop" id="workerDropdown">
+          <button class="worker-trigger" onclick="toggleWorkerMenu(event)">Working</button>
+          <div class="worker-menu" id="workerMenu">
+            <!-- ESTADO 1: No logueado como worker → mostrar formulario -->
+            <div id="workerFormView">
+              <h3>Tainer Music Working</h3>
+              <!-- Tabs: Acceder / Solicitar acceso -->
+              <div style="display:flex;background:rgba(255,255,255,.04);border-radius:10px;padding:3px;margin-bottom:14px;gap:3px">
+                <button id="wTabAccess" onclick="switchWorkerTab('access')"
+                  style="flex:1;border:0;background:rgba(244,201,93,.15);color:var(--gold);border:1px solid rgba(244,201,93,.3);font-weight:800;font-size:.75rem;padding:7px;border-radius:7px;cursor:pointer">
+                  Acceder
+                </button>
+                <button id="wTabInvite" onclick="switchWorkerTab('invite')"
+                  style="flex:1;border:0;background:transparent;color:var(--muted);font-weight:800;font-size:.75rem;padding:7px;border-radius:7px;cursor:pointer">
+                  Solicitar acceso
+                </button>
+              </div>
+
+              <!-- Tab: Acceder con email + pass -->
+              <div id="wPanelAccess">
+                <div class="field"><label>Correo</label><input id="wEmail" type="email" placeholder="tu@correo.com" maxlength="254"></div>
+                <div class="field"><label>Contraseña</label><input id="wPass" type="password" placeholder="..." onkeydown="if(event.key==='Enter') workerLogin()"></div>
+            <p style="font-size:.72rem;color:var(--muted);text-align:center;margin-bottom:8px;line-height:1.5">Al reservar, tus datos serán usados únicamente para coordinar tu sesión con Tainer Music.</p>
+              <button class="btn btn-gold" style="width:100%;margin-top:4px" onclick="workerLogin()">Ingresar al panel</button>
+              </div>
+
+              <!-- Tab: Solicitar con código de invitación -->
+              <div id="wPanelInvite" style="display:none">
+                <p style="color:var(--muted);font-size:.78rem;line-height:1.6;margin-bottom:12px">
+                  Ingresa el código que recibiste y tu correo. Tu acceso quedará pendiente de aprobación.
+                </p>
+                <div class="field"><label>Correo</label><input id="wInvEmail" type="email" placeholder="tu@correo.com"></div>
+                <div class="field"><label>Código de invitación</label><input id="wInvCode" type="text" placeholder="Ej: TAINER2026" maxlength="20" style="text-transform:uppercase" onkeydown="if(event.key==='Enter') redeemWorkerInvite()"></div>
+            <p style="font-size:.72rem;color:var(--muted);text-align:center;margin-bottom:8px;line-height:1.5">Al reservar, tus datos serán usados únicamente para coordinar tu sesión con Tainer Music.</p>
+              <button class="btn btn-gold" style="width:100%;margin-top:4px" id="wInvBtn" onclick="redeemWorkerInvite()">Enviar solicitud</button>
+              </div>
+
+              <div class="worker-error" id="wError" style="margin-top:10px"></div>
+              <div id="wSuccess" style="display:none;color:#25d366;font-weight:800;font-size:.82rem;margin-top:10px;padding:10px 13px;background:rgba(37,211,102,.08);border:1px solid rgba(37,211,102,.2);border-radius:10px"></div>
+            </div>
+
+            <!-- ESTADO 2: Solicitud pendiente -->
+            <div id="workerPendingView" style="display:none;text-align:center;padding:8px 0">
+              <div style="font-size:2rem;margin-bottom:10px">⏳</div>
+              <p style="font-family:Cinzel,serif;color:var(--gold);font-size:.95rem;margin-bottom:8px">Solicitud enviada</p>
+              <p style="color:var(--muted);font-size:.8rem;line-height:1.6">Tu acceso está pendiente de aprobación. Te avisaremos por correo cuando esté listo.</p>
+              <button style="background:transparent;border:0;color:var(--muted2);font-size:.75rem;margin-top:12px;cursor:pointer" onclick="workerPendingLogout()">Cerrar sesión</button>
+            </div>
+          </div>
+        </div>
+        <a href="#inicio" style="display:flex;align-items:center;gap:12px">
+          <div style="width:42px;height:42px;border-radius:50%;background:linear-gradient(135deg,#1a1020,#0a0010);border:1px solid rgba(155,93,229,.45);display:flex;align-items:center;justify-content:center"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#9b5de5" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg></div>
+          <div class="brand-copy"><span class="brand-name">TAINER MUSIC</span><span class="brand-sub">Producción Musical</span></div>
+        </a>
+      </div>
+      <div class="nav-links" id="navLinks">
+        <a href="#agenda">Agendar</a><a href="#servicios">Servicios</a><a href="#generos">Géneros</a><a href="#testimonios">Trabajos</a>
+      </div>
+      <div class="nav-actions" style="display:flex;align-items:center;gap:6px">
+        <!-- Nav: logged out -->
+        <button class="btn btn-ghost btn-sm" id="navLoginBtn" onclick="openAuthModal('login')" style="display:none">Ingresar</button>
+        <!-- Nav: logged in -->
+        <div class="user-menu-wrap" id="navUserWrap" style="display:none">
+          <div class="nav-user" onclick="toggleUserMenu()">
+            <div class="nav-avatar" id="navAvatar">?</div>
+            <span class="nav-user-name" id="navUserName">Artista</span>
+            <span style="color:var(--muted);font-size:.7rem;margin-left:2px">▾</span>
+          </div>
+          <div class="user-dropdown" id="userDropdown">
+            <div class="user-dropdown-name" id="dropName">–</div>
+            <div class="user-dropdown-email" id="dropEmail">–</div>
+            <hr>
+            <button class="user-dropdown-btn" onclick="openAuthModal('profile');closeUserMenu()">Editar perfil</button>
+            <button class="user-dropdown-btn" onclick="openAuthModal('reset');closeUserMenu()">Cambiar contraseña</button>
+            <hr>
+            <button class="user-dropdown-btn danger" onclick="authSignOut()">Cerrar sesión</button>
+          </div>
+        </div>
+        <a class="btn btn-gold btn-sm" data-wa-simple href="https://wa.me/56945970173" target="_blank" rel="noopener" style="display:none" id="navWAbtn">WhatsApp</a>
+        <button class="hamb" onclick="toggleMobile()">&#9776;</button>
+      </div>
+    </div>
+  </nav>
+
+  <header class="hero" id="inicio">
+    <div class="wrap hero-grid">
+      <div>
+        <div class="pill"><span class="pulse"></span>Sesiones disponibles &middot; Agenda online</div>
+        <h1>TU IDEA +<br>MI PRODUCCIÓN =<br><span class="gold-text">HIT</span></h1>
+        <p>Me encargo de darle vida a tu idea y convertirla en un tema que suene a otro nivel. Beat personalizado, mezcla profesional y mastering de calidad.</p>
+        <div class="hero-actions">
+          <a class="btn btn-gold" href="#agenda">Agendar sesión</a>
+          <a class="btn btn-ghost" href="#servicios">Ver servicios</a>
+        </div>
+      </div>
+      <div class="hero-card">
+        <div class="logo-box">
+          <div>
+            <span class="logo-text">TAINER</span>
+            <span class="logo-text" style="font-size:1.5rem">MUSIC</span>
+            <span class="logo-sub">Producción Profesional</span>
+            <div class="waveform"><span style="height:30%"></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></div>
+          </div>
+        </div>
+        <div class="quick-grid">
+          <a class="quick" data-wa-simple href="https://wa.me/56945970173" target="_blank">WhatsApp</a>
+          <a class="quick" href="https://instagram.com/tainer_music" target="_blank">Instagram</a>
+          <a class="quick" href="#servicios">Servicios</a>
+          <a class="quick" href="#agenda">Agendar</a>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <section class="section" id="servicios" style="background:rgba(255,255,255,.015)">
+    <div class="wrap">
+      <span class="eyebrow">Lo que incluye</span>
+      <div style="display:flex;justify-content:space-between;gap:18px;align-items:end;flex-wrap:wrap;margin-bottom:32px">
+        <h2 class="title">Producciones 100%<br><span class="purple-text">Profesionales</span></h2>
+        <p class="lead">Cada proyecto es unico. Trabajo contigo desde la idea hasta el master listo para plataformas.</p>
+      </div>
+      <div class="services-grid">
+        <div class="srv-card">
+          <div class="srv-ico" style="color:var(--purple)"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/><line x1="12" y1="19" x2="12" y2="23"/><line x1="8" y1="23" x2="16" y2="23"/></svg></div>
+          <h3>Producción Completa (Solo Voces)</h3>
+          <p>Grabación vocal profesional sin pista. Incluye corrección de afinación, procesamiento y mezcla de voces lista para lanzar.</p>
+          <span class="tag">5 horas</span><span class="tag">Mezcla incluida</span>
+          <div class="srv-price">$90.000</div>
+        </div>
+        <div class="srv-card" style="border-color:rgba(244,201,93,.3);background:rgba(244,201,93,.03)">
+          <div class="srv-ico" style="color:var(--gold)"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg></div>
+          <h3>Producción Completa (Con Pista)</h3>
+          <p>Pista exclusiva + grabación + mezcla + mastering. Todo en una sola sesión. El paquete completo para tu hit.</p>
+          <span class="tag tag-gold">7 horas</span><span class="tag tag-gold">Todo incluido</span>
+          <div class="srv-price">$150.000</div>
+        </div>
+        <div class="srv-card">
+          <div class="srv-ico" style="color:var(--purple)"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg></div>
+          <h3>Masterizar / Remasterizar</h3>
+          <p>Master profesional optimizado para Spotify, Apple Music, YouTube y todas las plataformas. Máximo volumen y claridad.</p>
+          <span class="tag">3.5 horas</span><span class="tag">Listo para subir</span>
+          <div class="srv-price">$40.000</div>
+        </div>
+        <div class="srv-card">
+          <div class="srv-ico" style="color:var(--purple)"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg></div>
+          <h3>Recreación de Pista / Pista Nueva</h3>
+          <p>Recreamos cualquier referencia o creamos una pista completamente nueva desde cero adaptada a tu estilo.</p>
+          <span class="tag">4 horas</span><span class="tag">Beat exclusivo</span>
+          <div class="srv-price">$60.000</div>
+        </div>
+        <div class="srv-card">
+          <div class="srv-ico" style="color:var(--purple)"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18"/><path d="M9 21V9"/></svg></div>
+          <h3>Arriendo de Espacio</h3>
+          <p>Acceso al estudio por hora. Ideal para ensayos, grabaciones independientes o sesiones de trabajo creativo.</p>
+          <span class="tag">Desde 1 hora</span><span class="tag">Flexible</span>
+          <div class="srv-price">$25.000/hr</div>
+        </div>
+        <div class="srv-card" style="border-color:rgba(155,93,229,.3);background:rgba(155,93,229,.03)">
+          <div class="srv-ico" style="color:var(--purple)"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M8 12l3 3 5-5"/></svg></div>
+          <h3>Pistas de Catálogo</h3>
+          <p>Accede a nuestro catálogo de pistas con licencia. Entrega inmediata por WhatsApp o correo. Sin necesidad de agendar.</p>
+          <span class="tag">Entrega inmediata</span><span class="tag">Con licencia</span>
+          <div class="srv-price">$25.000</div>
+          <a href="https://wa.me/56945970173?text=Hola%2C+quiero+ver+las+pistas+de+cat%C3%A1logo+de+Tainer+Music" target="_blank" rel="noopener" style="display:inline-block;margin-top:12px;background:rgba(37,211,102,.12);border:1px solid rgba(37,211,102,.3);color:#25d366;border-radius:999px;padding:7px 14px;font-size:.78rem;font-weight:800;text-decoration:none">Pedir por WhatsApp →</a>
+        </div>
+      </div>
+    </div>
+
+      <!-- Paquete Premium -->
+      <div style="margin-top:32px;background:linear-gradient(135deg,rgba(244,201,93,.08),rgba(155,93,229,.08));border:1px solid rgba(244,201,93,.3);border-radius:28px;padding:28px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:20px">
+        <div>
+          <span style="color:var(--gold);font-size:.72rem;font-weight:900;text-transform:uppercase;letter-spacing:.18em">Paquete Artista Completo</span>
+          <h3 style="font-family:Cinzel,serif;font-size:1.4rem;margin:8px 0 6px">Producción + Lanzamiento + Show</h3>
+          <p style="color:var(--muted);font-size:.9rem;line-height:1.7;max-width:560px">Producción completa de tu tema, gestión del lanzamiento en plataformas y organización de tu primer show. El paquete para potenciar tu carrera artística desde cero. Mínimo 3 días hábiles.</p>
+          <div style="display:flex;gap:10px;margin-top:14px;flex-wrap:wrap">
+            <span class="tag tag-gold">Producción completa</span>
+            <span class="tag tag-gold">Lanzamiento en plataformas</span>
+            <span class="tag tag-gold">Show incluido</span>
+          </div>
+        </div>
+        <div style="text-align:center;flex-shrink:0">
+          <div style="font-family:Cinzel,serif;font-size:2rem;font-weight:800;color:var(--gold)">$250.000</div>
+          <div style="color:var(--muted);font-size:.78rem;margin-bottom:14px">paquete completo</div>
+          <a href="https://wa.me/56945970173?text=Hola%2C+me+interesa+el+paquete+Producci%C3%B3n+%2B+Lanzamiento+%2B+Show+de+Tainer+Music" target="_blank" rel="noopener" class="btn btn-gold btn-sm">Consultar por WhatsApp</a>
+        </div>
+      </div>
+  </section>
+
+  <section class="section" id="generos">
+    <div class="wrap" style="text-align:center">
+      <span class="eyebrow">Géneros que domino</span>
+      <h2 class="title" style="margin-bottom:12px">Un estilo para cada artista</h2>
+      <p class="lead" style="margin:0 auto 24px">Desde trap oscuro hasta pop brillante. Me adapto a tu visión.</p>
+      <div class="generos-row">
+        <span class="gen-pill">Trap</span><span class="gen-pill">Reggaeton</span><span class="gen-pill">R&amp;B</span>
+        <span class="gen-pill">Pop</span><span class="gen-pill">Hip-Hop</span><span class="gen-pill">Drill</span>
+        <span class="gen-pill">Urbano Latino</span><span class="gen-pill">Afrobeats</span><span class="gen-pill">+ Mas</span>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="agenda" style="background:rgba(155,93,229,.04)">
+    <div class="wrap">
+      <span class="eyebrow">Reserva tu sesión</span>
+      <div style="margin-bottom:28px">
+        <h2 class="title">Agenda tu <span class="gold-text">producción</span></h2>
+        <p class="lead" style="margin-top:10px">Elige el servicio, fecha y hora. Confirma y listo.</p>
+      </div>
+      <div class="agenda-shell">
+        <div class="agenda-stepper">
+          <div class="steps">
+            <button class="step-btn active" id="stepBtn1" onclick="goStep(1)"><span class="step-num">1</span>Servicio</button>
+            <button class="step-btn" id="stepBtn2" onclick="goStep(2)"><span class="step-num">2</span>Fecha &amp; Hora</button>
+            <button class="step-btn" id="stepBtn3" onclick="goStep(3)"><span class="step-num">3</span>Confirmar</button>
+          </div>
+          <div class="step-panel active" id="step1">
+            <p style="color:var(--muted);font-size:.88rem;margin-bottom:8px">¿Qué tipo de sesión necesitas?</p>
+            <div class="serv-grid" id="agServGrid"><div style="padding:20px;text-align:center;color:var(--muted2)"><span class="loader"></span> Cargando...</div></div>
+            <button class="btn btn-gold" style="margin-top:18px;width:100%" onclick="goStep(2)">Siguiente &rarr; Elegir fecha</button>
+          </div>
+          <div class="step-panel" id="step2">
+            <div class="cal-wrap">
+              <div class="cal-header">
+                <button class="cal-nav" onclick="calPrev()">&lsaquo;</button>
+                <span class="cal-month" id="calMonthLabel">-</span>
+                <button class="cal-nav" onclick="calNext()">&rsaquo;</button>
+              </div>
+              <div class="cal-grid" id="calGrid"></div>
+            </div>
+            <div class="slots-wrap" id="slotsWrap" style="display:none">
+              <div class="slots-title" id="slotsTitle">Horarios disponibles</div>
+              <div class="slots-grid" id="slotsGrid"></div>
+            </div>
+            <button class="btn btn-gold" style="margin-top:18px;width:100%" onclick="goStep(3)" id="btnStepDate" disabled>Siguiente &rarr; Confirmar</button>
+          </div>
+          <div class="step-panel" id="step3">
+            <div class="confirm-form">
+              <div class="field"><label>Tu nombre artístico</label><input id="agName" placeholder="Nombre o nombre artistico" maxlength="100" autocomplete="name"></div>
+              <div class="field"><label>Teléfono / WhatsApp</label><input id="agPhone" placeholder="+56 9 ..." maxlength="20" type="tel" autocomplete="tel"></div>
+              <div class="field"><label>Cuéntame tu proyecto (opcional)</label><textarea id="agNote" maxlength="1000" placeholder="Ej: trap oscuro en Dm, letra de superacion, referencia artista X..." rows="3"></textarea></div>
+            </div>
+            <div id="agSummaryBox" style="margin-top:16px;background:rgba(155,93,229,.06);border:1px solid rgba(155,93,229,.18);border-radius:14px;padding:14px;font-size:.86rem;color:var(--muted)"></div>
+            <div style="display:flex;gap:10px;margin-top:16px;flex-wrap:wrap">
+          <p style="font-size:.72rem;color:var(--muted);text-align:center;margin-bottom:8px;line-height:1.5">Al reservar, tus datos serán usados únicamente para coordinar tu sesión con Tainer Music.</p>
+              <button class="btn btn-gold" style="flex:1;min-width:180px" id="btnConfirmarReserva" onclick="confirmarReserva()">Guardar reserva</button>
+              <button class="btn btn-ghost" style="flex:1;min-width:140px" onclick="confirmarWhatsAppDirecto()">Solo WhatsApp</button>
+            </div>
+          </div>
+        </div>
+        <aside class="cart" id="agendaCart">
+          <h3>Tu sesión</h3>
+          <div id="cartSummary"><div class="summary-empty">Completa los pasos para ver el resumen.</div></div>
+        </aside>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" style="background:rgba(255,255,255,.02)">
+    <div class="wrap">
+      <span class="eyebrow">¿Por qué elegirme?</span>
+      <h2 class="title" style="margin-bottom:28px">Más que un productor,<br>tu <span class="purple-text">socio creativo</span></h2>
+      <div class="feature-grid">
+        <div class="feature"><div class="ico" style="color:var(--gold)"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg></div><h3>100% Comprometido</h3><p>Me involucro desde el concepto hasta la entrega final.</p></div>
+        <div class="feature"><div class="ico" style="color:var(--gold)"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14"/><path d="M15.54 8.46a5 5 0 0 1 0 7.07"/></svg></div><h3>Sonido Profesional</h3><p>Calidad competitiva con los estándares actuales de la industria.</p></div>
+        <div class="feature"><div class="ico" style="color:var(--gold)"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg></div><h3>Precios Accesibles</h3><p>Calidad real sin precios inalcanzables para cada etapa de tu carrera.</p></div>
+        <div class="feature"><div class="ico" style="color:var(--gold)"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg></div><h3>Entrega Rapida</h3><p>Archivos en alta calidad listos para lanzar en todas las plataformas.</p></div>
+        <div class="feature"><div class="ico" style="color:var(--gold)"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg></div><h3>Beat Exclusivo</h3><p>Cada beat es creado a medida. No vendo lo mismo dos veces.</p></div>
+        <div class="feature"><div class="ico" style="color:var(--gold)"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg></div><h3>Listo para plataformas</h3><p>Master optimizado para Spotify, Apple Music, YouTube y más.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="testimonios">
+    <div class="wrap">
+      <span class="eyebrow">Artistas que pasaron por aquí</span>
+      <h2 class="title" style="margin-bottom:28px">Resultados reales</h2>
+      <div class="reviews">
+        <div class="review"><div class="stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div><p>"El beat que me hizo supero todas mis expectativas. El sonido quedo de otro nivel, listo para competir con lo que suena en las plataformas."</p><h4>Artista - Trap</h4></div>
+        <div class="review"><div class="stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div><p>"Desde el primer contacto hasta la entrega todo fue perfecto. Se nota que conoce el genero y sabe lo que hace."</p><h4>Artista - Reggaeton</h4></div>
+        <div class="review"><div class="stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div><p>"Precios justos y calidad real. La mezcla de mis vocales quedo increible, no esperaba ese resultado."</p><h4>Artista - R&amp;B</h4></div>
+      </div>
+    </div>
+  </section>
+
+  <footer><div class="wrap footer-grid">
+    <div style="display:flex;align-items:center;gap:14px">
+      <div style="width:52px;height:52px;border-radius:50%;background:linear-gradient(135deg,#1a1020,#0a0010);border:1px solid rgba(155,93,229,.45);display:flex;align-items:center;justify-content:center"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#9b5de5" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg></div>
+      <div><b class="cinzel" style="color:var(--text)">TAINER MUSIC</b><br><span>Producción musical profesional &middot; @tainer_music</span></div>
+    </div>
+    <div style="display:flex;gap:14px">
+      <a href="https://instagram.com/tainer_music" target="_blank" rel="noopener" style="color:var(--muted)">Instagram</a>
+      <a href="https://wa.me/56945970173" target="_blank" rel="noopener" style="color:var(--muted)">WhatsApp</a>
+    </div>
+    <div>2026 Tainer Music. Todos los derechos reservados.</div>
+  </div></footer>
+  <a class="floating-wa" data-wa-simple href="https://wa.me/56945970173" target="_blank" rel="noopener" aria-label="Contactar por WhatsApp"><svg width="28" height="28" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413Z"/></svg></a>
+</div>
+
+<div class="modal" id="successModal">
+  <div class="modal-card" style="text-align:center">
+    <div style="margin-bottom:14px"><svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="#f4c95d" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg></div>
+    <h2 class="cinzel" style="color:var(--gold);font-size:1.8rem;margin-bottom:10px">¡Sesión reservada!</h2>
+    <p style="color:var(--muted);line-height:1.7;margin-bottom:20px" id="successMsg">Tu reserva fue guardada correctamente.</p>
+    <div style="display:flex;gap:10px;justify-content:center;flex-wrap:wrap">
+      <button class="btn btn-gold" id="successWABtn">Confirmar por WhatsApp</button>
+      <button class="btn btn-ghost" onclick="document.getElementById('successModal').classList.remove('open')">Cerrar</button>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════ AUTH MODAL ═══════════════ -->
+<div class="auth-modal" id="authModal">
+  <div class="auth-backdrop" onclick="closeAuthModal()"></div>
+  <div class="auth-card">
+    <button class="close-btn" onclick="closeAuthModal()">✕</button>
+    <div class="auth-logo"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#9b5de5" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg></div>
+    <h2 class="auth-title cinzel" id="authModalTitle">Bienvenido</h2>
+    <p class="auth-sub" id="authModalSub">Inicia sesión o crea tu cuenta de artista</p>
+
+    <!-- VIEW: LOGIN / REGISTER -->
+    <div class="auth-view active" id="viewLoginReg">
+      <div class="auth-tabs" id="authTabs">
+        <button class="auth-tab active" id="tabLoginBtn" onclick="switchAuthTab('login')">Iniciar sesión</button>
+        <button class="auth-tab" id="tabRegBtn" onclick="switchAuthTab('register')">Crear cuenta</button>
+      </div>
+
+      <!-- Google -->
+      <button class="btn-google" onclick="authWithGoogle()">
+        <svg width="20" height="20" viewBox="0 0 48 48"><path fill="#FFC107" d="M43.6 20H24v8h11.3C33.6 33.1 29.3 36 24 36c-6.6 0-12-5.4-12-12s5.4-12 12-12c3 0 5.8 1.1 7.9 2.9l5.7-5.7C34.1 6.5 29.3 4 24 4 12.9 4 4 12.9 4 24s8.9 20 20 20c11 0 20-8 20-20 0-1.3-.1-2.7-.4-4z"/><path fill="#FF3D00" d="M6.3 14.7l6.6 4.8C14.5 15.1 18.9 12 24 12c3 0 5.8 1.1 7.9 2.9l5.7-5.7C34.1 6.5 29.3 4 24 4 16.3 4 9.7 8.4 6.3 14.7z"/><path fill="#4CAF50" d="M24 44c5.2 0 9.9-1.9 13.5-5l-6.2-5.2C29.5 35.6 26.9 36 24 36c-5.2 0-9.6-2.9-11.3-7.1l-6.6 4.8C9.7 39.5 16.3 44 24 44z"/><path fill="#1976D2" d="M43.6 20H24v8h11.3c-.9 2.5-2.6 4.6-4.8 6l6.2 5.2C40.5 35.5 44 30.2 44 24c0-1.3-.1-2.7-.4-4z"/></svg>
+        Continuar con Google
+      </button>
+
+      <div class="auth-divider">o</div>
+
+      <div class="auth-form" id="authForm">
+        <!-- nombre artístico solo en registro -->
+        <div class="field" id="fieldArtistName" style="display:none">
+          <label>Nombre artístico</label>
+          <input id="authArtistName" type="text" placeholder="Tu nombre en la música" maxlength="60" autocomplete="nickname">
+        </div>
+        <div class="field">
+          <label>Correo electrónico</label>
+          <input id="authEmail" type="email" placeholder="tu@correo.com" autocomplete="email">
+        </div>
+        <div class="field" id="fieldPass">
+          <label>Contraseña</label>
+          <input id="authPass" type="password" placeholder="Mínimo 6 caracteres" autocomplete="current-password"
+            onkeydown="if(event.key==='Enter') submitAuth()">
+        </div>
+        <div id="authError" class="auth-error"></div>
+        <div id="authSuccessMsg" class="auth-success"></div>
+        <button class="auth-btn-main" id="authSubmitBtn" onclick="submitAuth()">Iniciar sesión</button>
+        <div class="auth-link" id="forgotLink">
+          <button onclick="openAuthModal('forgot')">¿Olvidaste tu contraseña?</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- VIEW: FORGOT PASSWORD -->
+    <div class="auth-view" id="viewForgot">
+      <p style="color:var(--muted);font-size:.88rem;line-height:1.7;margin-bottom:8px">
+        Ingresa tu correo y te enviamos un <strong style="color:var(--text)">código temporal</strong> para restablecer tu contraseña.
+      </p>
+      <div class="auth-form">
+        <div class="field">
+          <label>Correo electrónico</label>
+          <input id="forgotEmail" type="email" placeholder="tu@correo.com">
+        </div>
+        <div id="forgotError" class="auth-error"></div>
+        <div id="forgotSuccess" class="auth-success"></div>
+        <button class="auth-btn-main" id="forgotBtn" onclick="sendResetEmail()">Enviar código al correo</button>
+        <div class="auth-link"><button onclick="openAuthModal('login')">← Volver al inicio de sesión</button></div>
+      </div>
+    </div>
+
+    <!-- VIEW: CHANGE PASSWORD (logged in) -->
+    <div class="auth-view" id="viewReset">
+      <p style="color:var(--muted);font-size:.88rem;line-height:1.7;margin-bottom:8px">
+        Ingresa tu nueva contraseña. Debe tener al menos 6 caracteres.
+      </p>
+      <div class="auth-form">
+        <div class="field">
+          <label>Nueva contraseña</label>
+          <input id="newPass1" type="password" placeholder="Nueva contraseña">
+        </div>
+        <div class="field">
+          <label>Confirmar contraseña</label>
+          <input id="newPass2" type="password" placeholder="Repite la contraseña"
+            onkeydown="if(event.key==='Enter') changePassword()">
+        </div>
+        <div id="resetError" class="auth-error"></div>
+        <div id="resetSuccess" class="auth-success"></div>
+        <button class="auth-btn-main" id="resetBtn" onclick="changePassword()">Cambiar contraseña</button>
+      </div>
+    </div>
+
+    <!-- VIEW: PROFILE EDIT -->
+    <div class="auth-view" id="viewProfile">
+      <div class="auth-form">
+        <div class="field">
+          <label>Nombre artístico</label>
+          <input id="profileArtistName" type="text" placeholder="Tu nombre artístico">
+        </div>
+        <div id="profileError" class="auth-error"></div>
+        <div id="profileSuccess" class="auth-success"></div>
+        <button class="auth-btn-main" id="profileBtn" onclick="saveProfile()">Guardar cambios</button>
+        <div class="auth-link"><button onclick="closeAuthModal()">Cancelar</button></div>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- ═══════════════ /AUTH MODAL ═══════════════ -->
+
+<div id="workerDashboard">
+  <div class="dash-header">
+    <div class="dash-top">
+      <div><div class="dash-title">Tainer Music Working</div><div class="dash-sub" id="dashDate">Panel de gestión</div></div>
+      <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap">
+        <div class="conn-badge" id="connectionStatus">Conectando...</div>
+        <button class="btn btn-ghost btn-sm" onclick="workerLogout()">Cerrar sesión</button>
+      </div>
+    </div>
+  </div>
+  <main class="dash-main">
+    <div class="dash-tabs">
+      <button class="dash-tab active" onclick="switchDashTab('tabSesiones',this)">Sesiones del día</button>
+      <button class="dash-tab" onclick="switchDashTab('tabReservas',this)">Reservas</button>
+    </div>
+    <div class="dash-view active" id="tabSesiones">
+      <div class="dash-summary">
+        <div class="sum-card"><div class="sum-val" id="sumClientes">0</div><div class="sum-lbl">Artistas</div></div>
+        <div class="sum-card"><div class="sum-val" id="sumBeats">0</div><div class="sum-lbl">Beats</div></div>
+        <div class="sum-card"><div class="sum-val" id="sumMezclas">0</div><div class="sum-lbl">Mezclas</div></div>
+        <div class="sum-card"><div class="sum-val" id="sumTotal">$0</div><div class="sum-lbl">Total CLP</div></div>
+      </div>
+      <section class="dash-panel">
+        <h3>Registrar sesión</h3>
+        <div class="dash-form">
+          <div class="field"><label>Artista</label><input id="fCliente" placeholder="Nombre artístico" maxlength="100"></div>
+          <div class="field"><label>Servicio</label><select id="fServicio" onchange="aplicarServicioSeleccionado()"><option value="">Seleccionar</option></select></div>
+          <div class="field"><label>Valor CLP</label><input id="fValor" type="number" min="0" step="1000" placeholder="25000"></div>
+          <div class="field"><label>Incluye beat</label><select id="fBeat"><option value="si">Si</option><option value="no">No</option></select></div>
+          <div class="field"><label>Incluye mezcla</label><select id="fMezcla"><option value="no">No</option><option value="si">Si</option></select></div>
+          <div class="field"><label>Genero</label><select id="fGenero"><option value="">Seleccionar</option><option>Trap</option><option>Reggaeton</option><option>R&B</option><option>Pop</option><option>Hip-Hop</option><option>Drill</option><option>Otro</option></select></div>
+          <div class="field span"><label>Descripción / Notas</label><textarea id="fObservacion" maxlength="1000" placeholder="Descripción del proyecto, referencias, archivos entregados..." rows="2"></textarea></div>
+        </div>
+        <div class="dash-actions">
+          <button class="btn btn-gold" id="btnGuardarRegistro" onclick="registrarSesion()">Guardar sesión</button>
+          <button class="btn btn-ghost" onclick="exportarCSVSesiones()">CSV Sesiones</button>
+        </div>
+      </section>
+      <section class="dash-panel">
+        <h3>Sesiones del día</h3>
+        <div class="table-wrap"><table class="records"><thead><tr><th>#</th><th>Hora</th><th>Artista</th><th>Servicio</th><th>Genero</th><th>Beat</th><th>Mezcla</th><th>Valor</th><th>Notas</th><th></th></tr></thead><tbody id="recordsBody"><tr><td colspan="10"><div class="empty">Cargando...</div></td></tr></tbody></table></div>
+      </section>
+    </div>
+    <div class="dash-view" id="tabReservas">
+      <section class="dash-panel">
+        <div style="display:flex;justify-content:space-between;align-items:center;gap:14px;flex-wrap:wrap;margin-bottom:14px">
+          <h3 style="margin-bottom:0">Gestión de reservas</h3>
+          <button class="btn btn-ghost btn-sm" onclick="exportarCSVReservas()">CSV Reservas</button>
+        </div>
+        <div class="filter-row">
+          <button class="filter-chip active" onclick="filtrarReservas('hoy',this)">Hoy</button>
+          <button class="filter-chip" onclick="filtrarReservas('manana',this)">Mañana</button>
+          <button class="filter-chip" onclick="filtrarReservas('semana',this)">Esta semana</button>
+          <button class="filter-chip" onclick="filtrarReservas('todas',this)">Todas</button>
+          <select id="reservaFiltroEstado" onchange="renderReservas()" style="background:#08080a;border:1px solid rgba(255,255,255,.12);color:var(--text);border-radius:12px;padding:7px 10px;font-size:.8rem;outline:none;margin-left:4px">
+            <option value="">Todos los estados</option><option value="pendiente">Pendiente</option><option value="confirmada">Confirmada</option><option value="completada">Completada</option><option value="cancelada">Cancelada</option>
+          </select>
+        </div>
+        <div class="table-wrap"><table class="records"><thead><tr><th>Fecha</th><th>Hora</th><th>Artista</th><th>Tel.</th><th>Servicio</th><th>Estado</th><th>Proyecto</th><th>Acciones</th></tr></thead><tbody id="reservasBody"><tr><td colspan="8"><div class="empty">Cargando reservas...</div></td></tr></tbody></table></div>
+      </section>
+    </div>
+  </main>
+</div>
+
+<script>
+// ================================================================
+// CONFIGURACION — reemplaza con tus datos de Supabase
+// ================================================================
+const WHATSAPP     = '56945970173';
+const SUPABASE_URL = 'https://bocczejtbjikwrbpwual.supabase.co';
+const SUPABASE_KEY = 'sb_publishable_lWF40gPyOR6PpshVPoDV9w_1rR1ajPt';
+const db           = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+const OPEN_DAYS    = [1,2,3,4,5,6];
+const OPEN_FROM    = '10:00';
+const OPEN_TO      = '22:00';
+const SLOT_MIN     = 60;
+
+let agServicio=null,agFecha=null,agHora=null,calYear=0,calMonth=0;
+let workingServices=[],allReservas=[],reservasFiltroActual='hoy';
+
+function money(n){return '$'+Number(n||0).toLocaleString('es-CL')}
+function el(id){return document.getElementById(id)}
+function escapeHTML(s){return String(s??'').replace(/[&<>'"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;',"'":'&#39;','"':'&quot;'}[c]))}
+function todayISO(){return new Intl.DateTimeFormat('en-CA',{timeZone:'America/Santiago'}).format(new Date())}
+function timeChile(){return new Intl.DateTimeFormat('es-CL',{timeZone:'America/Santiago',hour:'2-digit',minute:'2-digit',second:'2-digit',hour12:false}).format(new Date())}
+function toggleMobile(){document.body.classList.toggle('mobile-open')}
+function toggleWorkerMenu(e){e.stopPropagation();el('workerMenu').classList.toggle('open')}
+document.addEventListener('click',e=>{const w=el('workerDropdown');if(w&&!w.contains(e.target))el('workerMenu').classList.remove('open')})
+window.addEventListener('scroll',()=>{el('nav').style.padding=window.scrollY>40?'8px 18px':'14px 18px'})
+
+function toast(msg,type='info'){
+  const c=el('toastContainer'),t=document.createElement('div');
+  t.className='toast '+type;t.textContent=msg;c.appendChild(t);
+  requestAnimationFrame(()=>t.classList.add('show'));
+  setTimeout(()=>{t.classList.remove('show');setTimeout(()=>t.remove(),350)},3500);
+}
+function setConn(ok){
+  const c=el('connectionStatus');if(!c)return;
+  c.textContent=ok?'Conectado a Supabase':'Sin conexion';
+  c.style.color=ok?'#86efac':'#fca5a5';
+  c.style.borderColor=ok?'rgba(34,197,94,.35)':'rgba(248,113,113,.45)';
+}
+
+// ── WORKING SYSTEM ──
+let workerSession = null;
+
+function switchWorkerTab(tab){
+  const isInvite = tab === 'invite';
+  el('wPanelAccess').style.display = isInvite ? 'none' : 'block';
+  el('wPanelInvite').style.display = isInvite ? 'block' : 'none';
+  el('wTabAccess').style.background = isInvite ? 'transparent' : 'rgba(244,201,93,.15)';
+  el('wTabAccess').style.color = isInvite ? 'var(--muted)' : 'var(--gold)';
+  el('wTabAccess').style.border = isInvite ? '0' : '1px solid rgba(244,201,93,.3)';
+  el('wTabInvite').style.background = isInvite ? 'rgba(155,93,229,.15)' : 'transparent';
+  el('wTabInvite').style.color = isInvite ? '#c49aff' : 'var(--muted)';
+  el('wTabInvite').style.border = isInvite ? '1px solid rgba(155,93,229,.3)' : '0';
+  el('wError').style.display='none';
+  el('wSuccess').style.display='none';
+}
+
+async function workerLogin(){
+  const email = el('wEmail').value.trim();
+  const pass  = el('wPass').value;
+  const errEl = el('wError');
+  errEl.style.display='none';
+  if(!email||!pass){errEl.textContent='Completa todos los campos.';errEl.style.display='block';return;}
+
+  // 1. Login con Supabase Auth
+  const {data, error} = await db.auth.signInWithPassword({email, password: pass});
+  if(error){errEl.textContent=translateAuthError(error.message);errEl.style.display='block';return;}
+
+  // 2. Verificar que esté aprobado en tabla workers
+  const {data:worker} = await db.from('workers').select('id,approved').eq('id', data.user.id).single();
+
+  if(!worker){
+    errEl.textContent='Tu cuenta no tiene acceso al panel Working.';
+    errEl.style.display='block';
+    await db.auth.signOut();
+    return;
+  }
+  if(worker.approved === false){
+    // Mostrar vista pendiente
+    el('workerFormView').style.display='none';
+    el('workerPendingView').style.display='block';
+    workerSession = data.user;
+    return;
+  }
+
+  // 3. Acceso aprobado → abrir dashboard
+  workerSession = data.user;
+  el('workerMenu').classList.remove('open');
+  el('clientView').style.display='none';
+  el('workerDashboard').style.display='block';
+  initDashboard();
+}
+
+async function redeemWorkerInvite(){
+  const email = el('wInvEmail').value.trim();
+  const code  = el('wInvCode').value.trim().toUpperCase();
+  const errEl = el('wError');
+  const sucEl = el('wSuccess');
+  const btn   = el('wInvBtn');
+  errEl.style.display='none';
+  sucEl.style.display='none';
+  if(!email || !code){ errEl.textContent='Completa correo y código.'; errEl.style.display='block'; return; }
+  if(!isValidEmail(email)){ errEl.textContent='Correo inválido.'; errEl.style.display='block'; return; }
+  if(!isValidInviteCode(code)){ errEl.textContent='Código inválido (solo letras y números).'; errEl.style.display='block'; return; }
+  if(!clientRateLimit('invite', 3)){ errEl.textContent='Demasiados intentos. Espera un minuto.'; errEl.style.display='block'; return; }
+
+  btn.disabled=true; btn.innerHTML='<span class="loader"></span>';
+
+  // Llamar RPC de Supabase
+  const {data, error} = await db.rpc('redeem_worker_invite', {invite_code: code, worker_email: email});
+
+  btn.disabled=false; btn.textContent='Enviar solicitud';
+
+  if(error||!data?.ok){
+    const msg = data?.error || error?.message || 'Código inválido o ya utilizado.';
+    if(msg.includes('already') || msg.includes('pending')) {
+      errEl.textContent='Ya tienes una solicitud pendiente.';
+    } else if(msg.includes('invalid') || msg.includes('not found')) {
+      errEl.textContent='Código inválido o ya fue usado.';
+    } else {
+      errEl.textContent = translateAuthError(msg);
+    }
+    errEl.style.display='block';
+    return;
+  }
+
+  // Solicitud enviada correctamente
+  sucEl.textContent='✅ Solicitud enviada. Te avisaremos cuando tu acceso sea aprobado.';
+  sucEl.style.display='block';
+  el('wInvEmail').value='';
+  el('wInvCode').value='';
+  toast('Solicitud enviada ✅', 'ok');
+}
+
+async function checkIsWorker(userId){
+  const {data} = await db.from('workers').select('approved').eq('id', userId).single();
+  return data?.approved === true;
+}
+
+function workerLogout(){
+  el('workerDashboard').style.display='none';
+  el('clientView').style.display='block';
+  el('wEmail')&&(el('wEmail').value='');
+  el('wPass').value='';
+  el('workerFormView').style.display='block';
+  el('workerPendingView').style.display='none';
+  workerSession = null;
+  if(currentUser) db.auth.signOut();
+}
+
+function workerPendingLogout(){
+  el('workerFormView').style.display='block';
+  el('workerPendingView').style.display='none';
+  el('workerMenu').classList.remove('open');
+  workerSession = null;
+  db.auth.signOut();
+}
+function switchDashTab(id,btn){
+  document.querySelectorAll('.dash-view').forEach(v=>v.classList.remove('active'));
+  document.querySelectorAll('.dash-tab').forEach(b=>b.classList.remove('active'));
+  el(id).classList.add('active');btn.classList.add('active');
+}
+
+async function initDashboard(){
+  el('dashDate').textContent=new Date().toLocaleDateString('es-CL',{weekday:'long',year:'numeric',month:'long',day:'numeric'});
+  await cargarServiciosWorking();
+  await renderRecords();
+  await loadReservas();
+}
+
+async function cargarServiciosWorking(){
+  const {data,error}=await db.from('servicios').select('id,nombre,precio_clp,duracion_minutos,activo').eq('activo',true).order('nombre');
+  if(error){setConn(false);toast('Error cargando servicios','err');return;}
+  setConn(true);workingServices=data||[];
+  el('fServicio').innerHTML='<option value="">Seleccionar</option>'+workingServices.map(s=>`<option value="${s.id}" data-nombre="${s.nombre}" data-precio="${s.precio_clp}">${s.nombre}</option>`).join('');
+  renderAgendaServices();
+}
+function aplicarServicioSeleccionado(){
+  const opt=el('fServicio').selectedOptions[0];if(!opt||!opt.value)return;
+  el('fValor').value=opt.dataset.precio||'';
+}
+
+async function registrarSesion(){
+  const cliente=el('fCliente').value.trim();
+  const opt=el('fServicio').selectedOptions[0];
+  const servicioNombre=opt?.dataset?.nombre||opt?.textContent||'';
+  const valor=parseInt(el('fValor').value,10)||0;
+  const beat=el('fBeat').value,mezcla=el('fMezcla').value;
+  const genero=el('fGenero').value,obs=el('fObservacion').value.trim();
+  if(!cliente||!servicioNombre||!valor){toast('Completa artista, servicio y valor.','err');return;}
+  const btn=el('btnGuardarRegistro');btn.disabled=true;btn.textContent='Guardando...';
+  const {error}=await db.from('sesiones').insert([{
+    fecha:todayISO(),hora:timeChile(),cliente_nombre:cliente,
+    servicio:servicioNombre,valor,incluye_beat:beat==='si',
+    incluye_mezcla:mezcla==='si',genero:genero||null,notas:obs||null,estado:'completado'
+  }]);
+  btn.disabled=false;btn.textContent='Guardar sesión';
+  if(error){setConn(false);toast('Error: '+error.message,'err');return;}
+  ['fCliente','fValor','fObservacion'].forEach(id=>el(id).value='');
+  el('fServicio').value='';el('fBeat').value='si';el('fMezcla').value='no';el('fGenero').value='';
+  toast('Sesion guardada.','ok');await renderRecords();
+}
+
+async function eliminarRegistro(id){
+  if(!confirm('Eliminar este registro?'))return;
+  const {error}=await db.from('sesiones').delete().eq('id',id);
+  if(error){toast('Error: '+error.message,'err');return;}
+  toast('Eliminado.','info');await renderRecords();
+}
+
+async function renderRecords(){
+  const {data,error}=await db.from('sesiones').select('*').eq('fecha',todayISO()).order('creado_en',{ascending:false});
+  if(error){setConn(false);el('recordsBody').innerHTML='<tr><td colspan="10"><div class="empty">Error.</div></td></tr>';return;}
+  setConn(true);const recs=data||[];
+  const comp=recs.filter(r=>r.estado==='completado');
+  el('sumClientes').textContent=comp.length;
+  el('sumBeats').textContent=comp.filter(r=>r.incluye_beat).length;
+  el('sumMezclas').textContent=comp.filter(r=>r.incluye_mezcla).length;
+  el('sumTotal').textContent=money(comp.reduce((a,r)=>a+Number(r.valor||0),0));
+  if(!recs.length){el('recordsBody').innerHTML='<tr><td colspan="10"><div class="empty">Sin sesiones hoy.</div></td></tr>';return;}
+  el('recordsBody').innerHTML=recs.map((r,i)=>`<tr><td>${i+1}</td><td>${(r.hora||'').slice(0,5)}</td><td>${escapeHTML(r.cliente_nombre)}</td><td><span class="chip">${escapeHTML(r.servicio)}</span></td><td>${escapeHTML(r.genero||'-')}</td><td>${r.incluye_beat?'si':'-'}</td><td>${r.incluye_mezcla?'si':'-'}</td><td style="color:var(--gold);font-weight:900">${money(r.valor)}</td><td style="max-width:100px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">${escapeHTML(r.notas||'-')}</td><td><button class="del" onclick="eliminarRegistro('${r.id}')">x</button></td></tr>`).join('');
+}
+
+async function loadReservas(){
+  const {data,error}=await db.from('reservas').select('*').order('fecha',{ascending:true}).order('hora_inicio',{ascending:true});
+  if(error){toast('Error cargando reservas.','err');return;}
+  allReservas=data||[];renderReservas();
+}
+function filtrarReservas(filtro,btn){
+  reservasFiltroActual=filtro;
+  document.querySelectorAll('.filter-chip').forEach(c=>c.classList.remove('active'));
+  if(btn)btn.classList.add('active');renderReservas();
+}
+function renderReservas(){
+  const today=todayISO();
+  const tmr=new Date(today);tmr.setDate(tmr.getDate()+1);const tmrISO=tmr.toISOString().split('T')[0];
+  const weekEnd=new Date(today);weekEnd.setDate(weekEnd.getDate()+6);const weekISO=weekEnd.toISOString().split('T')[0];
+  const estadoFiltro=el('reservaFiltroEstado')?.value||'';
+  let recs=allReservas.filter(r=>{
+    if(reservasFiltroActual==='hoy')return r.fecha===today;
+    if(reservasFiltroActual==='manana')return r.fecha===tmrISO;
+    if(reservasFiltroActual==='semana')return r.fecha>=today&&r.fecha<=weekISO;
+    return true;
+  });
+  if(estadoFiltro)recs=recs.filter(r=>r.estado===estadoFiltro);
+  const tbody=el('reservasBody');
+  if(!recs.length){tbody.innerHTML='<tr><td colspan="8"><div class="empty">Sin reservas.</div></td></tr>';return;}
+  tbody.innerHTML=recs.map(r=>{
+    const cc={pendiente:'chip-yellow',confirmada:'chip-green',completada:'chip-blue',cancelada:'chip-red'}[r.estado]||'chip-muted';
+    return `<tr><td>${r.fecha}</td><td>${(r.hora_inicio||'').slice(0,5)}</td><td><strong>${escapeHTML(r.cliente_nombre)}</strong></td><td>${escapeHTML(r.cliente_phone||'-')}</td><td><span class="chip">${escapeHTML(r.servicio_nombre)}</span></td><td><span class="chip ${cc}">${r.estado}</span></td><td style="max-width:120px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">${escapeHTML(r.nota_cliente||'-')}</td><td style="display:flex;gap:4px;flex-wrap:wrap">${r.estado==='pendiente'?`<button class="action-btn green" onclick="cambiarEstadoReserva('${r.id}','confirmada')">Confirmar</button>`:''} ${(r.estado==='pendiente'||r.estado==='confirmada')?`<button class="action-btn" onclick="convertirSesion('${r.id}')">Atender</button>`:''} ${r.estado!=='cancelada'&&r.estado!=='completada'?`<button class="action-btn red" onclick="cambiarEstadoReserva('${r.id}','cancelada')">Cancelar</button>`:''}</td></tr>`;
+  }).join('');
+}
+async function cambiarEstadoReserva(id,estado){
+  const {error}=await db.from('reservas').update({estado}).eq('id',id);
+  if(error){toast('Error: '+error.message,'err');return;}
+  toast('Estado actualizado.','ok');await loadReservas();
+}
+async function convertirSesion(reservaId){
+  const r=allReservas.find(x=>x.id===reservaId);if(!r)return;
+  const {error}=await db.from('sesiones').insert([{reserva_id:reservaId,fecha:r.fecha,hora:(r.hora_inicio||'').slice(0,5),cliente_nombre:r.cliente_nombre,servicio:r.servicio_nombre,valor:r.valor_estimado||0,notas:r.nota_cliente||null,estado:'completado'}]);
+  if(error){toast('Error: '+error.message,'err');return;}
+  await cambiarEstadoReserva(reservaId,'completada');
+  toast('Convertido en sesion.','ok');await renderRecords();
+}
+
+let currentStep=1;
+function goStep(n){
+  if(n>1&&!agServicio){toast('Primero selecciona un servicio.','err');return;}
+  if(n>2&&(!agFecha||!agHora)){toast('Selecciona fecha y hora.','err');return;}
+  currentStep=n;
+  document.querySelectorAll('.step-panel').forEach(p=>p.classList.remove('active'));
+  document.querySelectorAll('.step-btn').forEach((b,i)=>{b.classList.remove('active','done');if(i+1===n)b.classList.add('active');else if(i+1<n)b.classList.add('done');});
+  el('step'+n).classList.add('active');updateCartSummary();
+}
+function renderAgendaServices(){
+  const grid=el('agServGrid');if(!grid)return;
+  // Fallback visual si Supabase aún no respondió o devolvió vacío
+  const services=workingServices.length?workingServices:[
+    {id:'',nombre:'Beat Personalizado',precio_clp:25000,duracion_minutos:60},
+    {id:'',nombre:'Mezcla Profesional',precio_clp:35000,duracion_minutos:90},
+    {id:'',nombre:'Mastering de Calidad',precio_clp:20000,duracion_minutos:45},
+    {id:'',nombre:'Asesoría Personalizada',precio_clp:15000,duracion_minutos:60},
+    {id:'',nombre:'Grabación de Voz',precio_clp:30000,duracion_minutos:90},
+    {id:'',nombre:'Producción Completa',precio_clp:80000,duracion_minutos:180},
+  ];
+  grid.innerHTML=services.map(s=>`<div class="serv-opt" data-id="${escapeHTML(s.id||'')}" data-nombre="${escapeHTML(s.nombre)}" data-precio="${Number(s.precio_clp||0)}" data-duracion="${Number(s.duracion_minutos||60)}" onclick="pickAgServicio(this)"><div class="serv-name">${escapeHTML(s.nombre)}</div><div class="serv-meta"><span>${s.duracion_minutos||60} min</span></div><div class="serv-price">${money(s.precio_clp)}</div></div>`).join('');
+}
+function pickAgServicio(el_){
+  document.querySelectorAll('.serv-opt').forEach(o=>o.classList.remove('sel'));
+  el_.classList.add('sel');
+  agServicio={id:el_.dataset.id||'',nombre:el_.dataset.nombre||'',precio:Number(el_.dataset.precio||0),duracion:Number(el_.dataset.duracion||60)};
+  updateCartSummary();
+}
+
+const MESES=['Enero','Febrero','Marzo','Abril','Mayo','Junio','Julio','Agosto','Septiembre','Octubre','Noviembre','Diciembre'];
+const DIAS_LBL=['Dom','Lun','Mar','Mie','Jue','Vie','Sab'];
+function initCalendar(){const now=new Date();calYear=now.getFullYear();calMonth=now.getMonth();renderCalendar();}
+function calPrev(){const now=new Date();now.setDate(1);const min=new Date(now.getFullYear(),now.getMonth(),1);const cur=new Date(calYear,calMonth,1);if(cur<=min)return;calMonth--;if(calMonth<0){calMonth=11;calYear--;}renderCalendar();}
+function calNext(){calMonth++;if(calMonth>11){calMonth=0;calYear++;}renderCalendar();}
+function renderCalendar(){
+  el('calMonthLabel').textContent=MESES[calMonth]+' '+calYear;
+  const grid=el('calGrid');grid.innerHTML='';
+  DIAS_LBL.forEach(d=>{const s=document.createElement('div');s.className='cal-day-lbl';s.textContent=d;grid.appendChild(s);});
+  const today=todayISO(),firstDay=new Date(calYear,calMonth,1).getDay(),daysInMonth=new Date(calYear,calMonth+1,0).getDate();
+  for(let i=0;i<firstDay;i++){const e=document.createElement('div');e.className='cal-day empty';grid.appendChild(e);}
+  for(let d=1;d<=daysInMonth;d++){
+    const iso=`${calYear}-${String(calMonth+1).padStart(2,'0')}-${String(d).padStart(2,'0')}`;
+    const dayOfWeek=new Date(calYear,calMonth,d).getDay();
+    const disabled=iso<today||!OPEN_DAYS.includes(dayOfWeek);
+    const div=document.createElement('div');
+    div.className='cal-day'+(iso===today?' today':'')+(disabled?' disabled':'')+(iso===agFecha?' sel':'');
+    div.textContent=d;if(!disabled)div.onclick=()=>selectCalDay(iso);grid.appendChild(div);
+  }
+}
+async function selectCalDay(iso){
+  agFecha=iso;agHora=null;el('btnStepDate').disabled=true;renderCalendar();
+  el('slotsWrap').style.display='block';
+  const d=new Date(iso+'T12:00:00');
+  el('slotsTitle').textContent='Horarios disponibles - '+d.toLocaleDateString('es-CL',{weekday:'long',day:'numeric',month:'long'});
+  el('slotsGrid').innerHTML='<span class="loader"></span>';
+  await loadTimeSlots(iso);updateCartSummary();
+}
+async function loadTimeSlots(fecha){
+  const grid=el('slotsGrid');grid.innerHTML='<span class="loader"></span>';
+  const {data,error}=await db.from('slots_ocupados').select('hora_inicio,hora_fin,estado').eq('fecha',fecha);
+  if(error){grid.innerHTML='<p class="slots-empty">No se pudieron cargar los horarios. Intenta nuevamente o contáctanos por WhatsApp.</p>';return;}
+  const occupied=(data||[]).map(r=>({from:String(r.hora_inicio||'').slice(0,5),to:String(r.hora_fin||'').slice(0,5)}));
+  const durMin=agServicio?.duracion||60;
+  const [oh,om]=OPEN_FROM.split(':').map(Number),[ch,cm]=OPEN_TO.split(':').map(Number);
+  let start=oh*60+om,end=ch*60+cm,slots=[],cur=start;
+  while(cur+durMin<=end){
+    const h=String(Math.floor(cur/60)).padStart(2,'0'),m=String(cur%60).padStart(2,'0');
+    const ne=cur+durMin,nh=String(Math.floor(ne/60)).padStart(2,'0'),nm=String(ne%60).padStart(2,'0');
+    slots.push({from:`${h}:${m}`,to:`${nh}:${nm}`});cur+=durMin;
+  }
+  if(!slots.length){grid.innerHTML='<p class="slots-empty">Sin horarios disponibles para este día. Prueba con otra fecha.</p>';return;}
+  grid.innerHTML=slots.map(sl=>{
+    const busy=occupied.some(o=>sl.from<o.to&&sl.to>o.from);
+    return `<button class="slot-btn ${busy?'busy':'free'}" ${busy?'disabled':''} aria-label="Reservar ${sl.from} – ${sl.to}" onclick="pickSlot('${sl.from}','${sl.to}',this)">${sl.from} – ${sl.to}</button>`;
+  }).join('');
+}
+function pickSlot(from,to,btn){
+  document.querySelectorAll('.slot-btn.free').forEach(b=>b.classList.remove('picked'));
+  btn.classList.add('picked');agHora=from;window._agHoraFin=to;el('btnStepDate').disabled=false;
+  toast('Hora '+from+' – '+to+' seleccionada ✓','ok');updateCartSummary();
+}
+function updateCartSummary(){
+  const box=el('cartSummary');if(!box)return;
+  const rows=[];
+  if(agServicio)rows.push(`<div class="summary-row"><span>Servicio</span><span>${escapeHTML(agServicio.nombre)}</span></div><div class="summary-row"><span>Precio</span><b>${money(agServicio.precio)}</b></div><div class="summary-row"><span>Duración</span><span>${agServicio.duracion} min</span></div>`);
+  if(agFecha)rows.push(`<div class="summary-row"><span>Fecha</span><span>${new Date(agFecha+'T12:00').toLocaleDateString('es-CL',{weekday:'short',day:'numeric',month:'short'})}</span></div>`);
+  if(agHora)rows.push(`<div class="summary-row"><span>Hora</span><b>${agHora}</b></div>`);
+  if(!rows.length){box.innerHTML='<div class="summary-empty">Completa los pasos para ver el resumen.</div>';return;}
+  box.innerHTML=rows.join('');
+  const sb=el('agSummaryBox');if(!sb)return;
+  sb.innerHTML=`<b>Servicio:</b> ${escapeHTML(agServicio?.nombre||'-')}<br><b>Precio:</b> ${money(agServicio?.precio||0)}<br><b>Duración:</b> ${agServicio?.duracion||'?'} min<br><b>Fecha:</b> ${agFecha||'-'} <b>Hora:</b> ${agHora||'-'}`;
+}
+
+// ================================================================
+// VALIDACIÓN Y SEGURIDAD — FRONTEND
+// ================================================================
+
+// Sanitizar texto antes de enviarlo a Supabase
+function sanitize(str, maxLen = 500) {
+  if (!str) return '';
+  return String(str)
+    .trim()
+    .slice(0, maxLen)
+    .replace(/[<>]/g, '')          // quitar < > (XSS básico)
+    .replace(/[\u0000-\u0008\u000B\u000C\u000E-\u001F]/g, ''); // control chars
+}
+
+// Validar email
+function isValidEmail(email) {
+  return /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(email.trim());
+}
+
+// Validar teléfono chileno/internacional
+function isValidPhone(phone) {
+  if (!phone) return true; // opcional
+  return /^\+?[\d\s\-\(\)]{7,20}$/.test(phone.trim());
+}
+
+// Validar nombre artístico (2-60 chars, sin HTML)
+function isValidName(name) {
+  const n = name.trim();
+  return n.length >= 2 && n.length <= 60 && !/[<>{}]/.test(n);
+}
+
+// Validar código de invitación (solo alfanumérico mayúsculas)
+function isValidInviteCode(code) {
+  return /^[A-Z0-9]{4,20}$/.test(code.trim().toUpperCase());
+}
+
+// Rate limiting cliente (evitar spam de clicks)
+const _clientRateLimit = {};
+function clientRateLimit(key, maxPerMin = 5) {
+  const now = Date.now();
+  if (!_clientRateLimit[key]) _clientRateLimit[key] = [];
+  _clientRateLimit[key] = _clientRateLimit[key].filter(t => now - t < 60000);
+  if (_clientRateLimit[key].length >= maxPerMin) return false;
+  _clientRateLimit[key].push(now);
+  return true;
+}
+
+// Mostrar error de validación en campo
+function fieldError(inputId, msg) {
+  const inp = el(inputId);
+  if (!inp) return;
+  inp.style.borderColor = 'rgba(239,68,68,.7)';
+  inp.style.boxShadow = '0 0 0 3px rgba(239,68,68,.12)';
+  // Limpiar error al escribir
+  inp.addEventListener('input', () => {
+    inp.style.borderColor = '';
+    inp.style.boxShadow = '';
+  }, { once: true });
+}
+
+// ================================================================
+// AGENDA PÚBLICA — Envío de reserva vía RPC segura
+// ================================================================
+async function confirmarReserva(){
+  const nombre = el('agName').value.trim();
+  const phone  = el('agPhone').value.trim();
+  const note   = el('agNote').value.trim();
+
+  // Validación frontend con feedback visual
+  if (!isValidName(nombre)) {
+    fieldError('agName', 'Nombre inválido');
+    toast('Ingresa un nombre artístico válido (2-60 caracteres).','err');
+    return;
+  }
+  if (!phone) {
+    fieldError('agPhone', 'Teléfono requerido');
+    toast('Ingresa tu teléfono o WhatsApp.','err');
+    return;
+  }
+  if (!isValidPhone(phone)) {
+    fieldError('agPhone', 'Teléfono inválido');
+    toast('Teléfono inválido. Ej: +56 9 1234 5678','err');
+    return;
+  }
+  if (!agServicio) { toast('Selecciona un servicio.','err'); return; }
+  if (!agFecha || !agHora) { toast('Selecciona fecha y hora.','err'); return; }
+
+  // Rate limit: máx 3 reservas por minuto desde el browser
+  if (!clientRateLimit('reserva', 3)) {
+    toast('Demasiados intentos. Espera un momento.','err');
+    return;
+  }
+
+  const btn = el('btnConfirmarReserva');
+  btn.disabled = true;
+  btn.textContent = 'Guardando...';
+
+  const durMin = agServicio.duracion || 60;
+  const [hh, mm] = agHora.split(':').map(Number);
+  const finMin = hh * 60 + mm + durMin;
+  const horaFin = `${String(Math.floor(finMin/60)).padStart(2,'0')}:${String(finMin%60).padStart(2,'0')}`;
+
+  // Enviar reserva a través de la RPC segura (sin INSERT directo)
+  let reservaId, error;
+  try {
+    ({ data: reservaId, error } = await db.rpc('crear_reserva_publica', {
+      p_fecha:           agFecha,
+      p_hora_inicio:     agHora + ':00',
+      p_hora_fin:        horaFin + ':00',
+      p_cliente_nombre:  sanitize(nombre, 100),
+      p_cliente_phone:   sanitize(phone, 20),
+      p_servicio_id:     agServicio.id || null,
+      p_servicio_nombre: sanitize(agServicio.nombre, 100),
+      p_business_type:   'tainer_music',
+      p_nota_cliente:    note ? sanitize(note, 1000) : null,
+      p_valor_estimado:  agServicio.precio || 0,
+      p_source:          'web',
+      p_estado:          'pendiente'
+    }));
+  } catch(e) {
+    btn.disabled = false;
+    btn.textContent = 'Guardar reserva';
+    toast('Error de conexión. Verifica tu internet e intenta nuevamente.', 'err');
+    return;
+  }
+
+  btn.disabled=false;btn.textContent='Guardar reserva';
+  if(error){toast(error.code==='P0001'?'Ese horario ya fue reservado. Elige otro.':'Error: '+error.message,'err');if(agFecha)await loadTimeSlots(agFecha);return;}
+
+  console.log('Reserva creada:', reservaId);
+  const wamsg=buildWAMsg(nombre,phone,agServicio.nombre,agFecha,agHora,note);
+  el('successMsg').textContent='Reserva guardada para '+nombre+' el '+agFecha+' a las '+agHora+'. Te contactaré cuando confirme tu sesión.';
+  el('successWABtn').onclick=()=>window.open('https://wa.me/'+WHATSAPP+'?text='+encodeURIComponent(wamsg),'_blank');
+  el('successModal').classList.add('open');
+  toast('¡Reserva guardada! Te contactaré para confirmar.','ok');
+  agServicio=null;agFecha=null;agHora=null;
+  goStep(1);renderAgendaServices();initCalendar();updateCartSummary();
+  el('agName').value='';el('agPhone').value='';el('agNote').value='';
+}
+function confirmarWhatsAppDirecto(){
+  const nombre=el('agName').value.trim(),phone=el('agPhone').value.trim(),note=el('agNote').value.trim();
+  if(!nombre){toast('Ingresa tu nombre.','err');return;}
+  window.open('https://wa.me/'+WHATSAPP+'?text='+encodeURIComponent(buildWAMsg(nombre,phone,agServicio?.nombre||'-',agFecha||'-',agHora||'-',note)),'_blank');
+}
+function buildWAMsg(nombre,phone,servicio,fecha,hora,nota){
+  return 'Hola! Quiero confirmar mi sesión de producción:\n\nNombre: '+nombre+'\nTelefono: '+(phone||'No indicado')+'\nServicio: '+servicio+'\nFecha: '+fecha+'\nHora: '+hora+'\nProyecto: '+(nota||'Sin descripción')+'\n\nPrecio estimado: '+money(agServicio?.precio||0)+'\n\n@tainer_music';
+}
+function csvEncode(rows){return rows.map(r=>r.map(v=>'"'+String(v??'').replace(/"/g,'""')+'"').join(';')).join('\n');}
+function downloadCSV(content,filename){const blob=new Blob([content],{type:'text/csv;charset=utf-8;'});const url=URL.createObjectURL(blob);const a=document.createElement('a');a.href=url;a.download=filename;a.click();URL.revokeObjectURL(url);}
+async function exportarCSVSesiones(){
+  const {data}=await db.from('sesiones').select('*').eq('fecha',todayISO()).order('creado_en');
+  if(!data||!data.length){toast('Sin sesiones para exportar.','info');return;}
+  const rows=[['Hora','Artista','Servicio','Genero','Beat','Mezcla','Valor CLP','Notas']];
+  data.forEach(r=>rows.push([(r.hora||'').slice(0,5),r.cliente_nombre,r.servicio,r.genero||'',r.incluye_beat?'Si':'No',r.incluye_mezcla?'Si':'No',r.valor,r.notas||'']));
+  downloadCSV(csvEncode(rows),'sesiones-tainermusic-'+todayISO()+'.csv');
+}
+async function exportarCSVReservas(){
+  const {data}=await db.from('reservas').select('*').order('fecha').order('hora_inicio');
+  if(!data||!data.length){toast('Sin reservas para exportar.','info');return;}
+  const rows=[['Fecha','Hora inicio','Hora fin','Artista','Telefono','Servicio','Estado','Proyecto']];
+  data.forEach(r=>rows.push([r.fecha,(r.hora_inicio||'').slice(0,5),(r.hora_fin||'').slice(0,5),r.cliente_nombre,r.cliente_phone||'',r.servicio_nombre,r.estado,r.nota_cliente||'']));
+  downloadCSV(csvEncode(rows),'reservas-tainermusic-'+todayISO()+'.csv');
+}
+document.addEventListener('DOMContentLoaded',()=>{
+  initCalendar();
+  db.from('servicios').select('id,nombre,precio_clp,duracion_minutos,activo').eq('activo',true).order('nombre').then(({data})=>{workingServices=(data&&data.length)?data:[];renderAgendaServices();});
+  // Centralizar número WhatsApp — actualiza links simples desde la constante WHATSAPP
+  document.querySelectorAll('a[data-wa-simple]').forEach(a => {
+    a.href = 'https://wa.me/' + WHATSAPP;
+  });
+  initAuth();
+});
+
+// ================================================================
+// AUTH SYSTEM — Supabase Auth + Google OAuth
+// ================================================================
+let currentUser = null;
+let authMode = 'login'; // login | register | forgot | reset | profile
+
+function initAuth(){
+  // Escuchar cambios de sesión
+  db.auth.onAuthStateChange((event, session)=>{
+    if(session && session.user){
+      currentUser = session.user;
+      updateNavForUser(session.user);
+      // Si viene de reset de contraseña (magic link)
+      if(event === 'PASSWORD_RECOVERY'){
+        openAuthModal('reset');
+      }
+    } else {
+      currentUser = null;
+      updateNavForGuest();
+    }
+  });
+  // Revisar sesión existente
+  db.auth.getSession().then(({data:{session}})=>{
+    if(session && session.user){
+      currentUser = session.user;
+      updateNavForUser(session.user);
+    } else {
+      updateNavForGuest();
+    }
+  });
+  // Cerrar user dropdown al hacer click fuera
+  document.addEventListener('click', e=>{
+    const wrap = document.getElementById('navUserWrap');
+    if(wrap && !wrap.contains(e.target)) closeUserMenu();
+  });
+}
+
+function updateNavForUser(user){
+  const name = user.user_metadata?.artist_name || user.user_metadata?.full_name || user.email?.split('@')[0] || 'Artista';
+  const initial = name.charAt(0).toUpperCase();
+  el('navLoginBtn').style.display = 'none';
+  el('navUserWrap').style.display = 'flex';
+  el('navAvatar').textContent = initial;
+  el('navUserName').textContent = name;
+  el('dropName').textContent = name;
+  el('dropEmail').textContent = user.email || '';
+  const wa = el('navWAbtn'); if(wa) wa.style.display='none';
+}
+
+function updateNavForGuest(){
+  el('navLoginBtn').style.display = 'inline-flex';
+  el('navUserWrap').style.display = 'none';
+  const wa = el('navWAbtn'); if(wa) wa.style.display='none';
+}
+
+function toggleUserMenu(){
+  document.getElementById('userDropdown').classList.toggle('open');
+}
+function closeUserMenu(){
+  document.getElementById('userDropdown').classList.remove('open');
+}
+
+// ── Abrir modal con vista específica ──
+function openAuthModal(mode){
+  authMode = mode;
+  const modal = el('authModal');
+  modal.classList.add('open');
+  // Ocultar todas las vistas
+  document.querySelectorAll('.auth-view').forEach(v=>v.classList.remove('active'));
+  // Limpiar mensajes
+  ['authError','authSuccessMsg','forgotError','forgotSuccess','resetError','resetSuccess','profileError','profileSuccess']
+    .forEach(id=>{const e=el(id);if(e){e.style.display='none';e.textContent=''}});
+
+  if(mode === 'login' || mode === 'register'){
+    el('viewLoginReg').classList.add('active');
+    el('authModalTitle').textContent = 'Bienvenido';
+    el('authModalSub').textContent = 'Inicia sesión o crea tu cuenta de artista';
+    switchAuthTab(mode);
+  } else if(mode === 'forgot'){
+    el('viewForgot').classList.add('active');
+    el('authModalTitle').textContent = 'Recuperar contraseña';
+    el('authModalSub').textContent = 'Te enviamos un código temporal al correo';
+  } else if(mode === 'reset'){
+    el('viewReset').classList.add('active');
+    el('authModalTitle').textContent = 'Nueva contraseña';
+    el('authModalSub').textContent = 'Elige una contraseña segura';
+  } else if(mode === 'profile'){
+    el('viewProfile').classList.add('active');
+    el('authModalTitle').textContent = 'Mi perfil';
+    el('authModalSub').textContent = 'Actualiza tu información';
+    if(currentUser){
+      const name = currentUser.user_metadata?.artist_name || currentUser.user_metadata?.full_name || '';
+      el('profileArtistName').value = name;
+    }
+  }
+}
+
+function closeAuthModal(){
+  el('authModal').classList.remove('open');
+}
+
+function switchAuthTab(tab){
+  authMode = tab;
+  const isReg = tab === 'register';
+  el('tabLoginBtn').classList.toggle('active', !isReg);
+  el('tabRegBtn').classList.toggle('active', isReg);
+  el('fieldArtistName').style.display = isReg ? 'flex' : 'none';
+  el('authSubmitBtn').textContent = isReg ? 'Crear cuenta' : 'Iniciar sesión';
+  el('forgotLink').style.display = isReg ? 'none' : 'block';
+  // limpiar
+  ['authEmail','authPass','authArtistName'].forEach(id=>{const e=el(id);if(e)e.value='';});
+  el('authError').style.display='none';
+  el('authSuccessMsg').style.display='none';
+}
+
+// ── Submit login/register ──
+async function submitAuth(){
+  const btn = el('authSubmitBtn');
+  const errEl = el('authError');
+  const sucEl = el('authSuccessMsg');
+  const email = el('authEmail').value.trim();
+  const pass  = el('authPass').value;
+  errEl.style.display = 'none';
+  sucEl.style.display = 'none';
+
+  if(!email || !pass){ showAuthErr('Completa todos los campos.'); return; }
+  if(!isValidEmail(email)){ showAuthErr('Correo electrónico inválido.'); return; }
+  if(pass.length < 6){ showAuthErr('La contraseña debe tener al menos 6 caracteres.'); return; }
+  if(pass.length > 72){ showAuthErr('Contraseña demasiado larga (máx 72 caracteres).'); return; }
+  if(!clientRateLimit('auth', 5)){ showAuthErr('Demasiados intentos. Espera un minuto.'); return; }
+
+  btn.disabled = true;
+  btn.innerHTML = '<span class="loader"></span>';
+
+  if(authMode === 'register'){
+    const artistName = el('authArtistName').value.trim();
+    if(!artistName){ showAuthErr('Ingresa tu nombre artístico.'); btn.disabled=false; btn.textContent='Crear cuenta'; return; }
+    const {error} = await db.auth.signUp({
+      email, password: pass,
+      options: { data: { artist_name: artistName } }
+    });
+    btn.disabled = false; btn.textContent = 'Crear cuenta';
+    if(error){ showAuthErr(translateAuthError(error.message)); return; }
+    sucEl.textContent = '✅ Cuenta creada. Revisa tu correo para verificar tu cuenta.';
+    sucEl.style.display = 'block';
+    toast('¡Cuenta creada! Revisa tu correo 📧', 'ok');
+  } else {
+    const {data, error} = await db.auth.signInWithPassword({ email, password: pass });
+    btn.disabled = false; btn.textContent = 'Iniciar sesión';
+    if(error){ showAuthErr(translateAuthError(error.message)); return; }
+    toast('¡Bienvenido! 🎵', 'ok');
+    closeAuthModal();
+  }
+}
+
+// ── Google OAuth ──
+async function authWithGoogle(){
+  const {error} = await db.auth.signInWithOAuth({
+    provider: 'google',
+    options: { redirectTo: window.location.href }
+  });
+  if(error) toast('Error al conectar con Google: ' + error.message, 'err');
+}
+
+// ── Cerrar sesión ──
+async function authSignOut(){
+  await db.auth.signOut();
+  closeUserMenu();
+  toast('Sesión cerrada.', 'info');
+}
+
+// ── Enviar email de recuperación ──
+async function sendResetEmail(){
+  const btn = el('forgotBtn');
+  const email = el('forgotEmail').value.trim();
+  el('forgotError').style.display='none';
+  el('forgotSuccess').style.display='none';
+  if(!email){ el('forgotError').textContent='Ingresa tu correo.'; el('forgotError').style.display='block'; return; }
+  btn.disabled=true; btn.innerHTML='<span class="loader"></span>';
+  const {error} = await db.auth.resetPasswordForEmail(email, {
+    redirectTo: window.location.href + '?reset=true'
+  });
+  btn.disabled=false; btn.textContent='Enviar código al correo';
+  if(error){ el('forgotError').textContent=translateAuthError(error.message); el('forgotError').style.display='block'; return; }
+  el('forgotSuccess').textContent='✅ Correo enviado. Revisa tu bandeja de entrada y el enlace te traerá aquí.';
+  el('forgotSuccess').style.display='block';
+}
+
+// ── Cambiar contraseña (sesión activa) ──
+async function changePassword(){
+  const btn = el('resetBtn');
+  const p1 = el('newPass1').value;
+  const p2 = el('newPass2').value;
+  el('resetError').style.display='none';
+  el('resetSuccess').style.display='none';
+  if(!p1 || !p2){ el('resetError').textContent='Completa ambos campos.'; el('resetError').style.display='block'; return; }
+  if(p1 !== p2){ el('resetError').textContent='Las contraseñas no coinciden.'; el('resetError').style.display='block'; return; }
+  if(p1.length < 6){ el('resetError').textContent='Mínimo 6 caracteres.'; el('resetError').style.display='block'; return; }
+  btn.disabled=true; btn.innerHTML='<span class="loader"></span>';
+  const {error} = await db.auth.updateUser({ password: p1 });
+  btn.disabled=false; btn.textContent='Cambiar contraseña';
+  if(error){ el('resetError').textContent=translateAuthError(error.message); el('resetError').style.display='block'; return; }
+  el('resetSuccess').textContent='✅ Contraseña actualizada correctamente.';
+  el('resetSuccess').style.display='block';
+  el('newPass1').value=''; el('newPass2').value='';
+  toast('Contraseña actualizada ✅','ok');
+  setTimeout(closeAuthModal, 2000);
+}
+
+// ── Guardar perfil ──
+async function saveProfile(){
+  const btn = el('profileBtn');
+  const artistName = el('profileArtistName').value.trim();
+  el('profileError').style.display='none';
+  el('profileSuccess').style.display='none';
+  if(!artistName){ el('profileError').textContent='Ingresa tu nombre artístico.'; el('profileError').style.display='block'; return; }
+  btn.disabled=true; btn.innerHTML='<span class="loader"></span>';
+  const {error} = await db.auth.updateUser({ data: { artist_name: artistName } });
+  btn.disabled=false; btn.textContent='Guardar cambios';
+  if(error){ el('profileError').textContent=translateAuthError(error.message); el('profileError').style.display='block'; return; }
+  el('profileSuccess').textContent='✅ Perfil actualizado.';
+  el('profileSuccess').style.display='block';
+  if(currentUser){ currentUser.user_metadata = {...currentUser.user_metadata, artist_name: artistName}; updateNavForUser(currentUser); }
+  toast('Perfil guardado ✅','ok');
+  setTimeout(closeAuthModal, 1500);
+}
+
+function showAuthErr(msg){
+  const e = el('authError'); e.textContent = msg; e.style.display = 'block';
+  const btn = el('authSubmitBtn');
+  btn.disabled=false;
+  btn.textContent = authMode === 'register' ? 'Crear cuenta' : 'Iniciar sesión';
+}
+
+function translateAuthError(msg){
+  if(!msg) return 'Error desconocido.';
+  if(msg.includes('Invalid login') || msg.includes('invalid credentials')) return 'Correo o contraseña incorrectos.';
+  if(msg.includes('already registered') || msg.includes('already exists')) return 'Este correo ya está registrado. Intenta iniciar sesión.';
+  if(msg.includes('not confirmed')) return 'Confirma tu correo antes de iniciar sesión.';
+  if(msg.includes('rate limit') || msg.includes('too many')) return 'Demasiados intentos. Espera un momento.';
+  if(msg.includes('weak password')) return 'Contraseña muy débil. Usa al menos 6 caracteres.';
+  if(msg.includes('network')) return 'Error de red. Revisa tu conexión.';
+  return msg;
+}
+
+// Verificar si viene de reset de contraseña vía URL
+if(window.location.search.includes('reset=true') || window.location.hash.includes('type=recovery')){
+  window.addEventListener('load', ()=> setTimeout(()=>openAuthModal('reset'), 800));
+}
+// ================================================================
+// FIN AUTH SYSTEM
+// ================================================================
+</script>
+</body>
+</html>
